@@ -1,0 +1,2031 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ប្រព័ន្ធគ្រប់គ្រង SOP & KPI សាលារៀន | School SOP & KPI Management</title>
+  
+  <!-- Google Fonts: Kantumruy Pro & Battambang -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Battambang:wght@400;700&family=Kantumruy+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Kantumruy Pro"', 'sans-serif'],
+            display: ['"Battambang"', '"Kantumruy Pro"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- SheetJS for Native Excel (.xlsx) Export with Khmer Unicode Support -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <style>
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    /* Print Styling */
+    @media print {
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-size: 12pt;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .print-only {
+        display: block !important;
+      }
+      .card-shadow {
+        box-shadow: none !important;
+        border: 1px solid #e2e8f0 !important;
+      }
+      table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+      }
+      th, td {
+        border: 1px solid #94a3b8 !important;
+        padding: 6px 8px !important;
+        font-size: 10pt !important;
+      }
+      @page {
+        size: A4 landscape;
+        margin: 1.2cm;
+      }
+    }
+    @media screen {
+      .print-only {
+        display: none !important;
+      }
+    }
+
+    /* Range slider custom styling */
+    input[type=range] {
+      accent-color: #1e3a8a;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col antialiased">
+
+  <!-- ==================== PRINT ONLY HEADER ==================== -->
+  <div class="print-only mb-6">
+    <div class="text-center space-y-1">
+      <h2 class="font-display font-bold text-lg text-slate-900">ព្រះរាជាណាចក្រកម្ពុជា</h2>
+      <h3 class="font-display font-semibold text-base text-slate-800">ជាតិ សាសនា ព្រះមហាក្សត្រ</h3>
+      <div class="w-24 h-0.5 bg-slate-800 mx-auto my-2"></div>
+      <h1 class="font-display font-bold text-xl text-blue-900 mt-2">សាលារៀន អន្តរជាតិ និងវិទ្យាស្ថានបណ្តុះបណ្តាល</h1>
+      <h2 class="text-base font-semibold text-slate-700">របាយការណ៍វាយតម្លៃលទ្ធផលការងារ (SOP & KPI) ប្រចាំខែ</h2>
+      <p id="printSubtitle" class="text-sm text-slate-600 font-medium"></p>
+    </div>
+  </div>
+
+  <!-- ==================== TOP NAVIGATION BAR ==================== -->
+  <header class="no-print sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        
+        <!-- Brand Logo & Title -->
+        <div class="flex items-center space-x-3 rtl:space-x-reverse">
+          <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-tr from-blue-900 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-900/20">
+            <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-2">
+              <span class="font-display font-bold text-base sm:text-lg text-blue-950">ប្រព័ន្ធគ្រប់គ្រង SOP & KPI</span>
+              <span class="bg-emerald-100 text-emerald-800 text-xs px-2 py-0.5 rounded-full font-semibold border border-emerald-200">v2.6</span>
+            </div>
+            <p class="text-xs text-slate-500 font-medium hidden sm:block">School SOP & KPI Management System (សាលារៀន)</p>
+          </div>
+        </div>
+
+        <!-- Controls: Live Date & Month Selector & Quick Actions -->
+        <div class="flex items-center space-x-2 sm:space-x-3">
+          
+          <!-- Real-Time Khmer Clock -->
+          <div class="hidden xl:flex items-center space-x-2 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200/80 text-xs text-slate-600 font-medium">
+            <i data-lucide="clock" class="w-3.5 h-3.5 text-blue-700"></i>
+            <span id="liveKhmerClock">កំពុងផ្ទុកកាលបរិច្ឆេទ...</span>
+          </div>
+
+          <!-- Month Selector -->
+          <div class="flex items-center space-x-1.5 bg-blue-50/80 border border-blue-200 rounded-xl px-2.5 py-1">
+            <i data-lucide="calendar" class="w-4 h-4 text-blue-900"></i>
+            <span class="text-xs font-semibold text-blue-950 hidden sm:inline">ខែ៖</span>
+            <select id="monthSelector" class="bg-transparent text-sm font-bold text-blue-950 focus:outline-none cursor-pointer py-1 pr-1">
+              <!-- Options populated dynamically in JS -->
+            </select>
+          </div>
+
+          <!-- Add Staff Button -->
+          <button onclick="openStaffModal()" class="inline-flex items-center space-x-1.5 px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-300 shadow-sm active:scale-95">
+            <i data-lucide="user-plus" class="w-4 h-4 text-slate-700"></i>
+            <span class="hidden md:inline">ចុះឈ្មោះបុគ្គលិក</span>
+            <span class="md:hidden">បុគ្គលិក</span>
+          </button>
+
+          <!-- Submit Monthly SOP Button -->
+          <button onclick="openAssessmentModal()" class="inline-flex items-center space-x-1.5 px-3 sm:px-4 py-2 bg-blue-900 hover:bg-blue-800 text-white rounded-xl text-xs sm:text-sm font-semibold transition shadow-md shadow-blue-900/20 active:scale-95">
+            <i data-lucide="award" class="w-4 h-4 text-amber-300"></i>
+            <span>បញ្ចូលពិន្ទុ SOP</span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT CONTAINER ==================== -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
+
+    <!-- ==================== SUMMARY METRIC CARDS ==================== -->
+    <div class="no-print grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      
+      <!-- Card 1: Total Staff -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow transition flex items-center justify-between">
+        <div class="space-y-1">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">បុគ្គលិកសរុប</p>
+          <div class="flex items-baseline space-x-2">
+            <h3 id="metricTotalStaff" class="text-3xl font-bold text-slate-900 font-display">០</h3>
+            <span class="text-xs text-slate-500 font-medium">នាក់</span>
+          </div>
+          <p id="metricBranchesCountSub" class="text-xs text-indigo-600 flex items-center gap-1 font-medium">
+            <i data-lucide="building-2" class="w-3.5 h-3.5"></i> រួមបញ្ចូលគ្រប់សាខា
+          </p>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-900">
+          <i data-lucide="users" class="w-6 h-6"></i>
+        </div>
+      </div>
+
+      <!-- Card 2: Average KPI -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow transition flex items-center justify-between">
+        <div class="space-y-1">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">មធ្យមភាគ KPI ប្រចាំខែ</p>
+          <div class="flex items-baseline space-x-2">
+            <h3 id="metricAvgKpi" class="text-3xl font-bold text-blue-900 font-display">0%</h3>
+            <span id="metricAvgGradeBadge" class="text-xs px-2 py-0.5 rounded-full font-bold bg-slate-100 text-slate-600">គ្មាន</span>
+          </div>
+          <p id="metricAvgKpiSub" class="text-xs text-slate-500 font-medium">គិតលើបុគ្គលិកដែលបានវាយតម្លៃ</p>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-700">
+          <i data-lucide="trending-up" class="w-6 h-6"></i>
+        </div>
+      </div>
+
+      <!-- Card 3: Evaluated vs Pending -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow transition flex items-center justify-between">
+        <div class="space-y-1">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">ស្ថានភាពវាយតម្លៃ</p>
+          <div class="flex items-baseline space-x-2">
+            <h3 id="metricEvaluatedCount" class="text-3xl font-bold text-emerald-700 font-display">០/០</h3>
+            <span class="text-xs text-slate-500 font-medium">នាក់</span>
+          </div>
+          <div class="w-32 bg-slate-100 rounded-full h-2 overflow-hidden">
+            <div id="metricProgressBar" class="bg-emerald-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+          </div>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-700">
+          <i data-lucide="clipboard-check" class="w-6 h-6"></i>
+        </div>
+      </div>
+
+      <!-- Card 4: Selected Period -->
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow transition flex items-center justify-between">
+        <div class="space-y-1">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">ខែសកម្មបច្ចុប្បន្ន</p>
+          <h3 id="metricActiveMonthLabel" class="text-2xl font-bold text-slate-800 font-display">ខែ...</h3>
+          <p class="text-xs text-slate-500 font-medium">ឆ្នាំ២០២៦ (Academic Year)</p>
+        </div>
+        <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-700">
+          <i data-lucide="calendar-check" class="w-6 h-6"></i>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ==================== TABS & ACTION TOOLBAR ==================== -->
+    <div class="no-print flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-3">
+      
+      <!-- Tab Buttons -->
+      <div class="flex items-center space-x-2 bg-slate-100/90 p-1 rounded-xl w-fit border border-slate-200">
+        <button id="tabBtnList" onclick="switchTab('list')" class="px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center space-x-2 bg-white text-blue-900 shadow-sm">
+          <i data-lucide="list" class="w-4 h-4"></i>
+          <span>បញ្ជីបុគ្គលិក និងពិន្ទុ KPI</span>
+        </button>
+        <button id="tabBtnAnalysis" onclick="switchTab('analysis')" class="px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center space-x-2 text-slate-600 hover:text-slate-900">
+          <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+          <span>របាយការណ៍វិភាគ SOP</span>
+        </button>
+      </div>
+
+      <!-- Action & Export Tools (Including Excel by Branch) -->
+      <div class="flex items-center flex-wrap gap-2">
+        <!-- Dedicated Excel by Branch Export Button -->
+        <button onclick="openExcelExportModal()" class="inline-flex items-center space-x-1.5 px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs sm:text-sm font-semibold shadow-sm transition active:scale-95">
+          <i data-lucide="file-spreadsheet" class="w-4 h-4 text-emerald-200"></i>
+          <span>ទាញយក Excel តាមសាខា</span>
+        </button>
+
+        <!-- Print PDF Button -->
+        <button onclick="window.print()" class="inline-flex items-center space-x-1.5 px-3 py-2 bg-white hover:bg-slate-50 text-slate-700 rounded-xl text-xs sm:text-sm font-semibold border border-slate-300 shadow-sm transition">
+          <i data-lucide="printer" class="w-4 h-4 text-slate-600"></i>
+          <span>បោះពុម្ព (Print / PDF)</span>
+        </button>
+
+        <!-- CSV Export Button -->
+        <button onclick="exportToCSV()" class="inline-flex items-center space-x-1.5 px-3 py-2 bg-white hover:bg-slate-50 text-slate-700 rounded-xl text-xs sm:text-sm font-semibold border border-slate-300 shadow-sm transition">
+          <i data-lucide="download" class="w-4 h-4 text-slate-600"></i>
+          <span>CSV</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 1: STAFF LIST VIEW ==================== -->
+    <section id="tabStaffList" class="space-y-4">
+      
+      <!-- Search & Filter Controls -->
+      <div class="no-print bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col lg:flex-row gap-3 items-stretch lg:items-center justify-between">
+        
+        <!-- Search Input -->
+        <div class="relative w-full lg:w-72">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+          <input type="text" id="searchInput" oninput="filterStaffTable()" placeholder="ស្វែងរកតាមឈ្មោះ, លេខ, ជំនាញ..." class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition">
+        </div>
+
+        <!-- Filters: Branch & Grade -->
+        <div class="flex flex-wrap items-center gap-2 justify-end">
+          
+          <!-- Branch Filter -->
+          <div class="flex items-center space-x-1.5 bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1">
+            <i data-lucide="building-2" class="w-4 h-4 text-indigo-600"></i>
+            <span class="text-xs font-semibold text-slate-600">សាខា៖</span>
+            <select id="branchFilter" onchange="filterStaffTable()" class="bg-transparent text-xs sm:text-sm font-medium text-slate-800 focus:outline-none cursor-pointer py-1">
+              <option value="ALL">គ្រប់សាខាទាំងអស់ (All)</option>
+              <!-- Options populated dynamically -->
+            </select>
+          </div>
+
+          <!-- Grade Filter -->
+          <div class="flex items-center space-x-1.5 bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1">
+            <i data-lucide="filter" class="w-4 h-4 text-blue-800"></i>
+            <span class="text-xs font-semibold text-slate-600">និទ្ទេស៖</span>
+            <select id="gradeFilter" onchange="filterStaffTable()" class="bg-transparent text-xs sm:text-sm font-medium text-slate-800 focus:outline-none cursor-pointer py-1">
+              <option value="ALL">បង្ហាញទាំងអស់ (All)</option>
+              <option value="EVALUATED">បានវាយតម្លៃរួច</option>
+              <option value="NOT_EVALUATED">មិនទាន់វាយតម្លៃ</option>
+              <option value="A">និទ្ទេស A (ឆ្នើម 90-100)</option>
+              <option value="B">និទ្ទេស B (ល្អប្រសើរ 80-89)</option>
+              <option value="C">និទ្ទេស C (ល្អ 70-79)</option>
+              <option value="D">និទ្ទេស D (ល្អបង្គួរ 60-69)</option>
+              <option value="E">និទ្ទេស E (មធ្យម 50-59)</option>
+              <option value="F">និទ្ទេស F (ត្រូវការកែលម្អ &lt;50)</option>
+            </select>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Staff Table Container -->
+      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-slate-50/90 text-slate-700 text-xs font-semibold border-b border-slate-200 tracking-wider">
+                <th class="py-3.5 px-4 text-center w-12">ល.រ</th>
+                <th class="py-3.5 px-4">ឈ្មោះ និងព័ត៌មានបុគ្គលិក</th>
+                <th class="py-3.5 px-4">សាខា / បរិវេណ</th>
+                <th class="py-3.5 px-4">តួនាទី / កម្រិតបង្រៀន</th>
+                <th class="py-3.5 px-4 text-center">ពិន្ទុ SOP ទាំង ៤ (វិន័យ | វិធីសាស្ត្រ | លទ្ធផល | សីលធម៌)</th>
+                <th class="py-3.5 px-4 text-center">សរុប KPI</th>
+                <th class="py-3.5 px-4 text-center">និទ្ទេស</th>
+                <th class="no-print py-3.5 px-4 text-center w-36">សកម្មភាព</th>
+              </tr>
+            </thead>
+            <tbody id="staffTableBody" class="divide-y divide-slate-100 text-sm">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Empty State Container -->
+        <div id="emptyState" class="hidden py-16 px-4 text-center space-y-3">
+          <div class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
+            <i data-lucide="users-round" class="w-8 h-8"></i>
+          </div>
+          <h4 class="text-base font-bold text-slate-700">មិនមានទិន្នន័យបុគ្គលិកនៅឡើយទេ</h4>
+          <p class="text-xs text-slate-500 max-w-sm mx-auto">សូមចុចប៊ូតុងខាងក្រោមដើម្បីចុះឈ្មោះបុគ្គលិកថ្មីចូលក្នុងប្រព័ន្ធ ឬកែប្រែការស្វែងរករបស់អ្នក។</p>
+          <button onclick="openStaffModal()" class="inline-flex items-center space-x-1.5 px-4 py-2 bg-blue-900 text-white rounded-xl text-xs font-semibold hover:bg-blue-800 transition">
+            <i data-lucide="user-plus" class="w-4 h-4"></i>
+            <span>ចុះឈ្មោះបុគ្គលិកថ្មី</span>
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================== TAB 2: SOP ANALYTICAL BREAKDOWN ==================== -->
+    <section id="tabSopAnalysis" class="hidden space-y-6">
+      
+      <!-- Criteria Overview Header -->
+      <div class="bg-gradient-to-r from-blue-950 via-blue-900 to-indigo-900 text-white p-6 rounded-2xl shadow-md space-y-4">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 class="font-display font-bold text-xl flex items-center gap-2">
+              <i data-lucide="pie-chart" class="w-5 h-5 text-amber-300"></i>
+              <span>វិភាគលទ្ធផលសូចនាករ SOP សាលារៀន</span>
+            </h2>
+            <p class="text-xs text-blue-200 mt-1">ទម្ងន់ពិន្ទុ និងមធ្យមភាគសរុបតាមសូចនាករស្នូលទាំង ៤ សម្រាប់ខែដែលបានជ្រើសរើស</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10 text-xs font-semibold">
+            រូបមន្ត៖ <span class="text-amber-300">KPI = (S1×25%) + (S2×35%) + (S3×30%) + (S4×10%)</span>
+          </div>
+        </div>
+
+        <!-- 4 Criteria Global Averages -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
+          
+          <div class="bg-white/10 backdrop-blur-sm p-3.5 rounded-xl border border-white/10 space-y-1.5">
+            <div class="flex justify-between items-center text-xs">
+              <span class="text-blue-200 font-semibold">១. ការគោរពវិន័យ (២៥%)</span>
+              <span id="globalAvgS1Badge" class="font-bold text-amber-300">0%</span>
+            </div>
+            <div class="w-full bg-black/20 rounded-full h-2">
+              <div id="globalAvgS1Bar" class="bg-amber-400 h-2 rounded-full transition-all" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div class="bg-white/10 backdrop-blur-sm p-3.5 rounded-xl border border-white/10 space-y-1.5">
+            <div class="flex justify-between items-center text-xs">
+              <span class="text-blue-200 font-semibold">២. វិធីសាស្ត្របង្រៀន (៣៥%)</span>
+              <span id="globalAvgS2Badge" class="font-bold text-emerald-300">0%</span>
+            </div>
+            <div class="w-full bg-black/20 rounded-full h-2">
+              <div id="globalAvgS2Bar" class="bg-emerald-400 h-2 rounded-full transition-all" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div class="bg-white/10 backdrop-blur-sm p-3.5 rounded-xl border border-white/10 space-y-1.5">
+            <div class="flex justify-between items-center text-xs">
+              <span class="text-blue-200 font-semibold">៣. លទ្ធផលសិស្ស (៣០%)</span>
+              <span id="globalAvgS3Badge" class="font-bold text-cyan-300">0%</span>
+            </div>
+            <div class="w-full bg-black/20 rounded-full h-2">
+              <div id="globalAvgS3Bar" class="bg-cyan-400 h-2 rounded-full transition-all" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div class="bg-white/10 backdrop-blur-sm p-3.5 rounded-xl border border-white/10 space-y-1.5">
+            <div class="flex justify-between items-center text-xs">
+              <span class="text-blue-200 font-semibold">៤. សីលធម៌វិជ្ជាជីវៈ (១០%)</span>
+              <span id="globalAvgS4Badge" class="font-bold text-indigo-200">0%</span>
+            </div>
+            <div class="w-full bg-black/20 rounded-full h-2">
+              <div id="globalAvgS4Bar" class="bg-indigo-400 h-2 rounded-full transition-all" style="width: 0%"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Staff Analysis Cards Grid -->
+      <div id="analysisCardsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Rendered via JS -->
+      </div>
+
+    </section>
+
+    <!-- ==================== PRINT FOOTER / SIGNATURE BLOCKS ==================== -->
+    <div class="print-only mt-12 pt-6 border-t border-slate-300">
+      <div class="grid grid-cols-3 text-center text-xs font-semibold text-slate-800 gap-4">
+        <div class="space-y-16">
+          <p>អ្នករៀបចំរបាយការណ៍</p>
+          <p>..................................................</p>
+        </div>
+        <div class="space-y-16">
+          <p>ប្រធានដេប៉ាតឺម៉ង់ / ផ្នែក</p>
+          <p>..................................................</p>
+        </div>
+        <div class="space-y-16">
+          <p>បានឃើញ និងឯកភាពដោយ នាយកសាលា</p>
+          <p>..................................................</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="no-print mt-auto border-t border-slate-200 bg-white py-4 text-center text-xs text-slate-500 font-medium">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>© ២០២៦ ប្រព័ន្ធគ្រប់គ្រង SOP & KPI សាលារៀន (School SOP & KPI Management System)</p>
+      <div class="flex items-center space-x-3">
+        <button onclick="resetToSampleData()" class="text-blue-800 hover:underline">បញ្ចូលទិន្នន័យគំរូឡើងវិញ (Reset Sample Data)</button>
+        <span class="text-slate-300">|</span>
+        <button onclick="clearAllData()" class="text-rose-600 hover:underline">សម្អាតទិន្នន័យទាំងអស់ (Clear All)</button>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================= -->
+  <!-- ============================== MODALS =================================== -->
+  <!-- ========================================================================= -->
+
+  <!-- 1. STAFF MODAL (ADD / EDIT WITH BRANCH) -->
+  <div id="staffModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-100 overflow-hidden transform transition-all my-6">
+      
+      <!-- Modal Header -->
+      <div class="bg-blue-900 text-white px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <i data-lucide="user-plus" class="w-5 h-5 text-amber-300"></i>
+          <h3 id="staffModalTitle" class="font-display font-bold text-base">ចុះឈ្មោះបុគ្គលិកថ្មី</h3>
+        </div>
+        <button onclick="closeStaffModal()" class="text-blue-200 hover:text-white transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Form -->
+      <form id="staffForm" onsubmit="handleStaffSubmit(event)" class="p-6 space-y-4">
+        <input type="hidden" id="staffEditId" value="">
+
+        <!-- Name -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ឈ្មោះបុគ្គលិក <span class="text-rose-500">*</span></label>
+          <input type="text" id="staffName" required placeholder="ឧ. ចាន់ សុភា" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition">
+        </div>
+
+        <!-- Phone -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">លេខទូរស័ព្ទ <span class="text-rose-500">*</span></label>
+          <input type="tel" id="staffPhone" required placeholder="ឧ. 012 345 678" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition">
+        </div>
+
+        <!-- Branch / Campus Selection -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">សាខា / បរិវេណសាលា (Branch) <span class="text-rose-500">*</span></label>
+          <div class="space-y-1.5">
+            <select id="staffBranchSelect" onchange="toggleCustomBranch(this.value)" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition font-medium text-slate-800">
+              <option value="សាខាទួលគោក">សាខាទួលគោក (Toul Kork)</option>
+              <option value="សាខាសែនសុខ">សាខាសែនសុខ (Sen Sok)</option>
+              <option value="សាខាច្បារអំពៅ">សាខាច្បារអំពៅ (Chbar Ampov)</option>
+              <option value="សាខាបឹងកេងកង">សាខាបឹងកេងកង (BKK)</option>
+              <option value="សាខាជ្រោយចង្វារ">សាខាជ្រោយចង្វារ (Chroy Changvar)</option>
+              <option value="សាខាចំការមន">សាខាចំការមន (Chamkarmon)</option>
+              <option value="CUSTOM">+ បញ្ចូលឈ្មោះសាខាថ្មី...</option>
+            </select>
+            <input type="text" id="staffCustomBranch" placeholder="វាយបញ្ចូលឈ្មោះសាខាថ្មី..." class="hidden w-full px-3.5 py-2 bg-white border border-blue-300 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-900/20">
+          </div>
+        </div>
+
+        <!-- Role / Position -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">តួនាទី / មុខតំណែង <span class="text-rose-500">*</span></label>
+          <select id="staffRole" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition">
+            <option value="គ្រូបង្រៀនពេញម៉ោង">គ្រូបង្រៀនពេញម៉ោង</option>
+            <option value="គ្រូបង្រៀនក្រៅម៉ោង">គ្រូបង្រៀនក្រៅម៉ោង</option>
+            <option value="ប្រធានដេប៉ាតឺម៉ង់">ប្រធានដេប៉ាតឺម៉ង់</option>
+            <option value="គណៈគ្រប់គ្រងសាលា">គណៈគ្រប់គ្រងសាលា</option>
+            <option value="បុគ្គលិករដ្ឋបាល និងហិរញ្ញវត្ថុ">បុគ្គលិករដ្ឋបាល និងហិរញ្ញវត្ថុ</option>
+            <option value="គ្រូទទួលបន្ទុកថ្នាក់">គ្រូទទួលបន្ទុកថ្នាក់</option>
+          </select>
+        </div>
+
+        <!-- Subject / Skill -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ជំនាញ / កម្រិតបង្រៀន <span class="text-rose-500">*</span></label>
+          <input type="text" id="staffSubject" required placeholder="ឧ. គណិតវិទ្យា (ថ្នាក់ទី១០-១២) ឬ ភាសាអង់គ្លេស" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition">
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex items-center justify-end space-x-2 pt-3 border-t border-slate-100">
+          <button type="button" onclick="closeStaffModal()" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100 rounded-xl transition">បោះបង់</button>
+          <button type="submit" class="px-5 py-2 text-sm font-semibold text-white bg-blue-900 hover:bg-blue-800 rounded-xl transition shadow-md shadow-blue-900/20">រក្សាទុក</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- 2. ASSESSMENT MODAL (MONTHLY SOP SCORING) -->
+  <div id="assessmentModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-xl w-full shadow-2xl border border-slate-100 overflow-hidden my-6 transform transition-all">
+      
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-blue-950 to-indigo-900 text-white px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-8 h-8 rounded-lg bg-amber-400/20 text-amber-300 flex items-center justify-center">
+            <i data-lucide="clipboard-pen" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-base">បញ្ចូលពិន្ទុវាយតម្លៃ SOP ប្រចាំខែ</h3>
+            <p id="modalAssessmentPeriod" class="text-xs text-blue-200">សម្រាប់ខែកញ្ញា ឆ្នាំ២០២៦</p>
+          </div>
+        </div>
+        <button onclick="closeAssessmentModal()" class="text-blue-200 hover:text-white transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Content Form -->
+      <form id="assessmentForm" onsubmit="handleAssessmentSubmit(event)" class="p-6 space-y-5">
+        
+        <!-- Select Staff -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ជ្រើសរើសបុគ្គលិក <span class="text-rose-500">*</span></label>
+          <select id="assessStaffSelect" onchange="onAssessmentStaffChange()" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition">
+            <!-- Populated via JS -->
+          </select>
+        </div>
+
+        <!-- SOP 4 Criteria Sliders & Inputs -->
+        <div class="space-y-4 pt-1">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-1">
+            <span class="text-xs font-bold uppercase text-slate-500">សូចនាករ SOP ទាំង ៤ (០ ដល់ ១០០)</span>
+            <span class="text-xs text-blue-800 font-semibold">ទម្ងន់ពិន្ទុសរុប ១០០%</span>
+          </div>
+
+          <!-- Indicator 1: Discipline (25%) -->
+          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80 space-y-2">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold text-slate-800">១. ការគោរពវិន័យ និងម៉ោងបង្រៀន</span>
+                <span class="ml-1.5 text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-semibold border border-amber-200">ទម្ងន់ ២៥%</span>
+              </div>
+              <div class="flex items-center space-x-1">
+                <input type="number" id="numS1" min="0" max="100" value="85" oninput="syncScore('s1', this.value)" class="w-16 px-2 py-1 bg-white border border-slate-300 rounded-lg text-sm text-center font-bold text-blue-950 focus:outline-none focus:ring-1 focus:ring-blue-900">
+                <span class="text-xs text-slate-500 font-semibold">/100</span>
+              </div>
+            </div>
+            <input type="range" id="rangeS1" min="0" max="100" value="85" oninput="syncScore('s1', this.value)" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
+          </div>
+
+          <!-- Indicator 2: Methodology (35%) -->
+          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80 space-y-2">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold text-slate-800">២. វិធីសាស្ត្របង្រៀន / ការងារជាក់ស្តែង</span>
+                <span class="ml-1.5 text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-semibold border border-emerald-200">ទម្ងន់ ៣៥%</span>
+              </div>
+              <div class="flex items-center space-x-1">
+                <input type="number" id="numS2" min="0" max="100" value="80" oninput="syncScore('s2', this.value)" class="w-16 px-2 py-1 bg-white border border-slate-300 rounded-lg text-sm text-center font-bold text-blue-950 focus:outline-none focus:ring-1 focus:ring-blue-900">
+                <span class="text-xs text-slate-500 font-semibold">/100</span>
+              </div>
+            </div>
+            <input type="range" id="rangeS2" min="0" max="100" value="80" oninput="syncScore('s2', this.value)" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
+          </div>
+
+          <!-- Indicator 3: Results (30%) -->
+          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80 space-y-2">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold text-slate-800">៣. លទ្ធផលសិស្ស / គុណភាពការងារ</span>
+                <span class="ml-1.5 text-xs bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded-full font-semibold border border-cyan-200">ទម្ងន់ ៣០%</span>
+              </div>
+              <div class="flex items-center space-x-1">
+                <input type="number" id="numS3" min="0" max="100" value="75" oninput="syncScore('s3', this.value)" class="w-16 px-2 py-1 bg-white border border-slate-300 rounded-lg text-sm text-center font-bold text-blue-950 focus:outline-none focus:ring-1 focus:ring-blue-900">
+                <span class="text-xs text-slate-500 font-semibold">/100</span>
+              </div>
+            </div>
+            <input type="range" id="rangeS3" min="0" max="100" value="75" oninput="syncScore('s3', this.value)" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
+          </div>
+
+          <!-- Indicator 4: Ethics (10%) -->
+          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80 space-y-2">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-xs font-bold text-slate-800">៤. ទំនាក់ទំនង និងសីលធម៌វិជ្ជាជីវៈ</span>
+                <span class="ml-1.5 text-xs bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full font-semibold border border-indigo-200">ទម្ងន់ ១០%</span>
+              </div>
+              <div class="flex items-center space-x-1">
+                <input type="number" id="numS4" min="0" max="100" value="90" oninput="syncScore('s4', this.value)" class="w-16 px-2 py-1 bg-white border border-slate-300 rounded-lg text-sm text-center font-bold text-blue-950 focus:outline-none focus:ring-1 focus:ring-blue-900">
+                <span class="text-xs text-slate-500 font-semibold">/100</span>
+              </div>
+            </div>
+            <input type="range" id="rangeS4" min="0" max="100" value="90" oninput="syncScore('s4', this.value)" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
+          </div>
+        </div>
+
+        <!-- Live Calculation Box -->
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-200 flex items-center justify-between">
+          <div>
+            <span class="text-xs text-slate-500 font-semibold uppercase">ពិន្ទុ KPI សរុប (Total Calculated)</span>
+            <div class="flex items-baseline space-x-2 mt-0.5">
+              <span id="liveTotalKpi" class="text-3xl font-black text-blue-950 font-display">0</span>
+              <span class="text-xs text-slate-500 font-bold">/ 100</span>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="text-xs text-slate-500 font-semibold block mb-1">និទ្ទេសទទួលបាន</span>
+            <span id="liveGradeBadge" class="px-3 py-1 rounded-full text-xs font-bold border shadow-sm">
+              និទ្ទេស -
+            </span>
+          </div>
+        </div>
+
+        <!-- Feedback & Notes -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">មតិកែលម្អ / ចំណុចខ្លាំងបន្ថែម (កំណត់សម្គាល់)</label>
+          <textarea id="assessmentNotes" rows="2" placeholder="បញ្ចូលចំណាំ ឬការណែនាំបន្ថែមជូនបុគ្គលិក..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition"></textarea>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center justify-end space-x-2 pt-3 border-t border-slate-100">
+          <button type="button" onclick="closeAssessmentModal()" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100 rounded-xl transition">បោះបង់</button>
+          <button type="submit" class="px-6 py-2 text-sm font-semibold text-white bg-blue-900 hover:bg-blue-800 rounded-xl transition shadow-md shadow-blue-900/20">រក្សាទុកពិន្ទុ</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+  <!-- 3. EXCEL EXPORT MODAL (BY BRANCH) -->
+  <div id="excelExportModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-100 overflow-hidden transform transition-all my-6">
+      
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-9 h-9 rounded-lg bg-emerald-400/20 text-emerald-300 flex items-center justify-center">
+            <i data-lucide="file-spreadsheet" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-base">ទាញយកឯកសារ Excel (.xlsx)</h3>
+            <p class="text-xs text-emerald-200">តម្រៀប និងទាញយកទិន្នន័យតាមសាខានីមួយៗ</p>
+          </div>
+        </div>
+        <button onclick="closeExcelExportModal()" class="text-emerald-200 hover:text-white transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 space-y-4">
+        
+        <!-- Select Branch to Export -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ជ្រើសរើសសាខាដែលត្រូវទាញយក <span class="text-rose-500">*</span></label>
+          <select id="exportBranchSelect" onchange="updateExportSummary()" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600/20 focus:border-emerald-600 transition">
+            <!-- Populated dynamically via JS -->
+          </select>
+        </div>
+
+        <!-- Select Month to Export -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">ជ្រើសរើសខែវាយតម្លៃ</label>
+          <select id="exportMonthSelect" onchange="updateExportSummary()" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-medium text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600/20 focus:border-emerald-600 transition">
+            <!-- Populated dynamically via JS -->
+          </select>
+        </div>
+
+        <!-- Live Summary Box -->
+        <div id="exportSummaryBox" class="bg-emerald-50/70 border border-emerald-200 rounded-xl p-3.5 text-xs text-slate-700 space-y-1.5">
+          <div class="flex justify-between font-semibold text-emerald-950">
+            <span>ចំនួនបុគ្គលិកក្នុងសាខា៖</span>
+            <span id="exportStaffCount" class="font-bold text-emerald-900">0 នាក់</span>
+          </div>
+          <div class="flex justify-between text-slate-600">
+            <span>បានវាយតម្លៃ SOP៖</span>
+            <span id="exportEvaluatedCount" class="font-semibold">0 នាក់</span>
+          </div>
+          <div class="flex justify-between text-slate-600">
+            <span>ទម្រង់ឯកសារ៖</span>
+            <span class="font-semibold text-emerald-800 flex items-center gap-1">
+              <i data-lucide="check" class="w-3.5 h-3.5"></i> Microsoft Excel (.xlsx)
+            </span>
+          </div>
+        </div>
+
+        <!-- Tip Box -->
+        <p class="text-xs text-slate-500 leading-relaxed bg-slate-50 p-2.5 rounded-lg border border-slate-200/80">
+          💡 <strong>កំណត់សម្គាល់៖</strong> ឯកសារ Excel (.xlsx) គាំទ្រភាសាខ្មែរ ១០០% មិនបែក Font និងមានរៀបចំជួរឈរស្អាតបាត ងាយស្រួលយកទៅបោះពុម្ព ឬធ្វើរបាយការណ៍បន្តជូនសាខា។
+        </p>
+
+        <!-- Buttons -->
+        <div class="flex items-center justify-end space-x-2 pt-3 border-t border-slate-100">
+          <button type="button" onclick="closeExcelExportModal()" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100 rounded-xl transition">បោះបង់</button>
+          <button type="button" onclick="executeExcelExport()" class="inline-flex items-center space-x-1.5 px-5 py-2.5 text-sm font-bold text-white bg-emerald-700 hover:bg-emerald-800 rounded-xl transition shadow-md shadow-emerald-700/20 active:scale-95">
+            <i data-lucide="download" class="w-4 h-4 text-emerald-200"></i>
+            <span>ទាញយក Excel ឥឡូវនេះ</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 4. DELETE CONFIRMATION MODAL -->
+  <div id="deleteModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-sm w-full p-6 text-center space-y-4 shadow-2xl border border-slate-100">
+      <div class="w-14 h-14 rounded-full bg-rose-50 text-rose-600 flex items-center justify-center mx-auto border border-rose-100">
+        <i data-lucide="trash-2" class="w-7 h-7"></i>
+      </div>
+      <div>
+        <h3 class="font-display font-bold text-lg text-slate-900">តើអ្នកពិតជាចង់លុបមែនទេ?</h3>
+        <p id="deleteModalText" class="text-xs text-slate-500 mt-1">ទិន្នន័យបុគ្គលិករួមទាំងពិន្ទុវាយតម្លៃទាំងអស់នឹងត្រូវលុបចេញពីប្រព័ន្ធ។</p>
+      </div>
+      <div class="flex items-center justify-center space-x-2 pt-2">
+        <button onclick="closeDeleteModal()" class="w-1/2 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-sm font-semibold transition">បោះបង់</button>
+        <button id="confirmDeleteBtn" class="w-1/2 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-sm font-semibold transition shadow-md shadow-rose-600/20">យល់ព្រមលុប</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. TOAST NOTIFICATION CONTAINER -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-10 opacity-0 pointer-events-none transition-all duration-300 flex items-center space-x-3 px-4 py-3 rounded-xl shadow-lg border text-sm font-medium">
+    <i id="toastIcon" data-lucide="check-circle" class="w-5 h-5"></i>
+    <span id="toastMsg">សារជូនដំណឹង</span>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- ======================== MODERN JAVASCRIPT LOGIC ======================== -->
+  <!-- ========================================================================= -->
+  <script>
+    // --- KHMER CONSTANTS & HELPER MAPS ---
+    const KHMER_MONTHS = [
+      { id: 1, name: 'មករា', short: 'មករា', eng: 'January' },
+      { id: 2, name: 'កុម្ភៈ', short: 'កុម្ភៈ', eng: 'February' },
+      { id: 3, name: 'មីនា', short: 'មីនា', eng: 'March' },
+      { id: 4, name: 'មេសា', short: 'មេសា', eng: 'April' },
+      { id: 5, name: 'ឧសភា', short: 'ឧសភា', eng: 'May' },
+      { id: 6, name: 'មិថុនា', short: 'មិថុនា', eng: 'June' },
+      { id: 7, name: 'កក្កដា', short: 'កក្កដា', eng: 'July' },
+      { id: 8, name: 'សីហា', short: 'សីហា', eng: 'August' },
+      { id: 9, name: 'កញ្ញា', short: 'កញ្ញា', eng: 'September' },
+      { id: 10, name: 'តុលា', short: 'តុលា', eng: 'October' },
+      { id: 11, name: 'វិច្ឆិកា', short: 'វិច្ឆិកា', eng: 'November' },
+      { id: 12, name: 'ធ្នូ', short: 'ធ្នូ', eng: 'December' }
+    ];
+
+    const KHMER_DAYS = ['អាទិត្យ', 'ច័ន្ទ', 'អង្គារ', 'ពុធ', 'ព្រហស្បតិ៍', 'សុក្រ', 'សៅរ៍'];
+    const KHMER_DIGITS = ['០', '១', '២', '៣', '៤', '៥', '៦', '៧', '៨', '៩'];
+
+    function toKhmerNum(num) {
+      if (num === null || num === undefined) return '';
+      return String(num).replace(/[0-9]/g, (digit) => KHMER_DIGITS[parseInt(digit)]);
+    }
+
+    // --- INITIAL SAMPLE SEED DATA WITH BRANCHES ---
+    const INITIAL_STAFF = [
+      { id: 'stf_1', name: 'ស៊ូ សុខា', phone: '012 889 901', branch: 'សាខាទួលគោក', role: 'ប្រធានដេប៉ាតឺម៉ង់', subject: 'គណិតវិទ្យា (ថ្នាក់ទី១២)' },
+      { id: 'stf_2', name: 'ចាន់ ធីតា', phone: '010 445 566', branch: 'សាខាសែនសុខ', role: 'គ្រូបង្រៀនពេញម៉ោង', subject: 'ភាសាខ្មែរ (អនុវិទ្យាល័យ)' },
+      { id: 'stf_3', name: 'ហេង វិចិត្រ', phone: '097 555 123', branch: 'សាខាច្បារអំពៅ', role: 'គ្រូបង្រៀនពេញម៉ោង', subject: 'ភាសាអង់គ្លេស (General English)' },
+      { id: 'stf_4', name: 'កែវ សុផល', phone: '078 990 011', branch: 'សាខាទួលគោក', role: 'គ្រូបង្រៀនក្រៅម៉ោង', subject: 'វិទ្យាសាស្ត្រ និងរូបវិទ្យា' }
+    ];
+
+    // Current year: 2026, month: 9 (September)
+    const INITIAL_ASSESSMENTS = [
+      { id: 'asm_1', staffId: 'stf_1', month: 9, year: 2026, s1: 95, s2: 92, s3: 90, s4: 95, totalKpi: 93, grade: 'A', gradeLabel: 'ឆ្នើម', notes: 'ការគ្រប់គ្រង និងវិធីសាស្ត្របង្រៀនល្អឥតខ្ចោះ' },
+      { id: 'asm_2', staffId: 'stf_2', month: 9, year: 2026, s1: 85, s2: 88, s3: 84, s4: 90, totalKpi: 86, grade: 'B', gradeLabel: 'ល្អប្រសើរ', notes: 'សិស្សទទួលបានលទ្ធផលល្អក្នុងខែនេះ' },
+      { id: 'asm_3', staffId: 'stf_3', month: 9, year: 2026, s1: 75, s2: 78, s3: 72, s4: 85, totalKpi: 76, grade: 'C', gradeLabel: 'ល្អ', notes: 'ត្រូវបង្កើនការតាមដានសិស្សខ្សោយបន្ថែម' }
+    ];
+
+    // --- APPLICATION STATE ---
+    let staffList = [];
+    let assessments = [];
+    let selectedMonth = 9; // Default to September
+    let currentYear = 2026;
+    let activeTab = 'list';
+    let staffIdToDelete = null;
+
+    // --- INITIALIZATION ---
+    document.addEventListener('DOMContentLoaded', () => {
+      loadStorageData();
+      initMonthSelector();
+      initKhmerClock();
+      renderBranchFilterOptions();
+      renderAll();
+      lucide.createIcons();
+    });
+
+    // --- LOCAL STORAGE MANAGEMENT ---
+    function loadStorageData() {
+      try {
+        const storedStaff = localStorage.getItem('staffList');
+        const storedAssessments = localStorage.getItem('assessments');
+
+        if (storedStaff) {
+          staffList = JSON.parse(storedStaff);
+          // Backward compatibility: Ensure every staff has a branch
+          staffList = staffList.map(s => ({
+            ...s,
+            branch: s.branch || 'សាខាទួលគោក'
+          }));
+        } else {
+          staffList = [...INITIAL_STAFF];
+          localStorage.setItem('staffList', JSON.stringify(staffList));
+        }
+
+        if (storedAssessments) {
+          assessments = JSON.parse(storedAssessments);
+        } else {
+          assessments = [...INITIAL_ASSESSMENTS];
+          localStorage.setItem('assessments', JSON.stringify(assessments));
+        }
+      } catch (err) {
+        console.error('LocalStorage error:', err);
+        staffList = [...INITIAL_STAFF];
+        assessments = [...INITIAL_ASSESSMENTS];
+      }
+    }
+
+    function saveStaffToStorage() {
+      localStorage.setItem('staffList', JSON.stringify(staffList));
+    }
+
+    function saveAssessmentsToStorage() {
+      localStorage.setItem('assessments', JSON.stringify(assessments));
+    }
+
+    function resetToSampleData() {
+      if (confirm('តើអ្នកពិតជាចង់កំណត់ទិន្នន័យគំរូឡើងវិញមែនទេ? ទិន្នន័យបច្ចុប្បន្ននឹងត្រូវជំនួស។')) {
+        staffList = [...INITIAL_STAFF];
+        assessments = [...INITIAL_ASSESSMENTS];
+        saveStaffToStorage();
+        saveAssessmentsToStorage();
+        renderBranchFilterOptions();
+        renderAll();
+        showToast('បានកំណត់ទិន្នន័យគំរូឡើងវិញជោគជ័យ!', 'success');
+      }
+    }
+
+    function clearAllData() {
+      if (confirm('តើអ្នកពិតជាចង់សម្អាតទិន្នន័យទាំងអស់ចេញពីប្រព័ន្ធមែនទេ?')) {
+        staffList = [];
+        assessments = [];
+        saveStaffToStorage();
+        saveAssessmentsToStorage();
+        renderBranchFilterOptions();
+        renderAll();
+        showToast('បានសម្អាតទិន្នន័យទាំងអស់!', 'info');
+      }
+    }
+
+    // --- BRANCH HELPERS ---
+    function getUniqueBranches() {
+      const branchesSet = new Set();
+      // Default common branches
+      ['សាខាទួលគោក', 'សាខាសែនសុខ', 'សាខាច្បារអំពៅ', 'សាខាបឹងកេងកង', 'សាខាជ្រោយចង្វារ', 'សាខាចំការមន'].forEach(b => branchesSet.add(b));
+      // Add existing staff branches
+      staffList.forEach(s => {
+        if (s.branch) branchesSet.add(s.branch.trim());
+      });
+      return Array.from(branchesSet);
+    }
+
+    function renderBranchFilterOptions() {
+      const branchFilter = document.getElementById('branchFilter');
+      if (!branchFilter) return;
+
+      const currentVal = branchFilter.value || 'ALL';
+      const branches = getUniqueBranches();
+
+      branchFilter.innerHTML = `
+        <option value="ALL">គ្រប់សាខាទាំងអស់ (All)</option>
+        ${branches.map(b => `<option value="${b}">${b}</option>`).join('')}
+      `;
+      branchFilter.value = currentVal;
+    }
+
+    function toggleCustomBranch(value) {
+      const customInput = document.getElementById('staffCustomBranch');
+      if (value === 'CUSTOM') {
+        customInput.classList.remove('hidden');
+        customInput.focus();
+      } else {
+        customInput.classList.add('hidden');
+      }
+    }
+
+    // --- LIVE KHMER CLOCK & DATE ---
+    function initKhmerClock() {
+      function updateClock() {
+        const now = new Date();
+        const dayKh = KHMER_DAYS[now.getDay()];
+        const dateKh = toKhmerNum(now.getDate());
+        const monthKh = KHMER_MONTHS[now.getMonth()].name;
+        const yearKh = toKhmerNum(now.getFullYear());
+        
+        const hrs = String(now.getHours()).padStart(2, '0');
+        const mins = String(now.getMinutes()).padStart(2, '0');
+        const secs = String(now.getSeconds()).padStart(2, '0');
+        const timeKh = `${toKhmerNum(hrs)}:${toKhmerNum(mins)}:${toKhmerNum(secs)}`;
+
+        const fullDateStr = `ថ្ងៃ${dayKh} ទី${dateKh} ខែ${monthKh} ឆ្នាំ${yearKh} ម៉ោង ${timeKh}`;
+        const clockEl = document.getElementById('liveKhmerClock');
+        if (clockEl) clockEl.textContent = fullDateStr;
+
+        const printSub = document.getElementById('printSubtitle');
+        if (printSub) {
+          const selMonthName = KHMER_MONTHS.find(m => m.id === selectedMonth)?.name || '';
+          printSub.textContent = `ទិន្នន័យប្រចាំ៖ ខែ${selMonthName} ឆ្នាំ${toKhmerNum(currentYear)} | កាលបរិច្ឆេទទាញយក៖ ថ្ងៃ${dayKh} ទី${dateKh} ខែ${monthKh} ឆ្នាំ${yearKh}`;
+        }
+      }
+      updateClock();
+      setInterval(updateClock, 1000);
+    }
+
+    // --- MONTH SELECTOR SETUP ---
+    function initMonthSelector() {
+      const select = document.getElementById('monthSelector');
+      if (!select) return;
+
+      select.innerHTML = KHMER_MONTHS.map(m => `
+        <option value="${m.id}" ${m.id === selectedMonth ? 'selected' : ''}>
+          ខែ${m.name} (${m.eng})
+        </option>
+      `).join('');
+
+      select.addEventListener('change', (e) => {
+        selectedMonth = parseInt(e.target.value, 10);
+        renderAll();
+        showToast(`បានប្តូរទៅ ខែ${KHMER_MONTHS.find(m => m.id === selectedMonth)?.name}`, 'info');
+      });
+    }
+
+    // --- FORMULA & GRADING SCALING LOGIC ---
+    function calculateKPI(s1, s2, s3, s4) {
+      const v1 = parseFloat(s1) || 0;
+      const v2 = parseFloat(s2) || 0;
+      const v3 = parseFloat(s3) || 0;
+      const v4 = parseFloat(s4) || 0;
+      return Math.round((v1 * 0.25) + (v2 * 0.35) + (v3 * 0.30) + (v4 * 0.10));
+    }
+
+    function getGradeInfo(kpi) {
+      if (kpi >= 90) {
+        return {
+          grade: 'A',
+          label: 'ឆ្នើម',
+          colorClass: 'bg-emerald-100 text-emerald-800 border-emerald-300',
+          badgeText: 'A (ឆ្នើម)'
+        };
+      } else if (kpi >= 80) {
+        return {
+          grade: 'B',
+          label: 'ល្អប្រសើរ',
+          colorClass: 'bg-blue-100 text-blue-800 border-blue-300',
+          badgeText: 'B (ល្អប្រសើរ)'
+        };
+      } else if (kpi >= 70) {
+        return {
+          grade: 'C',
+          label: 'ល្អ',
+          colorClass: 'bg-teal-100 text-teal-800 border-teal-300',
+          badgeText: 'C (ល្អ)'
+        };
+      } else if (kpi >= 60) {
+        return {
+          grade: 'D',
+          label: 'ល្អបង្គួរ',
+          colorClass: 'bg-amber-100 text-amber-800 border-amber-300',
+          badgeText: 'D (ល្អបង្គួរ)'
+        };
+      } else if (kpi >= 50) {
+        return {
+          grade: 'E',
+          label: 'មធ្យម',
+          colorClass: 'bg-orange-100 text-orange-800 border-orange-300',
+          badgeText: 'E (មធ្យម)'
+        };
+      } else {
+        return {
+          grade: 'F',
+          label: 'ត្រូវការកែលម្អ',
+          colorClass: 'bg-rose-100 text-rose-800 border-rose-300',
+          badgeText: 'F (ត្រូវការកែលម្អ)'
+        };
+      }
+    }
+
+    // --- TAB SWITCHING ---
+    function switchTab(tab) {
+      activeTab = tab;
+      const tabList = document.getElementById('tabStaffList');
+      const tabAnalysis = document.getElementById('tabSopAnalysis');
+      const btnList = document.getElementById('tabBtnList');
+      const btnAnalysis = document.getElementById('tabBtnAnalysis');
+
+      if (tab === 'list') {
+        tabList.classList.remove('hidden');
+        tabAnalysis.classList.add('hidden');
+        
+        btnList.className = 'px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center space-x-2 bg-white text-blue-900 shadow-sm';
+        btnAnalysis.className = 'px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center space-x-2 text-slate-600 hover:text-slate-900';
+      } else {
+        tabList.classList.add('hidden');
+        tabAnalysis.classList.remove('hidden');
+
+        btnList.className = 'px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center space-x-2 text-slate-600 hover:text-slate-900';
+        btnAnalysis.className = 'px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center space-x-2 bg-white text-blue-900 shadow-sm';
+      }
+      lucide.createIcons();
+    }
+
+    // --- RENDER ALL VIEWS & METRICS ---
+    function renderAll() {
+      renderMetrics();
+      renderStaffTable();
+      renderAnalysisView();
+      lucide.createIcons();
+    }
+
+    // --- 1. RENDER METRICS ---
+    function renderMetrics() {
+      // Total staff
+      document.getElementById('metricTotalStaff').textContent = toKhmerNum(staffList.length);
+
+      // Unique branches count
+      const uniqueBranchCount = new Set(staffList.map(s => s.branch || 'សាខាទូទៅ')).size;
+      document.getElementById('metricBranchesCountSub').innerHTML = `
+        <i data-lucide="building-2" class="w-3.5 h-3.5"></i> សរុប ${toKhmerNum(uniqueBranchCount)} សាខាក្នុងប្រព័ន្ធ
+      `;
+
+      // Current month label
+      const curMonthObj = KHMER_MONTHS.find(m => m.id === selectedMonth);
+      const curMonthName = curMonthObj ? `ខែ${curMonthObj.name}` : '';
+      document.getElementById('metricActiveMonthLabel').textContent = curMonthName;
+
+      // Filter assessments for active month
+      const currentMonthAssessments = assessments.filter(a => a.month === selectedMonth && a.year === currentYear);
+      const evalCount = currentMonthAssessments.length;
+      const totalStaff = staffList.length;
+
+      // Evaluated count
+      document.getElementById('metricEvaluatedCount').textContent = `${toKhmerNum(evalCount)}/${toKhmerNum(totalStaff)}`;
+      const percent = totalStaff > 0 ? Math.round((evalCount / totalStaff) * 100) : 0;
+      document.getElementById('metricProgressBar').style.width = `${percent}%`;
+
+      // Average KPI
+      if (evalCount > 0) {
+        const sumKpi = currentMonthAssessments.reduce((acc, cur) => acc + (cur.totalKpi || 0), 0);
+        const avgKpi = Math.round(sumKpi / evalCount);
+        const gradeInfo = getGradeInfo(avgKpi);
+
+        document.getElementById('metricAvgKpi').textContent = `${toKhmerNum(avgKpi)}%`;
+        const badge = document.getElementById('metricAvgGradeBadge');
+        badge.className = `text-xs px-2 py-0.5 rounded-full font-bold border ${gradeInfo.colorClass}`;
+        badge.textContent = `និទ្ទេស ${gradeInfo.grade} (${gradeInfo.label})`;
+        document.getElementById('metricAvgKpiSub').textContent = `គិតលើបុគ្គលិក ${toKhmerNum(evalCount)} នាក់`;
+      } else {
+        document.getElementById('metricAvgKpi').textContent = '0%';
+        const badge = document.getElementById('metricAvgGradeBadge');
+        badge.className = 'text-xs px-2 py-0.5 rounded-full font-bold bg-slate-100 text-slate-500 border border-slate-200';
+        badge.textContent = 'មិនទាន់មានពិន្ទុ';
+        document.getElementById('metricAvgKpiSub').textContent = 'មិនទាន់មានការវាយតម្លៃក្នុងខែនេះ';
+      }
+    }
+
+    // --- 2. RENDER STAFF TABLE (TAB 1) ---
+    function renderStaffTable() {
+      const tbody = document.getElementById('staffTableBody');
+      const emptyState = document.getElementById('emptyState');
+      const query = (document.getElementById('searchInput')?.value || '').trim().toLowerCase();
+      const branchFilterVal = document.getElementById('branchFilter')?.value || 'ALL';
+      const gradeFilterVal = document.getElementById('gradeFilter')?.value || 'ALL';
+
+      if (!staffList || staffList.length === 0) {
+        tbody.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      // Pair staff with their assessment for this month
+      let staffRows = staffList.map(staff => {
+        const asm = assessments.find(a => a.staffId === staff.id && a.month === selectedMonth && a.year === currentYear);
+        return { staff, asm };
+      });
+
+      // Branch Filtering
+      if (branchFilterVal !== 'ALL') {
+        staffRows = staffRows.filter(({ staff }) => (staff.branch || 'សាខាទូទៅ') === branchFilterVal);
+      }
+
+      // Search Filtering
+      if (query) {
+        staffRows = staffRows.filter(({ staff }) => {
+          return (staff.name && staff.name.toLowerCase().includes(query)) ||
+                 (staff.phone && staff.phone.toLowerCase().includes(query)) ||
+                 (staff.branch && staff.branch.toLowerCase().includes(query)) ||
+                 (staff.role && staff.role.toLowerCase().includes(query)) ||
+                 (staff.subject && staff.subject.toLowerCase().includes(query));
+        });
+      }
+
+      // Grade Filtering
+      if (gradeFilterVal !== 'ALL') {
+        if (gradeFilterVal === 'EVALUATED') {
+          staffRows = staffRows.filter(item => !!item.asm);
+        } else if (gradeFilterVal === 'NOT_EVALUATED') {
+          staffRows = staffRows.filter(item => !item.asm);
+        } else {
+          staffRows = staffRows.filter(item => item.asm && item.asm.grade === gradeFilterVal);
+        }
+      }
+
+      if (staffRows.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="py-10 text-center text-slate-400 text-xs">
+              <i data-lucide="search-x" class="w-6 h-6 mx-auto mb-1 text-slate-300"></i>
+              រកមិនឃើញទិន្នន័យដែលត្រូវនឹងលក្ខខណ្ឌស្វែងរក ឬតម្រងសាខាឡើយ
+            </td>
+          </tr>
+        `;
+        emptyState.classList.add('hidden');
+        lucide.createIcons();
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+
+      tbody.innerHTML = staffRows.map(({ staff, asm }, index) => {
+        // Initials avatar
+        const initial = staff.name ? staff.name.trim().charAt(0) : 'ប';
+        const branchName = staff.branch || 'សាខាទូទៅ';
+        
+        let scoreBadgesHtml = '';
+        let kpiHtml = '';
+        let gradeBadgeHtml = '';
+
+        if (asm) {
+          const gInfo = getGradeInfo(asm.totalKpi);
+          scoreBadgesHtml = `
+            <div class="flex items-center justify-center space-x-1 text-xs">
+              <span class="px-1.5 py-0.5 rounded bg-amber-50 text-amber-800 font-semibold border border-amber-200" title="វិន័យ (25%)">${toKhmerNum(asm.s1)}</span>
+              <span class="text-slate-300">|</span>
+              <span class="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-800 font-semibold border border-emerald-200" title="វិធីសាស្ត្រ (35%)">${toKhmerNum(asm.s2)}</span>
+              <span class="text-slate-300">|</span>
+              <span class="px-1.5 py-0.5 rounded bg-cyan-50 text-cyan-800 font-semibold border border-cyan-200" title="លទ្ធផល (30%)">${toKhmerNum(asm.s3)}</span>
+              <span class="text-slate-300">|</span>
+              <span class="px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-800 font-semibold border border-indigo-200" title="សីលធម៌ (10%)">${toKhmerNum(asm.s4)}</span>
+            </div>
+          `;
+
+          kpiHtml = `
+            <div class="text-center font-bold text-blue-950">
+              <span class="text-base font-display">${toKhmerNum(asm.totalKpi)}</span>
+              <span class="text-xs text-slate-400">/100</span>
+            </div>
+          `;
+
+          gradeBadgeHtml = `
+            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold border shadow-xs ${gInfo.colorClass}">
+              ${gInfo.badgeText}
+            </span>
+          `;
+        } else {
+          scoreBadgesHtml = `<span class="text-xs text-slate-400 italic">មិនទាន់វាយតម្លៃ</span>`;
+          kpiHtml = `<span class="text-xs text-slate-400 font-medium">-</span>`;
+          gradeBadgeHtml = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-500 border border-slate-200">មិនទាន់វាយតម្លៃ</span>`;
+        }
+
+        return `
+          <tr class="hover:bg-slate-50/80 transition-colors">
+            <!-- Index -->
+            <td class="py-3 px-4 text-center text-xs font-bold text-slate-400">${toKhmerNum(index + 1)}</td>
+
+            <!-- Staff Info -->
+            <td class="py-3 px-4">
+              <div class="flex items-center space-x-3">
+                <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-900 border border-blue-200 font-bold flex items-center justify-center text-sm shadow-xs">
+                  ${initial}
+                </div>
+                <div>
+                  <div class="font-bold text-slate-900 text-sm">${staff.name}</div>
+                  <div class="text-xs text-slate-500 flex items-center gap-1 font-medium">
+                    <i data-lucide="phone" class="w-3 h-3 text-slate-400"></i> ${staff.phone}
+                  </div>
+                </div>
+              </div>
+            </td>
+
+            <!-- Branch Badge -->
+            <td class="py-3 px-4">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold bg-indigo-50 text-indigo-800 border border-indigo-200/80">
+                <i data-lucide="building-2" class="w-3 h-3 text-indigo-600"></i>
+                <span>${branchName}</span>
+              </span>
+            </td>
+
+            <!-- Role & Subject -->
+            <td class="py-3 px-4">
+              <div class="font-semibold text-xs text-slate-800">${staff.role}</div>
+              <div class="text-xs text-blue-700 font-medium">${staff.subject}</div>
+            </td>
+
+            <!-- 4 SOP Scores -->
+            <td class="py-3 px-4 text-center">${scoreBadgesHtml}</td>
+
+            <!-- Total KPI -->
+            <td class="py-3 px-4 text-center">${kpiHtml}</td>
+
+            <!-- Grade Badge -->
+            <td class="py-3 px-4 text-center">${gradeBadgeHtml}</td>
+
+            <!-- Actions -->
+            <td class="no-print py-3 px-4 text-center">
+              <div class="flex items-center justify-center space-x-1.5">
+                
+                <!-- Quick Assessment Button -->
+                <button onclick="openAssessmentForStaff('${staff.id}')" title="បញ្ចូល/កែប្រែពិន្ទុ SOP" class="p-1.5 bg-blue-50 hover:bg-blue-100 text-blue-800 rounded-lg transition border border-blue-200">
+                  <i data-lucide="award" class="w-4 h-4"></i>
+                </button>
+
+                <!-- Edit Staff Info Button -->
+                <button onclick="editStaff('${staff.id}')" title="កែប្រែព័ត៌មាន" class="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition border border-slate-200">
+                  <i data-lucide="edit-3" class="w-4 h-4"></i>
+                </button>
+
+                <!-- Delete Staff Button -->
+                <button onclick="confirmDeleteStaff('${staff.id}')" title="លុបចេញ" class="p-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg transition border border-rose-200">
+                  <i data-lucide="trash-2" class="w-4 h-4"></i>
+                </button>
+
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function filterStaffTable() {
+      renderStaffTable();
+      lucide.createIcons();
+    }
+
+    // --- 3. RENDER SOP ANALYSIS BREAKDOWN (TAB 2) ---
+    function renderAnalysisView() {
+      const grid = document.getElementById('analysisCardsGrid');
+      const curMonthAssessments = assessments.filter(a => a.month === selectedMonth && a.year === currentYear);
+
+      // Calculate Global Averages for 4 criteria
+      if (curMonthAssessments.length > 0) {
+        const count = curMonthAssessments.length;
+        const avgS1 = Math.round(curMonthAssessments.reduce((acc, c) => acc + c.s1, 0) / count);
+        const avgS2 = Math.round(curMonthAssessments.reduce((acc, c) => acc + c.s2, 0) / count);
+        const avgS3 = Math.round(curMonthAssessments.reduce((acc, c) => acc + c.s3, 0) / count);
+        const avgS4 = Math.round(curMonthAssessments.reduce((acc, c) => acc + c.s4, 0) / count);
+
+        document.getElementById('globalAvgS1Badge').textContent = `${toKhmerNum(avgS1)}%`;
+        document.getElementById('globalAvgS1Bar').style.width = `${avgS1}%`;
+
+        document.getElementById('globalAvgS2Badge').textContent = `${toKhmerNum(avgS2)}%`;
+        document.getElementById('globalAvgS2Bar').style.width = `${avgS2}%`;
+
+        document.getElementById('globalAvgS3Badge').textContent = `${toKhmerNum(avgS3)}%`;
+        document.getElementById('globalAvgS3Bar').style.width = `${avgS3}%`;
+
+        document.getElementById('globalAvgS4Badge').textContent = `${toKhmerNum(avgS4)}%`;
+        document.getElementById('globalAvgS4Bar').style.width = `${avgS4}%`;
+      } else {
+        ['S1', 'S2', 'S3', 'S4'].forEach(k => {
+          document.getElementById(`globalAvg${k}Badge`).textContent = '0%';
+          document.getElementById(`globalAvg${k}Bar`).style.width = '0%';
+        });
+      }
+
+      if (!staffList || staffList.length === 0) {
+        grid.innerHTML = `
+          <div class="col-span-full py-12 text-center text-slate-400 text-sm">
+            មិនទាន់មានទិន្នន័យបុគ្គលិកដើម្បីធ្វើការវិភាគនៅឡើយទេ
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = staffList.map(staff => {
+        const asm = assessments.find(a => a.staffId === staff.id && a.month === selectedMonth && a.year === currentYear);
+        const branchName = staff.branch || 'សាខាទូទៅ';
+
+        if (!asm) {
+          return `
+            <div class="bg-white rounded-2xl p-5 border border-dashed border-slate-300 shadow-xs flex flex-col justify-between space-y-4">
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-slate-100 text-slate-500 font-bold flex items-center justify-center text-sm">
+                  ${staff.name.charAt(0)}
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900 text-sm">${staff.name}</h4>
+                  <p class="text-xs text-indigo-700 font-semibold">${branchName} • ${staff.role}</p>
+                </div>
+              </div>
+
+              <div class="bg-slate-50 p-4 rounded-xl text-center space-y-2">
+                <p class="text-xs text-slate-500 font-medium">មិនទាន់បានបញ្ចូលពិន្ទុ SOP សម្រាប់ខែនេះនៅឡើយ</p>
+                <button onclick="openAssessmentForStaff('${staff.id}')" class="inline-flex items-center space-x-1 px-3 py-1.5 bg-blue-900 text-white rounded-lg text-xs font-semibold hover:bg-blue-800 transition">
+                  <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
+                  <span>បញ្ចូលពិន្ទុឥឡូវនេះ</span>
+                </button>
+              </div>
+            </div>
+          `;
+        }
+
+        const gInfo = getGradeInfo(asm.totalKpi);
+
+        // Determine Strength and Area for Improvement
+        const scores = [
+          { name: 'ការគោរពវិន័យ', score: asm.s1 },
+          { name: 'វិធីសាស្ត្របង្រៀន', score: asm.s2 },
+          { name: 'លទ្ធផលសិស្ស', score: asm.s3 },
+          { name: 'សីលធម៌វិជ្ជាជីវៈ', score: asm.s4 }
+        ];
+
+        // Sort to find max and min
+        const sorted = [...scores].sort((a, b) => b.score - a.score);
+        const strength = sorted[0];
+        const improvement = sorted[sorted.length - 1];
+
+        return `
+          <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition flex flex-col justify-between space-y-4">
+            
+            <!-- Staff Header -->
+            <div class="flex items-start justify-between">
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-blue-900 text-white font-bold flex items-center justify-center text-sm shadow-xs">
+                  ${staff.name.charAt(0)}
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-900 text-sm">${staff.name}</h4>
+                  <div class="flex items-center gap-1.5 mt-0.5">
+                    <span class="text-xs px-2 py-0.5 rounded bg-indigo-50 text-indigo-800 font-semibold border border-indigo-200/80">${branchName}</span>
+                    <span class="text-xs text-slate-500">${staff.role}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="text-xs px-2.5 py-1 rounded-full font-bold border ${gInfo.colorClass}">
+                  ${gInfo.badgeText}
+                </span>
+                <div class="text-base font-display font-black text-blue-950 mt-1">${toKhmerNum(asm.totalKpi)}% KPI</div>
+              </div>
+            </div>
+
+            <!-- 4 SOP Breakdown Progress Bars -->
+            <div class="space-y-2.5 pt-1">
+              
+              <!-- 1. Discipline -->
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs font-semibold">
+                  <span class="text-slate-600">១. ការគោរពវិន័យ (២៥%)</span>
+                  <span class="text-slate-800">${toKhmerNum(asm.s1)}%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2">
+                  <div class="bg-amber-500 h-2 rounded-full" style="width: ${asm.s1}%"></div>
+                </div>
+              </div>
+
+              <!-- 2. Teaching Methodology -->
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs font-semibold">
+                  <span class="text-slate-600">២. វិធីសាស្ត្របង្រៀន (៣៥%)</span>
+                  <span class="text-slate-800">${toKhmerNum(asm.s2)}%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2">
+                  <div class="bg-emerald-500 h-2 rounded-full" style="width: ${asm.s2}%"></div>
+                </div>
+              </div>
+
+              <!-- 3. Student Results -->
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs font-semibold">
+                  <span class="text-slate-600">៣. លទ្ធផលសិស្ស (៣០%)</span>
+                  <span class="text-slate-800">${toKhmerNum(asm.s3)}%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2">
+                  <div class="bg-cyan-500 h-2 rounded-full" style="width: ${asm.s3}%"></div>
+                </div>
+              </div>
+
+              <!-- 4. Ethics -->
+              <div class="space-y-1">
+                <div class="flex justify-between text-xs font-semibold">
+                  <span class="text-slate-600">៤. សីលធម៌វិជ្ជាជីវៈ (១០%)</span>
+                  <span class="text-slate-800">${toKhmerNum(asm.s4)}%</span>
+                </div>
+                <div class="w-full bg-slate-100 rounded-full h-2">
+                  <div class="bg-indigo-500 h-2 rounded-full" style="width: ${asm.s4}%"></div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Analytical Insights: Strengths & Improvement -->
+            <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/80 space-y-2 text-xs">
+              <div class="flex items-center space-x-1.5 text-emerald-700 font-semibold">
+                <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i>
+                <span>ចំណុចខ្លាំង៖ <span class="text-slate-800 font-medium">${strength.name} (${toKhmerNum(strength.score)}%)</span></span>
+              </div>
+              <div class="flex items-center space-x-1.5 text-amber-700 font-semibold">
+                <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
+                <span>ចំណុចត្រូវកែលម្អ៖ <span class="text-slate-800 font-medium">${improvement.name} (${toKhmerNum(improvement.score)}%)</span></span>
+              </div>
+              ${asm.notes ? `
+                <div class="text-slate-500 pt-1 border-t border-slate-200/60 italic">
+                  "${asm.notes}"
+                </div>
+              ` : ''}
+            </div>
+
+            <!-- Action Button -->
+            <div class="pt-1">
+              <button onclick="openAssessmentForStaff('${staff.id}')" class="w-full py-2 bg-slate-100 hover:bg-blue-50 hover:text-blue-900 text-slate-700 rounded-xl text-xs font-semibold transition border border-slate-200 flex items-center justify-center space-x-1.5">
+                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                <span>កែសម្រួលពិន្ទុវាយតម្លៃ</span>
+              </button>
+            </div>
+
+          </div>
+        `;
+      }).join('');
+    }
+
+    // --- 4. STAFF MANAGEMENT (MODAL & CRUD) ---
+    function openStaffModal(editId = null) {
+      const modal = document.getElementById('staffModal');
+      const title = document.getElementById('staffModalTitle');
+      const form = document.getElementById('staffForm');
+      const branchSelect = document.getElementById('staffBranchSelect');
+      const customBranchInput = document.getElementById('staffCustomBranch');
+
+      form.reset();
+      document.getElementById('staffEditId').value = '';
+      customBranchInput.classList.add('hidden');
+      customBranchInput.value = '';
+
+      // Populate branches in select
+      const branches = getUniqueBranches();
+      branchSelect.innerHTML = `
+        ${branches.map(b => `<option value="${b}">${b}</option>`).join('')}
+        <option value="CUSTOM">+ បញ្ចូលឈ្មោះសាខាថ្មី...</option>
+      `;
+
+      if (editId) {
+        const staff = staffList.find(s => s.id === editId);
+        if (staff) {
+          title.textContent = 'កែប្រែព័ត៌មានបុគ្គលិក';
+          document.getElementById('staffEditId').value = staff.id;
+          document.getElementById('staffName').value = staff.name;
+          document.getElementById('staffPhone').value = staff.phone;
+          document.getElementById('staffRole').value = staff.role;
+          document.getElementById('staffSubject').value = staff.subject;
+          
+          if (branches.includes(staff.branch)) {
+            branchSelect.value = staff.branch;
+          } else {
+            branchSelect.value = 'CUSTOM';
+            customBranchInput.classList.remove('hidden');
+            customBranchInput.value = staff.branch || '';
+          }
+        }
+      } else {
+        title.textContent = 'ចុះឈ្មោះបុគ្គលិកថ្មី';
+      }
+
+      modal.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeStaffModal() {
+      document.getElementById('staffModal').classList.add('hidden');
+    }
+
+    function handleStaffSubmit(e) {
+      e.preventDefault();
+      const editId = document.getElementById('staffEditId').value;
+      const name = document.getElementById('staffName').value.trim();
+      const phone = document.getElementById('staffPhone').value.trim();
+      const role = document.getElementById('staffRole').value;
+      const subject = document.getElementById('staffSubject').value.trim();
+      
+      let branch = document.getElementById('staffBranchSelect').value;
+      if (branch === 'CUSTOM') {
+        branch = document.getElementById('staffCustomBranch').value.trim() || 'សាខាទូទៅ';
+      }
+
+      if (!name || !phone || !subject || !branch) {
+        alert('សូមបំពេញគ្រប់ប្រអប់ទិន្នន័យចាំបាច់!');
+        return;
+      }
+
+      if (editId) {
+        // Update staff
+        const index = staffList.findIndex(s => s.id === editId);
+        if (index !== -1) {
+          staffList[index] = { ...staffList[index], name, phone, branch, role, subject };
+          showToast('បានកែប្រែព័ត៌មានបុគ្គលិកជោគជ័យ', 'success');
+        }
+      } else {
+        // Add new staff
+        const newStaff = {
+          id: 'stf_' + Date.now(),
+          name,
+          phone,
+          branch,
+          role,
+          subject
+        };
+        staffList.unshift(newStaff);
+        showToast('បានចុះឈ្មោះបុគ្គលិកថ្មីជោគជ័យ', 'success');
+      }
+
+      saveStaffToStorage();
+      renderBranchFilterOptions();
+      closeStaffModal();
+      renderAll();
+    }
+
+    function editStaff(staffId) {
+      openStaffModal(staffId);
+    }
+
+    function confirmDeleteStaff(staffId) {
+      staffIdToDelete = staffId;
+      const staff = staffList.find(s => s.id === staffId);
+      const text = document.getElementById('deleteModalText');
+      if (staff && text) {
+        text.textContent = `តើអ្នកពិតជាចង់លុបបុគ្គលិក «${staff.name}» (${staff.branch || 'សាខាទូទៅ'}) រួមទាំងពិន្ទុវាយតម្លៃទាំងអស់មែនទេ?`;
+      }
+      document.getElementById('deleteModal').classList.remove('hidden');
+
+      document.getElementById('confirmDeleteBtn').onclick = () => {
+        executeDeleteStaff();
+      };
+      lucide.createIcons();
+    }
+
+    function closeDeleteModal() {
+      document.getElementById('deleteModal').classList.add('hidden');
+      staffIdToDelete = null;
+    }
+
+    function executeDeleteStaff() {
+      if (!staffIdToDelete) return;
+
+      staffList = staffList.filter(s => s.id !== staffIdToDelete);
+      assessments = assessments.filter(a => a.staffId !== staffIdToDelete);
+
+      saveStaffToStorage();
+      saveAssessmentsToStorage();
+      renderBranchFilterOptions();
+      closeDeleteModal();
+      renderAll();
+      showToast('បានលុបបុគ្គលិកចេញពីប្រព័ន្ធជោគជ័យ', 'info');
+    }
+
+    // --- 5. ASSESSMENT MODAL & SCORING LOGIC ---
+    function openAssessmentModal(presetStaffId = null) {
+      if (!staffList || staffList.length === 0) {
+        alert('សូមចុះឈ្មោះបុគ្គលិកយ៉ាងហោចណាស់ម្នាក់ មុនពេលបញ្ចូលពិន្ទុ SOP!');
+        openStaffModal();
+        return;
+      }
+
+      const modal = document.getElementById('assessmentModal');
+      const staffSelect = document.getElementById('assessStaffSelect');
+      const periodLabel = document.getElementById('modalAssessmentPeriod');
+
+      const monthName = KHMER_MONTHS.find(m => m.id === selectedMonth)?.name || '';
+      periodLabel.textContent = `សម្រាប់ខែ${monthName} ឆ្នាំ${toKhmerNum(currentYear)}`;
+
+      // Populate Staff Select with branch info
+      staffSelect.innerHTML = staffList.map(s => `
+        <option value="${s.id}">${s.name} (${s.branch || 'សាខាទូទៅ'} - ${s.role})</option>
+      `).join('');
+
+      if (presetStaffId) {
+        staffSelect.value = presetStaffId;
+      }
+
+      onAssessmentStaffChange();
+      modal.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function openAssessmentForStaff(staffId) {
+      openAssessmentModal(staffId);
+    }
+
+    function closeAssessmentModal() {
+      document.getElementById('assessmentModal').classList.add('hidden');
+    }
+
+    function onAssessmentStaffChange() {
+      const staffId = document.getElementById('assessStaffSelect').value;
+      const existing = assessments.find(a => a.staffId === staffId && a.month === selectedMonth && a.year === currentYear);
+
+      if (existing) {
+        setScoreControls('s1', existing.s1);
+        setScoreControls('s2', existing.s2);
+        setScoreControls('s3', existing.s3);
+        setScoreControls('s4', existing.s4);
+        document.getElementById('assessmentNotes').value = existing.notes || '';
+      } else {
+        // Default base scores
+        setScoreControls('s1', 80);
+        setScoreControls('s2', 80);
+        setScoreControls('s3', 80);
+        setScoreControls('s4', 85);
+        document.getElementById('assessmentNotes').value = '';
+      }
+
+      recalculateModalKpi();
+    }
+
+    function setScoreControls(key, value) {
+      const val = parseInt(value, 10) || 0;
+      const range = document.getElementById(`range${key.toUpperCase()}`);
+      const num = document.getElementById(`num${key.toUpperCase()}`);
+      if (range) range.value = val;
+      if (num) num.value = val;
+    }
+
+    function syncScore(key, value) {
+      let val = parseInt(value, 10);
+      if (isNaN(val)) val = 0;
+      if (val > 100) val = 100;
+      if (val < 0) val = 0;
+
+      const range = document.getElementById(`range${key.toUpperCase()}`);
+      const num = document.getElementById(`num${key.toUpperCase()}`);
+      if (range) range.value = val;
+      if (num) num.value = val;
+
+      recalculateModalKpi();
+    }
+
+    function recalculateModalKpi() {
+      const s1 = parseInt(document.getElementById('numS1').value, 10) || 0;
+      const s2 = parseInt(document.getElementById('numS2').value, 10) || 0;
+      const s3 = parseInt(document.getElementById('numS3').value, 10) || 0;
+      const s4 = parseInt(document.getElementById('numS4').value, 10) || 0;
+
+      const totalKpi = calculateKPI(s1, s2, s3, s4);
+      const gradeInfo = getGradeInfo(totalKpi);
+
+      document.getElementById('liveTotalKpi').textContent = toKhmerNum(totalKpi);
+      const badge = document.getElementById('liveGradeBadge');
+      badge.className = `px-3 py-1 rounded-full text-xs font-bold border shadow-xs ${gradeInfo.colorClass}`;
+      badge.textContent = `និទ្ទេស ${gradeInfo.grade} (${gradeInfo.label})`;
+    }
+
+    function handleAssessmentSubmit(e) {
+      e.preventDefault();
+      const staffId = document.getElementById('assessStaffSelect').value;
+      const s1 = parseInt(document.getElementById('numS1').value, 10) || 0;
+      const s2 = parseInt(document.getElementById('numS2').value, 10) || 0;
+      const s3 = parseInt(document.getElementById('numS3').value, 10) || 0;
+      const s4 = parseInt(document.getElementById('numS4').value, 10) || 0;
+      const notes = document.getElementById('assessmentNotes').value.trim();
+
+      const totalKpi = calculateKPI(s1, s2, s3, s4);
+      const gradeInfo = getGradeInfo(totalKpi);
+
+      // Check if assessment already exists for this staff and month
+      const existingIndex = assessments.findIndex(a => a.staffId === staffId && a.month === selectedMonth && a.year === currentYear);
+
+      const assessmentRecord = {
+        id: existingIndex !== -1 ? assessments[existingIndex].id : 'asm_' + Date.now(),
+        staffId,
+        month: selectedMonth,
+        year: currentYear,
+        s1,
+        s2,
+        s3,
+        s4,
+        totalKpi,
+        grade: gradeInfo.grade,
+        gradeLabel: gradeInfo.label,
+        notes,
+        evaluatedAt: new Date().toISOString()
+      };
+
+      if (existingIndex !== -1) {
+        assessments[existingIndex] = assessmentRecord;
+        showToast('បានកែសម្រួលពិន្ទុ SOP ប្រចាំខែដោយជោគជ័យ!', 'success');
+      } else {
+        assessments.push(assessmentRecord);
+        showToast('បានបញ្ចូលពិន្ទុ SOP ប្រចាំខែដោយជោគជ័យ!', 'success');
+      }
+
+      saveAssessmentsToStorage();
+      closeAssessmentModal();
+      renderAll();
+    }
+
+    // --- 6. EXCEL EXPORT BY BRANCH (NATIVE .XLSX VIA SHEETJS) ---
+    function openExcelExportModal() {
+      if (!staffList || staffList.length === 0) {
+        alert('មិនទាន់មានទិន្នន័យបុគ្គលិកដើម្បីទាញយកជា Excel ឡើយ!');
+        return;
+      }
+
+      const modal = document.getElementById('excelExportModal');
+      const branchSelect = document.getElementById('exportBranchSelect');
+      const monthSelect = document.getElementById('exportMonthSelect');
+
+      // Populate branches
+      const branches = getUniqueBranches();
+      branchSelect.innerHTML = `
+        <option value="ALL_SHEETS">📁 ទាញយកគ្រប់សាខា (បង្កើត Sheet តាមសាខានីមួយៗ)</option>
+        <optgroup label="ទាញយកតាមសាខាជាក់លាក់ (Individual Branch)">
+          ${branches.map(b => `<option value="${b}">${b}</option>`).join('')}
+        </optgroup>
+      `;
+
+      // If a branch filter is currently active in the table, pre-select it
+      const currentBranchFilter = document.getElementById('branchFilter')?.value;
+      if (currentBranchFilter && currentBranchFilter !== 'ALL') {
+        branchSelect.value = currentBranchFilter;
+      }
+
+      // Populate month options
+      monthSelect.innerHTML = KHMER_MONTHS.map(m => `
+        <option value="${m.id}" ${m.id === selectedMonth ? 'selected' : ''}>
+          ខែ${m.name} (${m.eng})
+        </option>
+      `).join('');
+
+      updateExportSummary();
+      modal.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeExcelExportModal() {
+      document.getElementById('excelExportModal').classList.add('hidden');
+    }
+
+    function updateExportSummary() {
+      const branchVal = document.getElementById('exportBranchSelect').value;
+      const monthVal = parseInt(document.getElementById('exportMonthSelect').value, 10);
+
+      let filteredStaff = staffList;
+      if (branchVal !== 'ALL_SHEETS') {
+        filteredStaff = staffList.filter(s => (s.branch || 'សាខាទូទៅ') === branchVal);
+      }
+
+      const evalCount = filteredStaff.filter(s => {
+        return assessments.some(a => a.staffId === s.id && a.month === monthVal && a.year === currentYear);
+      }).length;
+
+      document.getElementById('exportStaffCount').textContent = `${toKhmerNum(filteredStaff.length)} នាក់`;
+      document.getElementById('exportEvaluatedCount').textContent = `${toKhmerNum(evalCount)} / ${toKhmerNum(filteredStaff.length)} នាក់`;
+    }
+
+    function generateExcelRowsForStaff(staffSubList, monthId, specificBranchName = null) {
+      const monthObj = KHMER_MONTHS.find(m => m.id === monthId);
+      const monthTitle = monthObj ? `ខែ${monthObj.name} (${monthObj.eng})` : '';
+
+      const rows = [
+        ["សាលារៀន អន្តរជាតិ និងវិទ្យាស្ថានបណ្តុះបណ្តាល"],
+        ["របាយការណ៍បុគ្គលិក និងលទ្ធផលវាយតម្លៃ SOP & KPI ប្រចាំខែ"],
+        [
+          specificBranchName ? `សាខា៖ ${specificBranchName}` : `សាខា៖ គ្រប់សាខាទាំងអស់`,
+          `កាលបរិច្ឆេទវាយតម្លៃ៖ ${monthTitle} ឆ្នាំ${currentYear}`
+        ],
+        ["កាលបរិច្ឆេទទាញយកឯកសារ៖ " + new Date().toLocaleString('km-KH')],
+        [], // Blank line
+        [
+          "ល.រ",
+          "ឈ្មោះបុគ្គលិក",
+          "លេខទូរស័ព្ទ",
+          "សាខា / បរិវេណ",
+          "តួនាទី / មុខតំណែង",
+          "ជំនាញ / កម្រិតបង្រៀន",
+          "១. វិន័យ & ម៉ោង (25%)",
+          "២. វិធីសាស្ត្របង្រៀន (35%)",
+          "៣. លទ្ធផលសិស្ស (30%)",
+          "៤. សីលធម៌វិជ្ជាជីវៈ (10%)",
+          "ពិន្ទុ KPI សរុប",
+          "និទ្ទេស",
+          "ស្ថានភាពវាយតម្លៃ",
+          "កំណត់សម្គាល់ / មតិកែលម្អ"
+        ]
+      ];
+
+      staffSubList.forEach((staff, idx) => {
+        const asm = assessments.find(a => a.staffId === staff.id && a.month === monthId && a.year === currentYear);
+        rows.push([
+          idx + 1,
+          staff.name,
+          staff.phone,
+          staff.branch || 'សាខាទូទៅ',
+          staff.role,
+          staff.subject,
+          asm ? asm.s1 : '-',
+          asm ? asm.s2 : '-',
+          asm ? asm.s3 : '-',
+          asm ? asm.s4 : '-',
+          asm ? asm.totalKpi : '-',
+          asm ? `${asm.grade} (${asm.gradeLabel})` : 'មិនទាន់វាយតម្លៃ',
+          asm ? 'បានវាយតម្លៃ' : 'មិនទាន់វាយតម្លៃ',
+          asm ? (asm.notes || '') : ''
+        ]);
+      });
+
+      return rows;
+    }
+
+    function setExcelColWidths(ws) {
+      ws['!cols'] = [
+        { wch: 6 },  // No
+        { wch: 22 }, // Name
+        { wch: 16 }, // Phone
+        { wch: 20 }, // Branch
+        { wch: 24 }, // Role
+        { wch: 28 }, // Subject
+        { wch: 20 }, // S1
+        { wch: 22 }, // S2
+        { wch: 20 }, // S3
+        { wch: 22 }, // S4
+        { wch: 16 }, // KPI
+        { wch: 18 }, // Grade
+        { wch: 18 }, // Status
+        { wch: 42 }  // Notes
+      ];
+    }
+
+    function executeExcelExport() {
+      if (typeof XLSX === 'undefined') {
+        alert('សូមរង់ចាំបន្តិច ប្រព័ន្ធកំពុងផ្ទុកបណ្ណាល័យ Excel...');
+        return;
+      }
+
+      const branchOption = document.getElementById('exportBranchSelect').value;
+      const monthOption = parseInt(document.getElementById('exportMonthSelect').value, 10);
+      const curMonthObj = KHMER_MONTHS.find(m => m.id === monthOption);
+      const monthName = curMonthObj ? curMonthObj.name : `ខែទី${monthOption}`;
+
+      const wb = XLSX.utils.book_new();
+
+      if (branchOption === 'ALL_SHEETS') {
+        // Multi-Sheet Export: Overall Summary Sheet + One Sheet Per Branch!
+        const branches = getUniqueBranches();
+
+        // 1. Overall Sheet
+        const overallData = generateExcelRowsForStaff(staffList, monthOption);
+        const overallWs = XLSX.utils.aoa_to_sheet(overallData);
+        setExcelColWidths(overallWs);
+        XLSX.utils.book_append_sheet(wb, overallWs, 'សរុបគ្រប់សាខា');
+
+        // 2. Individual Branch Sheets
+        branches.forEach(b => {
+          const branchStaff = staffList.filter(s => (s.branch || 'សាខាទូទៅ') === b);
+          if (branchStaff.length > 0) {
+            const branchData = generateExcelRowsForStaff(branchStaff, monthOption, b);
+            const branchWs = XLSX.utils.aoa_to_sheet(branchData);
+            setExcelColWidths(branchWs);
+            // Excel sheet name max 31 characters
+            const safeSheetName = b.length > 28 ? b.substring(0, 28) : b;
+            XLSX.utils.book_append_sheet(wb, branchWs, safeSheetName);
+          }
+        });
+
+        const fileName = `របាយការណ៍_SOP_KPI_គ្រប់សាខា_ខែ${monthName}_${currentYear}.xlsx`;
+        XLSX.writeFile(wb, fileName);
+        showToast(`បានទាញយកឯកសារ Excel គ្រប់សាខាដោយជោគជ័យ!`, 'success');
+      } else {
+        // Single Branch Export
+        const targetBranch = branchOption;
+        const branchStaff = staffList.filter(s => (s.branch || 'សាខាទូទៅ') === targetBranch);
+
+        if (branchStaff.length === 0) {
+          alert(`មិនមានបុគ្គលិកនៅក្នុង «${targetBranch}» ឡើយ!`);
+          return;
+        }
+
+        const branchData = generateExcelRowsForStaff(branchStaff, monthOption, targetBranch);
+        const branchWs = XLSX.utils.aoa_to_sheet(branchData);
+        setExcelColWidths(branchWs);
+        const safeSheetName = targetBranch.length > 28 ? targetBranch.substring(0, 28) : targetBranch;
+        XLSX.utils.book_append_sheet(wb, branchWs, safeSheetName);
+
+        const safeFileName = targetBranch.replace(/[\/\\?%*:|"<>]/g, '_');
+        const fileName = `របាយការណ៍_SOP_KPI_${safeFileName}_ខែ${monthName}_${currentYear}.xlsx`;
+        XLSX.writeFile(wb, fileName);
+        showToast(`បានទាញយកឯកសារ Excel សម្រាប់ «${targetBranch}» ដោយជោគជ័យ!`, 'success');
+      }
+
+      closeExcelExportModal();
+    }
+
+    // --- 7. CSV EXPORT UTILITY ---
+    function exportToCSV() {
+      if (!staffList || staffList.length === 0) {
+        alert('មិនមានទិន្នន័យសម្រាប់ទាញយកទេ!');
+        return;
+      }
+
+      const curMonthObj = KHMER_MONTHS.find(m => m.id === selectedMonth);
+      const monthName = curMonthObj ? curMonthObj.name : selectedMonth;
+
+      let csvContent = "\uFEFF"; // UTF-8 BOM for Excel Khmer support
+      csvContent += `របាយការណ៍វាយតម្លៃ SOP & KPI សាលារៀន - ខែ${monthName} ឆ្នាំ${currentYear}\n\n`;
+      csvContent += "ល.រ,ឈ្មោះបុគ្គលិក,លេខទូរស័ព្ទ,សាខា,តួនាទី,ជំនាញ/កម្រិតបង្រៀន,វិន័យ (25%),វិធីសាស្ត្រ (35%),លទ្ធផលសិស្ស (30%),សីលធម៌ (10%),ពិន្ទុ KPI សរុប,និទ្ទេស,កំណត់សម្គាល់\n";
+
+      staffList.forEach((staff, idx) => {
+        const asm = assessments.find(a => a.staffId === staff.id && a.month === selectedMonth && a.year === currentYear);
+        const row = [
+          idx + 1,
+          `"${staff.name}"`,
+          `"${staff.phone}"`,
+          `"${staff.branch || 'សាខាទូទៅ'}"`,
+          `"${staff.role}"`,
+          `"${staff.subject}"`,
+          asm ? asm.s1 : '',
+          asm ? asm.s2 : '',
+          asm ? asm.s3 : '',
+          asm ? asm.s4 : '',
+          asm ? asm.totalKpi : '',
+          asm ? `${asm.grade} (${asm.gradeLabel})` : 'មិនទាន់វាយតម្លៃ',
+          asm ? `"${(asm.notes || '').replace(/"/g, '""')}"` : ''
+        ];
+        csvContent += row.join(",") + "\n";
+      });
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.setAttribute("href", url);
+      link.setAttribute("download", `SOP_KPI_Report_Month_${selectedMonth}_${currentYear}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      showToast('បានទាញយកឯកសារ CSV ដោយជោគជ័យ!', 'success');
+    }
+
+    // --- 8. TOAST NOTIFICATION UTILITY ---
+    let toastTimeout = null;
+    function showToast(message, type = 'success') {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      const toastIcon = document.getElementById('toastIcon');
+
+      if (!toast || !toastMsg) return;
+
+      toastMsg.textContent = message;
+
+      // Color based on type
+      if (type === 'success') {
+        toast.className = 'fixed bottom-5 right-5 z-50 transform transition-all duration-300 flex items-center space-x-3 px-4 py-3 rounded-xl shadow-lg border text-sm font-medium bg-emerald-900 text-white border-emerald-800 opacity-100 translate-y-0';
+        toastIcon.setAttribute('data-lucide', 'check-circle');
+      } else if (type === 'info') {
+        toast.className = 'fixed bottom-5 right-5 z-50 transform transition-all duration-300 flex items-center space-x-3 px-4 py-3 rounded-xl shadow-lg border text-sm font-medium bg-blue-900 text-white border-blue-800 opacity-100 translate-y-0';
+        toastIcon.setAttribute('data-lucide', 'info');
+      } else if (type === 'error') {
+        toast.className = 'fixed bottom-5 right-5 z-50 transform transition-all duration-300 flex items-center space-x-3 px-4 py-3 rounded-xl shadow-lg border text-sm font-medium bg-rose-900 text-white border-rose-800 opacity-100 translate-y-0';
+        toastIcon.setAttribute('data-lucide', 'alert-circle');
+      }
+
+      lucide.createIcons();
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-10');
+      }, 3500);
+    }
+  </script>
+</body>
+</html>
