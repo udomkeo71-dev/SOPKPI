@@ -18,10 +18,22 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['"Kantumruy Pro"', 'sans-serif'],
-            display: ['"Battambang"', '"Kantumruy Pro"', 'sans-serif'],
+            sans: ['"Kantumruy Pro"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            display: ['"Battambang"', '"Kantumruy Pro"', '-apple-system', 'sans-serif'],
           },
           colors: {
+            ios: {
+              blue: '#007AFF',
+              green: '#34C759',
+              orange: '#FF9500',
+              red: '#FF3B30',
+              indigo: '#5856D6',
+              purple: '#AF52DE',
+              teal: '#30B0C7',
+              gray: '#8E8E93',
+              bg: '#F2F2F7',
+              card: '#FFFFFF',
+            },
             brand: {
               50: '#eff6ff',
               100: '#dbeafe',
@@ -45,6 +57,50 @@
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 
   <style>
+    
+    /* iOS Native Touch & Momentum Scrolling */
+    html {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
+    }
+    body {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* iOS Safe Area Insets for iPhones */
+    .safe-bottom {
+      padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+    }
+    .safe-top {
+      padding-top: calc(0.75rem + env(safe-area-inset-top, 0px));
+    }
+
+    /* iOS Range Slider Styling */
+    input[type=range] {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 8px;
+      border-radius: 9999px;
+      background: #e2e8f0;
+      outline: none;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+      cursor: pointer;
+      transition: transform 0.1s ease;
+    }
+    input[type=range]::-webkit-slider-thumb:active {
+      transform: scale(1.15);
+    }
+
     /* Custom Scrollbar */
     ::-webkit-scrollbar {
       width: 6px;
@@ -104,7 +160,7 @@
     }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col antialiased">
+<body class="bg-[#F2F2F7] text-slate-800 font-sans min-h-screen flex flex-col antialiased pb-24 md:pb-6">
 
   <!-- ==================== PRINT ONLY HEADER ==================== -->
   <div class="print-only mb-6">
@@ -113,15 +169,15 @@
       <h2 class="font-display font-bold text-lg text-slate-900">ព្រះរាជាណាចក្រកម្ពុជា</h2>
       <h3 class="font-display font-semibold text-base text-slate-800">ជាតិ សាសនា ព្រះមហាក្សត្រ</h3>
       <div class="w-24 h-0.5 bg-slate-800 mx-auto my-2"></div>
-      <h1 class="font-display font-bold text-xl text-blue-900 mt-2">សាលារៀន អន្តរជាតិ និងវិទ្យាស្ថានបណ្តុះបណ្តាល</h1>
+      <h1 id="printSchoolName" class="font-display font-bold text-xl text-blue-900 mt-2">សាលារៀន អន្តរជាតិ និងវិទ្យាស្ថានបណ្តុះបណ្តាល</h1>
       <h2 class="text-base font-semibold text-slate-700">របាយការណ៍វាយតម្លៃលទ្ធផលការងារ (SOP & KPI) ប្រចាំខែ</h2>
       <p id="printSubtitle" class="text-sm text-slate-600 font-medium"></p>
     </div>
   </div>
 
   <!-- ==================== TOP NAVIGATION BAR ==================== -->
-  <header class="no-print sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <header class="no-print sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-200/70 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
+    <div class="w-full max-w-[1720px] mx-auto px-3 sm:px-5 lg:px-8 transition-all duration-300">
       <div class="flex items-center justify-between h-16 sm:h-20">
         
         <!-- Brand Logo & Title -->
@@ -131,10 +187,10 @@
           </div>
           <div>
             <div class="flex items-center space-x-2">
-              <span class="font-display font-bold text-base sm:text-lg text-blue-950">ប្រព័ន្ធគ្រប់គ្រង SOP & KPI</span>
-              <span class="bg-indigo-100 text-indigo-800 text-xs px-2 py-0.5 rounded-full font-semibold border border-indigo-200">v3.0 Multi-Branch</span>
+              <span id="headerAppTitle" class="font-display font-bold text-base sm:text-lg text-blue-950">ប្រព័ន្ធគ្រប់គ្រង SOP & KPI</span>
+              <span class="bg-blue-50 text-[#007AFF] text-[10px] sm:text-xs px-2.5 py-0.5 rounded-full font-bold border border-blue-100 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[#007AFF] animate-pulse"></span> iOS Liquid Pro</span>
             </div>
-            <p class="text-xs text-slate-500 font-medium hidden sm:block">School SOP & KPI Management System</p>
+            <p id="headerSchoolSubtitle" class="text-xs text-slate-500 font-medium hidden sm:block">School SOP & KPI Management System</p>
           </div>
         </div>
 
@@ -148,7 +204,7 @@
           </div>
 
           <!-- Month Selector -->
-          <div class="flex items-center space-x-1.5 bg-blue-50/80 border border-blue-200 rounded-xl px-2.5 py-1">
+          <div class="flex items-center space-x-1 bg-slate-100/90 hover:bg-slate-200/70 border border-slate-200/80 rounded-full px-2.5 py-1 transition">
             <i data-lucide="calendar" class="w-4 h-4 text-blue-900"></i>
             <span class="text-xs font-semibold text-blue-950 hidden sm:inline">ខែ៖</span>
             <select id="monthSelector" class="bg-transparent text-sm font-bold text-blue-950 focus:outline-none cursor-pointer py-1 pr-1">
@@ -157,14 +213,14 @@
           </div>
 
           <!-- Add Staff Button -->
-          <button onclick="openStaffModal()" class="inline-flex items-center space-x-1.5 px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs sm:text-sm font-semibold transition border border-slate-300 shadow-sm active:scale-95">
+          <button onclick="openStaffModal()" class="inline-flex items-center space-x-1.5 px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-full text-xs sm:text-sm font-semibold transition border border-slate-200 shadow-xs active:scale-95">
             <i data-lucide="user-plus" class="w-4 h-4 text-slate-700"></i>
             <span class="hidden md:inline">ចុះឈ្មោះបុគ្គលិក</span>
             <span class="md:hidden">បុគ្គលិក</span>
           </button>
 
           <!-- Submit Monthly SOP Button -->
-          <button onclick="openAssessmentModal()" class="inline-flex items-center space-x-1.5 px-3 sm:px-4 py-2 bg-blue-900 hover:bg-blue-800 text-white rounded-xl text-xs sm:text-sm font-semibold transition shadow-md shadow-blue-900/20 active:scale-95">
+          <button onclick="openAssessmentModal()" class="inline-flex items-center space-x-1.5 px-3 sm:px-4 py-2 bg-[#007AFF] hover:bg-blue-600 text-white rounded-full text-xs sm:text-sm font-bold transition shadow-sm shadow-blue-500/20 active:scale-95">
             <i data-lucide="award" class="w-4 h-4 text-amber-300"></i>
             <span>បញ្ចូលពិន្ទុ SOP</span>
           </button>
@@ -180,7 +236,7 @@
   </header>
 
   <!-- ==================== MAIN CONTENT CONTAINER ==================== -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full space-y-6">
+  <main class="w-full max-w-[1720px] mx-auto px-3 sm:px-5 lg:px-8 py-5 sm:py-6 flex-1 space-y-5 sm:space-y-6 transition-all duration-300">
 
     <!-- Branch Admin Banner (If logged in as branch admin) -->
     <div id="branchAdminBanner" class="no-print hidden bg-indigo-50 border border-indigo-200 rounded-2xl p-4 flex items-center justify-between shadow-xs">
@@ -258,7 +314,7 @@
         <div class="space-y-1">
           <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">ខែសកម្មបច្ចុប្បន្ន</p>
           <h3 id="metricActiveMonthLabel" class="text-2xl font-bold text-slate-800 font-display">ខែ...</h3>
-          <p class="text-xs text-slate-500 font-medium">ឆ្នាំ២០២៦ (Academic Year)</p>
+          <p id="metricAcademicYearLabel" class="text-xs text-slate-500 font-medium">២០២៦ (Academic Year)</p>
         </div>
         <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-700">
           <i data-lucide="calendar-check" class="w-6 h-6"></i>
@@ -271,7 +327,7 @@
     <div class="no-print flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-3">
       
       <!-- Tab Buttons -->
-      <div class="flex items-center space-x-2 bg-slate-100/90 p-1 rounded-xl w-fit border border-slate-200">
+      <div class="flex items-center space-x-1 bg-slate-200/80 p-1.5 rounded-2xl w-fit border border-slate-200/60 shadow-inner flex-wrap">
         <!-- Tab 1: Staff List -->
         <button id="tabBtnList" onclick="switchTab('list')" class="px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center space-x-1.5 bg-white text-blue-900 shadow-sm">
           <i data-lucide="list" class="w-4 h-4"></i>
@@ -286,9 +342,15 @@
 
         <!-- Tab 3: Admin Accounts Management (Super Admin ONLY) -->
         <button id="tabBtnAdmins" onclick="switchTab('admins')" class="hidden px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900">
-          <i data-lucide="shield-check" class="w-4 h-4 text-amber-600"></i>
-          <span>គ្រប់គ្រង Admin សាខា</span>
-          <span class="bg-amber-100 text-amber-900 text-[10px] px-1.5 py-0.2 rounded-full font-bold">Admin ធំ</span>
+          <i data-lucide="users" class="w-4 h-4 text-indigo-600"></i>
+          <span>Admin សាខា</span>
+        </button>
+
+        <!-- Tab 4: System Configuration Center (Super Admin ONLY) -->
+        <button id="tabBtnSettings" onclick="switchTab('settings')" class="hidden px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900">
+          <i data-lucide="sliders" class="w-4 h-4 text-amber-600"></i>
+          <span>⚙️ កំណត់ប្រព័ន្ធ</span>
+          <span class="bg-amber-100 text-amber-900 text-[10px] px-1.5 py-0.5 rounded-full font-bold">Admin ធំ</span>
         </button>
       </div>
 
@@ -310,10 +372,10 @@
     <section id="tabStaffList" class="space-y-4">
       
       <!-- Search & Filter Controls -->
-      <div class="no-print bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex flex-col lg:flex-row gap-3 items-stretch lg:items-center justify-between">
+      <div class="no-print bg-white p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl border border-slate-200/70 shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between w-full">
         
         <!-- Search Input -->
-        <div class="relative w-full lg:w-72">
+        <div class="relative flex-1 min-w-[220px] w-full md:w-auto">
           <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
           <input type="text" id="searchInput" oninput="filterStaffTable()" placeholder="ស្វែងរកតាមឈ្មោះ, លេខ, ជំនាញ..." class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition">
         </div>
@@ -321,7 +383,7 @@
         <!-- Filters: Branch & Grade -->
         <div class="flex flex-wrap items-center gap-2 justify-end">
           
-          <!-- Branch Filter (Locked or Disabled for Branch Admin, Full for Super Admin) -->
+          <!-- Branch Filter -->
           <div class="flex items-center space-x-1.5 bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1">
             <i data-lucide="building-2" class="w-4 h-4 text-indigo-600"></i>
             <span class="text-xs font-semibold text-slate-600">សាខា៖</span>
@@ -338,29 +400,34 @@
               <option value="ALL">បង្ហាញទាំងអស់ (All)</option>
               <option value="EVALUATED">បានវាយតម្លៃរួច</option>
               <option value="NOT_EVALUATED">មិនទាន់វាយតម្លៃ</option>
-              <option value="A">និទ្ទេស A (ឆ្នើម 90-100)</option>
-              <option value="B">និទ្ទេស B (ល្អប្រសើរ 80-89)</option>
-              <option value="C">និទ្ទេស C (ល្អ 70-79)</option>
-              <option value="D">និទ្ទេស D (ល្អបង្គួរ 60-69)</option>
-              <option value="E">និទ្ទេស E (មធ្យម 50-59)</option>
-              <option value="F">និទ្ទេស F (ត្រូវការកែលម្អ &lt;50)</option>
+              <option value="A">និទ្ទេស A (ឆ្នើម)</option>
+              <option value="B">និទ្ទេស B (ល្អប្រសើរ)</option>
+              <option value="C">និទ្ទេស C (ល្អ)</option>
+              <option value="D">និទ្ទេស D (ល្អបង្គួរ)</option>
+              <option value="E">និទ្ទេស E (មធ្យម)</option>
+              <option value="F">និទ្ទេស F (ត្រូវការកែលម្អ)</option>
             </select>
           </div>
 
         </div>
       </div>
 
-      <!-- Staff Table Container -->
-      <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+      <!-- MOBILE / TABLET VIEW: iOS INSET GROUPED CARDS (block lg:hidden) -->
+      <div id="staffCardsContainer" class="block lg:hidden grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
+        <!-- Populated in JS -->
+      </div>
+
+      <!-- DESKTOP VIEW: iOS MODERN GLASS TABLE (hidden lg:block) -->
+      <div class="hidden lg:block bg-white rounded-2xl sm:rounded-3xl border border-slate-200/70 shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse">
             <thead>
-              <tr class="bg-slate-50/90 text-slate-700 text-xs font-semibold border-b border-slate-200 tracking-wider">
+              <tr id="staffTableHeaderRow" class="bg-slate-50/90 text-slate-700 text-xs font-semibold border-b border-slate-200 tracking-wider">
                 <th class="py-3.5 px-4 text-center w-12">ល.រ</th>
                 <th class="py-3.5 px-4">ឈ្មោះ និងព័ត៌មានបុគ្គលិក</th>
                 <th class="py-3.5 px-4">សាខា / បរិវេណ</th>
                 <th class="py-3.5 px-4">តួនាទី / កម្រិតបង្រៀន</th>
-                <th class="py-3.5 px-4 text-center">ពិន្ទុ SOP ទាំង ៤ (វិន័យ | វិធីសាស្ត្រ | លទ្ធផល | សីលធម៌)</th>
+                <th id="thSopScores" class="py-3.5 px-4 text-center">ពិន្ទុ SOP ទាំង ៤ សូចនាករ</th>
                 <th class="py-3.5 px-4 text-center">សរុប KPI</th>
                 <th class="py-3.5 px-4 text-center">និទ្ទេស</th>
                 <th class="no-print py-3.5 px-4 text-center w-36">សកម្មភាព</th>
@@ -401,8 +468,8 @@
             </h2>
             <p id="sopAnalysisSubtext" class="text-xs text-blue-200 mt-1">ទម្ងន់ពិន្ទុ និងមធ្យមភាគសរុបតាមសូចនាករស្នូលទាំង ៤ សម្រាប់ខែដែលបានជ្រើសរើស</p>
           </div>
-          <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10 text-xs font-semibold">
-            រូបមន្ត៖ <span class="text-amber-300">KPI = (S1×25%) + (S2×35%) + (S3×30%) + (S4×10%)</span>
+          <div id="sopFormulaBadge" class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10 text-xs font-semibold">
+            <!-- Dynamic formula preview -->
           </div>
         </div>
 
@@ -411,7 +478,7 @@
           
           <div class="bg-white/10 backdrop-blur-sm p-3.5 rounded-xl border border-white/10 space-y-1.5">
             <div class="flex justify-between items-center text-xs">
-              <span class="text-blue-200 font-semibold">១. ការគោរពវិន័យ (២៥%)</span>
+              <span id="globalHeaderS1" class="text-blue-200 font-semibold">១. សូចនាករ ទី១</span>
               <span id="globalAvgS1Badge" class="font-bold text-amber-300">0%</span>
             </div>
             <div class="w-full bg-black/20 rounded-full h-2">
@@ -421,7 +488,7 @@
 
           <div class="bg-white/10 backdrop-blur-sm p-3.5 rounded-xl border border-white/10 space-y-1.5">
             <div class="flex justify-between items-center text-xs">
-              <span class="text-blue-200 font-semibold">២. វិធីសាស្ត្របង្រៀន (៣៥%)</span>
+              <span id="globalHeaderS2" class="text-blue-200 font-semibold">២. សូចនាករ ទី២</span>
               <span id="globalAvgS2Badge" class="font-bold text-emerald-300">0%</span>
             </div>
             <div class="w-full bg-black/20 rounded-full h-2">
@@ -431,7 +498,7 @@
 
           <div class="bg-white/10 backdrop-blur-sm p-3.5 rounded-xl border border-white/10 space-y-1.5">
             <div class="flex justify-between items-center text-xs">
-              <span class="text-blue-200 font-semibold">៣. លទ្ធផលសិស្ស (៣០%)</span>
+              <span id="globalHeaderS3" class="text-blue-200 font-semibold">៣. សូចនាករ ទី៣</span>
               <span id="globalAvgS3Badge" class="font-bold text-cyan-300">0%</span>
             </div>
             <div class="w-full bg-black/20 rounded-full h-2">
@@ -441,7 +508,7 @@
 
           <div class="bg-white/10 backdrop-blur-sm p-3.5 rounded-xl border border-white/10 space-y-1.5">
             <div class="flex justify-between items-center text-xs">
-              <span class="text-blue-200 font-semibold">៤. សីលធម៌វិជ្ជាជីវៈ (១០%)</span>
+              <span id="globalHeaderS4" class="text-blue-200 font-semibold">៤. សូចនាករ ទី៤</span>
               <span id="globalAvgS4Badge" class="font-bold text-indigo-200">0%</span>
             </div>
             <div class="w-full bg-black/20 rounded-full h-2">
@@ -459,13 +526,13 @@
 
     </section>
 
-    <!-- ==================== TAB 3: ADMIN ACCOUNTS MANAGEMENT (SUPER ADMIN ONLY) ==================== -->
+    <!-- ==================== TAB 3: ADMIN ACCOUNTS (SUPER ADMIN ONLY) ==================== -->
     <section id="tabAdminManagement" class="hidden space-y-5">
       
       <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 class="font-display font-bold text-xl text-slate-900 flex items-center gap-2">
-            <i data-lucide="shield-check" class="w-6 h-6 text-amber-600"></i>
+            <i data-lucide="shield-check" class="w-6 h-6 text-indigo-600"></i>
             <span>គ្រប់គ្រងគណនី Admin សាខា</span>
           </h2>
           <p class="text-xs text-slate-500 mt-1">បង្កើត បិទសិទ្ធិ ឬផ្លាស់ប្តូរលេខសម្ងាត់សម្រាប់អ្នកគ្រប់គ្រងតាមសាខានីមួយៗ</p>
@@ -501,19 +568,243 @@
 
     </section>
 
+    <!-- ==================== TAB 4: SUPER ADMIN CONFIGURATION CENTER ==================== -->
+    <section id="tabSettings" class="hidden space-y-6">
+      
+      <!-- Settings Header Banner -->
+      <div class="bg-gradient-to-r from-amber-950 via-slate-900 to-blue-950 text-white p-6 rounded-3xl shadow-md flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-1.5 bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider mb-2">
+            <i data-lucide="crown" class="w-3.5 h-3.5"></i> សិទ្ធិផ្តាច់មុខ Admin ធំ (Super Admin Access Only)
+          </div>
+          <h2 class="font-display font-bold text-2xl text-white">មជ្ឈមណ្ឌលកំណត់រចនាសម្ព័ន្ធប្រព័ន្ធ (System Configuration)</h2>
+          <p class="text-xs text-slate-300 mt-1">កែប្រែសូចនាករ SOP, ទម្ងន់ភាគរយ, បញ្ជីសាខា, មាត្រដ្ឋាននិទ្ទេស និងព័ត៌មានស្ថាប័នតាមតម្រូវការជាក់ស្តែង</p>
+        </div>
+        <div class="flex items-center space-x-2">
+          <button onclick="resetSettingsToDefault()" class="px-3.5 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-xs font-semibold border border-white/20 transition">
+            🔄 កំណត់មកទម្រង់ដើម
+          </button>
+          <button onclick="saveSystemSettingsFromForm()" class="px-5 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 rounded-xl text-xs sm:text-sm font-bold shadow-md shadow-amber-500/20 transition flex items-center gap-1.5 active:scale-95">
+            <i data-lucide="save" class="w-4 h-4"></i>
+            <span>រក្សាទុកការកំណត់</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- CARD 1: SOP CRITERIA & WEIGHTS -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div class="flex items-center space-x-2">
+              <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-900 flex items-center justify-center font-bold">
+                <i data-lucide="sliders" class="w-4 h-4"></i>
+              </div>
+              <h3 class="font-display font-bold text-base text-slate-900">១. សូចនាករ SOP & ទម្ងន់ពិន្ទុ (%)</h3>
+            </div>
+            <div class="text-xs font-bold">
+              <span>សរុបទម្ងន់៖ </span>
+              <span id="settingsTotalWeight" class="text-emerald-600 font-extrabold text-sm">១០០%</span>
+            </div>
+          </div>
+
+          <p class="text-xs text-slate-500">អ្នកអាចប្តូរឈ្មោះសូចនាករ និងភាគរយទម្ងន់ពិន្ទុ (ផលបូកទម្ងន់ទាំង ៤ ត្រូវស្មើនឹង ១០០%)៖</p>
+
+          <!-- Criteria 1 -->
+          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2">
+            <label class="block text-xs font-bold text-slate-700">សូចនាករ ទី១</label>
+            <div class="flex gap-2">
+              <input type="text" id="cfgNameS1" class="flex-1 px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-blue-900" placeholder="ឈ្មោះសូចនាករទី១">
+              <div class="flex items-center space-x-1">
+                <input type="number" id="cfgWeightS1" min="1" max="100" oninput="calculateSettingsWeightTotal()" class="w-16 px-2 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-center font-bold text-blue-950 focus:outline-none focus:ring-1 focus:ring-blue-900">
+                <span class="text-xs font-bold text-slate-500">%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Criteria 2 -->
+          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2">
+            <label class="block text-xs font-bold text-slate-700">សូចនាករ ទី២</label>
+            <div class="flex gap-2">
+              <input type="text" id="cfgNameS2" class="flex-1 px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-blue-900" placeholder="ឈ្មោះសូចនាករទី២">
+              <div class="flex items-center space-x-1">
+                <input type="number" id="cfgWeightS2" min="1" max="100" oninput="calculateSettingsWeightTotal()" class="w-16 px-2 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-center font-bold text-blue-950 focus:outline-none focus:ring-1 focus:ring-blue-900">
+                <span class="text-xs font-bold text-slate-500">%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Criteria 3 -->
+          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2">
+            <label class="block text-xs font-bold text-slate-700">សូចនាករ ទី៣</label>
+            <div class="flex gap-2">
+              <input type="text" id="cfgNameS3" class="flex-1 px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-blue-900" placeholder="ឈ្មោះសូចនាករទី៣">
+              <div class="flex items-center space-x-1">
+                <input type="number" id="cfgWeightS3" min="1" max="100" oninput="calculateSettingsWeightTotal()" class="w-16 px-2 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-center font-bold text-blue-950 focus:outline-none focus:ring-1 focus:ring-blue-900">
+                <span class="text-xs font-bold text-slate-500">%</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Criteria 4 -->
+          <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2">
+            <label class="block text-xs font-bold text-slate-700">សូចនាករ ទី៤</label>
+            <div class="flex gap-2">
+              <input type="text" id="cfgNameS4" class="flex-1 px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs font-semibold focus:outline-none focus:ring-1 focus:ring-blue-900" placeholder="ឈ្មោះសូចនាករទី៤">
+              <div class="flex items-center space-x-1">
+                <input type="number" id="cfgWeightS4" min="1" max="100" oninput="calculateSettingsWeightTotal()" class="w-16 px-2 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-center font-bold text-blue-950 focus:outline-none focus:ring-1 focus:ring-blue-900">
+                <span class="text-xs font-bold text-slate-500">%</span>
+              </div>
+            </div>
+          </div>
+
+          <div id="weightErrorAlert" class="hidden bg-rose-50 text-rose-700 border border-rose-200 p-2.5 rounded-xl text-xs font-semibold flex items-center gap-1.5">
+            <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+            <span>សូមប្រុងប្រយ័ត្ន៖ ផលបូកទម្ងន់ត្រូវតែស្មើ ១០០% គត់!</span>
+          </div>
+        </div>
+
+        <!-- CARD 2: BRANCH LIST MANAGEMENT -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div class="flex items-center space-x-2">
+              <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center font-bold">
+                <i data-lucide="building-2" class="w-4 h-4"></i>
+              </div>
+              <h3 class="font-display font-bold text-base text-slate-900">២. គ្រប់គ្រងបញ្ជីសាខា (Branches)</h3>
+            </div>
+            <span id="cfgBranchCountBadge" class="text-xs font-bold bg-indigo-50 text-indigo-800 px-2 py-0.5 rounded-full border border-indigo-200">០ សាខា</span>
+          </div>
+
+          <!-- Add Branch Input -->
+          <div class="flex gap-2">
+            <input type="text" id="newBranchInput" placeholder="វាយឈ្មោះសាខាថ្មី (ឧ. សាខាពោធិ៍សែនជ័យ)..." class="flex-1 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-900/20 focus:border-indigo-900">
+            <button onclick="addNewBranchFromSettings()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition shadow-xs">
+              + បន្ថែម
+            </button>
+          </div>
+
+          <!-- Branches List -->
+          <div class="space-y-2 max-h-72 overflow-y-auto pr-1" id="cfgBranchesListContainer">
+            <!-- Rendered in JS -->
+          </div>
+        </div>
+
+        <!-- CARD 3: INSTITUTION & REPORT SETTINGS -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center space-x-2 border-b border-slate-100 pb-3">
+            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold">
+              <i data-lucide="school" class="w-4 h-4"></i>
+            </div>
+            <h3 class="font-display font-bold text-base text-slate-900">៣. ព័ត៌មានស្ថាប័ន & របាយការណ៍បោះពុម្ព</h3>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">ឈ្មោះសាលារៀន / ស្ថាប័ន</label>
+            <input type="text" id="cfgSchoolName" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 font-semibold text-slate-800">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">ចំណងជើងប្រព័ន្ធ (App Title)</label>
+            <input type="text" id="cfgAppTitle" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 font-semibold text-slate-800">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">ឆ្នាំសិក្សា (Academic Period)</label>
+            <input type="text" id="cfgAcademicYear" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 font-semibold text-slate-800">
+          </div>
+
+          <div class="pt-2 border-t border-slate-100 space-y-2">
+            <label class="block text-xs font-bold text-slate-700">តួនាទីអ្នកចុះហត្ថលេខា ៣ ថ្នាក់ (ទម្រង់បោះពុម្ព A4)</label>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <input type="text" id="cfgSigner1" placeholder="អ្នករៀបចំ" class="px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-medium">
+              <input type="text" id="cfgSigner2" placeholder="ប្រធានផ្នែក/សាខា" class="px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-medium">
+              <input type="text" id="cfgSigner3" placeholder="នាយកសាលា" class="px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-medium">
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 4: GRADING SCALE CUTOFFS -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center space-x-2 border-b border-slate-100 pb-3">
+            <div class="w-8 h-8 rounded-lg bg-cyan-50 text-cyan-700 flex items-center justify-center font-bold">
+              <i data-lucide="award" class="w-4 h-4"></i>
+            </div>
+            <h3 class="font-display font-bold text-base text-slate-900">៤. មាត្រដ្ឋានកំណត់និទ្ទេស (Grading Cutoffs)</h3>
+          </div>
+
+          <p class="text-xs text-slate-500">កំណត់កម្រិតពិន្ទុអប្បបរមា (%) សម្រាប់ទទួលនិទ្ទេសនីមួយៗ៖</p>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+            <div class="bg-emerald-50 border border-emerald-200 p-3 rounded-xl space-y-1">
+              <span class="font-bold text-emerald-900 block">និទ្ទេស A (ឆ្នើម)</span>
+              <div class="flex items-center gap-1">
+                <span class="text-slate-500 font-bold">&ge;</span>
+                <input type="number" id="cfgGradeA" min="1" max="100" class="w-14 px-2 py-1 bg-white border border-emerald-300 rounded-md text-center font-bold text-emerald-950">
+                <span class="text-slate-500 font-bold">%</span>
+              </div>
+            </div>
+
+            <div class="bg-blue-50 border border-blue-200 p-3 rounded-xl space-y-1">
+              <span class="font-bold text-blue-900 block">និទ្ទេស B (ល្អប្រសើរ)</span>
+              <div class="flex items-center gap-1">
+                <span class="text-slate-500 font-bold">&ge;</span>
+                <input type="number" id="cfgGradeB" min="1" max="100" class="w-14 px-2 py-1 bg-white border border-blue-300 rounded-md text-center font-bold text-blue-950">
+                <span class="text-slate-500 font-bold">%</span>
+              </div>
+            </div>
+
+            <div class="bg-teal-50 border border-teal-200 p-3 rounded-xl space-y-1">
+              <span class="font-bold text-teal-900 block">និទ្ទេស C (ល្អ)</span>
+              <div class="flex items-center gap-1">
+                <span class="text-slate-500 font-bold">&ge;</span>
+                <input type="number" id="cfgGradeC" min="1" max="100" class="w-14 px-2 py-1 bg-white border border-teal-300 rounded-md text-center font-bold text-teal-950">
+                <span class="text-slate-500 font-bold">%</span>
+              </div>
+            </div>
+
+            <div class="bg-amber-50 border border-amber-200 p-3 rounded-xl space-y-1">
+              <span class="font-bold text-amber-900 block">និទ្ទេស D (ល្អបង្គួរ)</span>
+              <div class="flex items-center gap-1">
+                <span class="text-slate-500 font-bold">&ge;</span>
+                <input type="number" id="cfgGradeD" min="1" max="100" class="w-14 px-2 py-1 bg-white border border-amber-300 rounded-md text-center font-bold text-amber-950">
+                <span class="text-slate-500 font-bold">%</span>
+              </div>
+            </div>
+
+            <div class="bg-orange-50 border border-orange-200 p-3 rounded-xl space-y-1">
+              <span class="font-bold text-orange-900 block">និទ្ទេស E (មធ្យម)</span>
+              <div class="flex items-center gap-1">
+                <span class="text-slate-500 font-bold">&ge;</span>
+                <input type="number" id="cfgGradeE" min="1" max="100" class="w-14 px-2 py-1 bg-white border border-orange-300 rounded-md text-center font-bold text-orange-950">
+                <span class="text-slate-500 font-bold">%</span>
+              </div>
+            </div>
+
+            <div class="bg-rose-50 border border-rose-200 p-3 rounded-xl space-y-1 flex flex-col justify-center">
+              <span class="font-bold text-rose-900 block">និទ្ទេស F (ត្រូវការកែលម្អ)</span>
+              <span class="text-xs text-rose-700 font-semibold">ក្រោមពិន្ទុនិទ្ទេស E</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
     <!-- ==================== PRINT FOOTER / SIGNATURE BLOCKS ==================== -->
     <div class="print-only mt-12 pt-6 border-t border-slate-300">
       <div class="grid grid-cols-3 text-center text-xs font-semibold text-slate-800 gap-4">
         <div class="space-y-16">
-          <p>អ្នករៀបចំរបាយការណ៍</p>
+          <p id="printSigner1Label">អ្នករៀបចំរបាយការណ៍</p>
           <p>..................................................</p>
         </div>
         <div class="space-y-16">
-          <p>ប្រធានដេប៉ាតឺម៉ង់ / សាខា</p>
+          <p id="printSigner2Label">ប្រធានដេប៉ាតឺម៉ង់ / សាខា</p>
           <p>..................................................</p>
         </div>
         <div class="space-y-16">
-          <p>បានឃើញ និងឯកភាពដោយ នាយកសាលា</p>
+          <p id="printSigner3Label">បានឃើញ និងឯកភាពដោយ នាយកសាលា</p>
           <p>..................................................</p>
         </div>
       </div>
@@ -523,8 +814,8 @@
 
   <!-- ==================== FOOTER ==================== -->
   <footer class="no-print mt-auto border-t border-slate-200 bg-white py-4 text-center text-xs text-slate-500 font-medium">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-      <p>© ២០២៦ ប្រព័ន្ធគ្រប់គ្រង SOP & KPI សាលារៀន (School SOP & KPI Management System)</p>
+    <div class="w-full max-w-[1720px] mx-auto px-3 sm:px-5 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 transition-all duration-300">
+      <p id="footerCopyText">© ២០២៦ ប្រព័ន្ធគ្រប់គ្រង SOP & KPI សាលារៀន (School SOP & KPI Management System)</p>
       <div class="flex items-center space-x-3">
         <button onclick="resetToSampleData()" class="text-blue-800 hover:underline">បញ្ចូលទិន្នន័យគំរូឡើងវិញ</button>
         <span class="text-slate-300">|</span>
@@ -578,7 +869,7 @@
         </div>
 
         <!-- Submit Button -->
-        <button type="submit" class="w-full py-2.5 bg-blue-900 hover:bg-blue-800 text-white rounded-xl font-bold text-sm transition shadow-md shadow-blue-900/20 active:scale-95 flex items-center justify-center space-x-2">
+        <button type="submit" class="w-full py-3 bg-[#007AFF] hover:bg-blue-600 text-white rounded-2xl font-bold text-sm transition shadow-sm shadow-blue-500/20 active:scale-98 flex items-center justify-center space-x-2">
           <i data-lucide="log-in" class="w-4 h-4"></i>
           <span>ចូលប្រើប្រព័ន្ធ</span>
         </button>
@@ -589,7 +880,7 @@
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5 text-xs">
             <button type="button" onclick="quickLogin('superadmin', 'admin123')" class="p-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 font-semibold transition text-left flex flex-col">
               <span class="font-bold flex items-center gap-1">👑 Admin ធំ</span>
-              <span class="text-[10px] text-amber-700">គ្រប់សាខា</span>
+              <span class="text-[10px] text-amber-700">កែប្រែបានទាំងអស់</span>
             </button>
             <button type="button" onclick="quickLogin('admin.tk', 'tk123')" class="p-2 rounded-xl bg-blue-50 hover:bg-blue-100 text-blue-900 border border-blue-200 font-semibold transition text-left flex flex-col">
               <span class="font-bold flex items-center gap-1">🏢 សាខាទួលគោក</span>
@@ -608,7 +899,8 @@
 
   <!-- 1. STAFF MODAL (ADD / EDIT) -->
   <div id="staffModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-100 overflow-hidden transform transition-all my-6">
+    <div class="bg-white rounded-t-[28px] sm:rounded-3xl max-w-md w-full shadow-2xl border border-slate-100 overflow-hidden transform transition-all my-auto sm:my-6">
+      <div class="w-10 h-1 bg-slate-300 rounded-full mx-auto my-2.5 sm:hidden"></div>
       
       <!-- Modal Header -->
       <div class="bg-blue-900 text-white px-6 py-4 flex items-center justify-between">
@@ -671,7 +963,7 @@
         <!-- Buttons -->
         <div class="flex items-center justify-end space-x-2 pt-3 border-t border-slate-100">
           <button type="button" onclick="closeStaffModal()" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100 rounded-xl transition">បោះបង់</button>
-          <button type="submit" class="px-5 py-2 text-sm font-semibold text-white bg-blue-900 hover:bg-blue-800 rounded-xl transition shadow-md shadow-blue-900/20">រក្សាទុក</button>
+          <button type="submit" class="px-5 py-2.5 text-sm font-bold text-white bg-[#007AFF] hover:bg-blue-600 rounded-xl transition shadow-sm shadow-blue-500/20 active:scale-95">រក្សាទុក</button>
         </div>
       </form>
 
@@ -680,7 +972,8 @@
 
   <!-- 2. ASSESSMENT MODAL (MONTHLY SOP SCORING) -->
   <div id="assessmentModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-white rounded-2xl max-w-xl w-full shadow-2xl border border-slate-100 overflow-hidden my-6 transform transition-all">
+    <div class="bg-white rounded-t-[28px] sm:rounded-3xl max-w-xl w-full shadow-2xl border border-slate-100 overflow-hidden my-auto sm:my-6 transform transition-all">
+      <div class="w-10 h-1 bg-slate-300 rounded-full mx-auto my-2.5 sm:hidden"></div>
       
       <!-- Modal Header -->
       <div class="bg-gradient-to-r from-blue-950 to-indigo-900 text-white px-6 py-4 flex items-center justify-between">
@@ -716,12 +1009,12 @@
             <span class="text-xs text-blue-800 font-semibold">ទម្ងន់ពិន្ទុសរុប ១០០%</span>
           </div>
 
-          <!-- Indicator 1: Discipline (25%) -->
+          <!-- Indicator 1 -->
           <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80 space-y-2">
             <div class="flex items-center justify-between">
               <div>
-                <span class="text-xs font-bold text-slate-800">១. ការគោរពវិន័យ និងម៉ោងបង្រៀន</span>
-                <span class="ml-1.5 text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-semibold border border-amber-200">ទម្ងន់ ២៥%</span>
+                <span id="lblAssessS1" class="text-xs font-bold text-slate-800">១. ការគោរពវិន័យ</span>
+                <span id="badgeAssessS1" class="ml-1.5 text-xs bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-semibold border border-amber-200">ទម្ងន់ ២៥%</span>
               </div>
               <div class="flex items-center space-x-1">
                 <input type="number" id="numS1" min="0" max="100" value="85" oninput="syncScore('s1', this.value)" class="w-16 px-2 py-1 bg-white border border-slate-300 rounded-lg text-sm text-center font-bold text-blue-950 focus:outline-none focus:ring-1 focus:ring-blue-900">
@@ -731,12 +1024,12 @@
             <input type="range" id="rangeS1" min="0" max="100" value="85" oninput="syncScore('s1', this.value)" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
           </div>
 
-          <!-- Indicator 2: Methodology (35%) -->
+          <!-- Indicator 2 -->
           <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80 space-y-2">
             <div class="flex items-center justify-between">
               <div>
-                <span class="text-xs font-bold text-slate-800">២. វិធីសាស្ត្របង្រៀន / ការងារជាក់ស្តែង</span>
-                <span class="ml-1.5 text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-semibold border border-emerald-200">ទម្ងន់ ៣៥%</span>
+                <span id="lblAssessS2" class="text-xs font-bold text-slate-800">២. វិធីសាស្ត្របង្រៀន</span>
+                <span id="badgeAssessS2" class="ml-1.5 text-xs bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-semibold border border-emerald-200">ទម្ងន់ ៣៥%</span>
               </div>
               <div class="flex items-center space-x-1">
                 <input type="number" id="numS2" min="0" max="100" value="80" oninput="syncScore('s2', this.value)" class="w-16 px-2 py-1 bg-white border border-slate-300 rounded-lg text-sm text-center font-bold text-blue-950 focus:outline-none focus:ring-1 focus:ring-blue-900">
@@ -746,12 +1039,12 @@
             <input type="range" id="rangeS2" min="0" max="100" value="80" oninput="syncScore('s2', this.value)" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
           </div>
 
-          <!-- Indicator 3: Results (30%) -->
+          <!-- Indicator 3 -->
           <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80 space-y-2">
             <div class="flex items-center justify-between">
               <div>
-                <span class="text-xs font-bold text-slate-800">៣. លទ្ធផលសិស្ស / គុណភាពការងារ</span>
-                <span class="ml-1.5 text-xs bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded-full font-semibold border border-cyan-200">ទម្ងន់ ៣០%</span>
+                <span id="lblAssessS3" class="text-xs font-bold text-slate-800">៣. លទ្ធផលសិស្ស</span>
+                <span id="badgeAssessS3" class="ml-1.5 text-xs bg-cyan-100 text-cyan-800 px-2 py-0.5 rounded-full font-semibold border border-cyan-200">ទម្ងន់ ៣០%</span>
               </div>
               <div class="flex items-center space-x-1">
                 <input type="number" id="numS3" min="0" max="100" value="75" oninput="syncScore('s3', this.value)" class="w-16 px-2 py-1 bg-white border border-slate-300 rounded-lg text-sm text-center font-bold text-blue-950 focus:outline-none focus:ring-1 focus:ring-blue-900">
@@ -761,12 +1054,12 @@
             <input type="range" id="rangeS3" min="0" max="100" value="75" oninput="syncScore('s3', this.value)" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
           </div>
 
-          <!-- Indicator 4: Ethics (10%) -->
+          <!-- Indicator 4 -->
           <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200/80 space-y-2">
             <div class="flex items-center justify-between">
               <div>
-                <span class="text-xs font-bold text-slate-800">៤. ទំនាក់ទំនង និងសីលធម៌វិជ្ជាជីវៈ</span>
-                <span class="ml-1.5 text-xs bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full font-semibold border border-indigo-200">ទម្ងន់ ១០%</span>
+                <span id="lblAssessS4" class="text-xs font-bold text-slate-800">៤. សីលធម៌វិជ្ជាជីវៈ</span>
+                <span id="badgeAssessS4" class="ml-1.5 text-xs bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full font-semibold border border-indigo-200">ទម្ងន់ ១០%</span>
               </div>
               <div class="flex items-center space-x-1">
                 <input type="number" id="numS4" min="0" max="100" value="90" oninput="syncScore('s4', this.value)" class="w-16 px-2 py-1 bg-white border border-slate-300 rounded-lg text-sm text-center font-bold text-blue-950 focus:outline-none focus:ring-1 focus:ring-blue-900">
@@ -803,7 +1096,7 @@
         <!-- Action Buttons -->
         <div class="flex items-center justify-end space-x-2 pt-3 border-t border-slate-100">
           <button type="button" onclick="closeAssessmentModal()" class="px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100 rounded-xl transition">បោះបង់</button>
-          <button type="submit" class="px-6 py-2 text-sm font-semibold text-white bg-blue-900 hover:bg-blue-800 rounded-xl transition shadow-md shadow-blue-900/20">រក្សាទុកពិន្ទុ</button>
+          <button type="submit" class="px-6 py-2.5 text-sm font-bold text-white bg-[#007AFF] hover:bg-blue-600 rounded-xl transition shadow-sm shadow-blue-500/20 active:scale-95">រក្សាទុកពិន្ទុ</button>
         </div>
 
       </form>
@@ -811,9 +1104,10 @@
     </div>
   </div>
 
-  <!-- 3. EXCEL EXPORT MODAL (BY BRANCH) -->
+  <!-- 3. EXCEL EXPORT MODAL -->
   <div id="excelExportModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-100 overflow-hidden transform transition-all my-6">
+    <div class="bg-white rounded-t-[28px] sm:rounded-3xl max-w-md w-full shadow-2xl border border-slate-100 overflow-hidden transform transition-all my-auto sm:my-6">
+      <div class="w-10 h-1 bg-slate-300 rounded-full mx-auto my-2.5 sm:hidden"></div>
       
       <!-- Modal Header -->
       <div class="bg-gradient-to-r from-emerald-800 to-teal-900 text-white px-6 py-4 flex items-center justify-between">
@@ -887,7 +1181,7 @@
     </div>
   </div>
 
-  <!-- 4. ADMIN USER MODAL (CREATE / EDIT BRANCH ADMIN - SUPER ADMIN ONLY) -->
+  <!-- 4. ADMIN USER MODAL -->
   <div id="adminUserModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl max-w-md w-full shadow-2xl border border-slate-100 overflow-hidden transform transition-all my-6">
       
@@ -1003,6 +1297,37 @@
       return String(num).replace(/[0-9]/g, (digit) => KHMER_DIGITS[parseInt(digit)]);
     }
 
+    // --- DEFAULT SYSTEM SETTINGS (FULLY CUSTOMIZABLE BY SUPER ADMIN) ---
+    const DEFAULT_SYSTEM_SETTINGS = {
+      schoolName: 'សាលារៀន អន្តរជាតិ និងវិទ្យាស្ថានបណ្តុះបណ្តាល',
+      appTitle: 'ប្រព័ន្ធគ្រប់គ្រង SOP & KPI',
+      academicYear: '២០២៦ (Academic Year)',
+      printSigner1: 'អ្នករៀបចំរបាយការណ៍',
+      printSigner2: 'ប្រធានដេប៉ាតឺម៉ង់ / សាខា',
+      printSigner3: 'បានឃើញ និងឯកភាពដោយ នាយកសាលា',
+      sopCriteria: {
+        s1: { name: 'ការគោរពវិន័យ និងម៉ោងបង្រៀន', weight: 25 },
+        s2: { name: 'វិធីសាស្ត្របង្រៀន / ការងារជាក់ស្តែង', weight: 35 },
+        s3: { name: 'លទ្ធផលសិស្ស / គុណភាពការងារ', weight: 30 },
+        s4: { name: 'ទំនាក់ទំនង និងសីលធម៌វិជ្ជាជីវៈ', weight: 10 }
+      },
+      branches: [
+        'សាខាទួលគោក',
+        'សាខាសែនសុខ',
+        'សាខាច្បារអំពៅ',
+        'សាខាបឹងកេងកង',
+        'សាខាជ្រោយចង្វារ',
+        'សាខាចំការមន'
+      ],
+      gradingScale: {
+        A: 90,
+        B: 80,
+        C: 70,
+        D: 60,
+        E: 50
+      }
+    };
+
     // --- PRE-SEEDED ADMIN ACCOUNTS ---
     const INITIAL_USERS = [
       {
@@ -1062,6 +1387,7 @@
     ];
 
     // --- APPLICATION STATE ---
+    let systemSettings = null;
     let staffList = [];
     let assessments = [];
     let adminUsers = [];
@@ -1069,7 +1395,7 @@
 
     let selectedMonth = 9; // Default to September
     let currentYear = 2026;
-    let activeTab = 'list'; // 'list', 'analysis', 'admins'
+    let activeTab = 'list'; // 'list', 'analysis', 'admins', 'settings'
     let staffIdToDelete = null;
     let adminIdToDelete = null;
 
@@ -1079,6 +1405,7 @@
       initAuthSession();
       initMonthSelector();
       initKhmerClock();
+      applySystemSettingsToUI();
       renderAll();
       lucide.createIcons();
     });
@@ -1086,6 +1413,14 @@
     // --- LOCAL STORAGE MANAGEMENT ---
     function loadStorageData() {
       try {
+        const storedSettings = localStorage.getItem('systemSettings');
+        if (storedSettings) {
+          systemSettings = JSON.parse(storedSettings);
+        } else {
+          systemSettings = JSON.parse(JSON.stringify(DEFAULT_SYSTEM_SETTINGS));
+          localStorage.setItem('systemSettings', JSON.stringify(systemSettings));
+        }
+
         const storedUsers = localStorage.getItem('adminUsers');
         if (storedUsers) {
           adminUsers = JSON.parse(storedUsers);
@@ -1114,10 +1449,15 @@
         }
       } catch (err) {
         console.error('LocalStorage error:', err);
+        systemSettings = JSON.parse(JSON.stringify(DEFAULT_SYSTEM_SETTINGS));
         adminUsers = [...INITIAL_USERS];
         staffList = [...INITIAL_STAFF];
         assessments = [...INITIAL_ASSESSMENTS];
       }
+    }
+
+    function saveSettingsToStorage() {
+      localStorage.setItem('systemSettings', JSON.stringify(systemSettings));
     }
 
     function saveUsersToStorage() {
@@ -1132,6 +1472,68 @@
       localStorage.setItem('assessments', JSON.stringify(assessments));
     }
 
+    // --- APPLY SYSTEM SETTINGS DYNAMICALLY TO UI ---
+    function applySystemSettingsToUI() {
+      if (!systemSettings) return;
+
+      // 1. App Title & Subtitle & School Name
+      const headerTitle = document.getElementById('headerAppTitle');
+      if (headerTitle) headerTitle.textContent = systemSettings.appTitle;
+
+      const headerSub = document.getElementById('headerSchoolSubtitle');
+      if (headerSub) headerSub.textContent = systemSettings.schoolName;
+
+      const printSchool = document.getElementById('printSchoolName');
+      if (printSchool) printSchool.textContent = systemSettings.schoolName;
+
+      const acadPeriod = document.getElementById('metricAcademicYearLabel');
+      if (acadPeriod) acadPeriod.textContent = systemSettings.academicYear;
+
+      const printS1 = document.getElementById('printSigner1Label');
+      if (printS1) printS1.textContent = systemSettings.printSigner1;
+      const printS2 = document.getElementById('printSigner2Label');
+      if (printS2) printS2.textContent = systemSettings.printSigner2;
+      const printS3 = document.getElementById('printSigner3Label');
+      if (printS3) printS3.textContent = systemSettings.printSigner3;
+
+      // 2. SOP Criteria in Assessment Modal
+      const s = systemSettings.sopCriteria;
+      const l1 = document.getElementById('lblAssessS1');
+      if (l1) l1.textContent = `១. ${s.s1.name}`;
+      const b1 = document.getElementById('badgeAssessS1');
+      if (b1) b1.textContent = `ទម្ងន់ ${toKhmerNum(s.s1.weight)}%`;
+
+      const l2 = document.getElementById('lblAssessS2');
+      if (l2) l2.textContent = `២. ${s.s2.name}`;
+      const b2 = document.getElementById('badgeAssessS2');
+      if (b2) b2.textContent = `ទម្ងន់ ${toKhmerNum(s.s2.weight)}%`;
+
+      const l3 = document.getElementById('lblAssessS3');
+      if (l3) l3.textContent = `៣. ${s.s3.name}`;
+      const b3 = document.getElementById('badgeAssessS3');
+      if (b3) b3.textContent = `ទម្ងន់ ${toKhmerNum(s.s3.weight)}%`;
+
+      const l4 = document.getElementById('lblAssessS4');
+      if (l4) l4.textContent = `៤. ${s.s4.name}`;
+      const b4 = document.getElementById('badgeAssessS4');
+      if (b4) b4.textContent = `ទម្ងន់ ${toKhmerNum(s.s4.weight)}%`;
+
+      // 3. SOP Analytical Overview Headers
+      const gh1 = document.getElementById('globalHeaderS1');
+      if (gh1) gh1.textContent = `១. ${s.s1.name} (${toKhmerNum(s.s1.weight)}%)`;
+      const gh2 = document.getElementById('globalHeaderS2');
+      if (gh2) gh2.textContent = `២. ${s.s2.name} (${toKhmerNum(s.s2.weight)}%)`;
+      const gh3 = document.getElementById('globalHeaderS3');
+      if (gh3) gh3.textContent = `៣. ${s.s3.name} (${toKhmerNum(s.s3.weight)}%)`;
+      const gh4 = document.getElementById('globalHeaderS4');
+      if (gh4) gh4.textContent = `៤. ${s.s4.name} (${toKhmerNum(s.s4.weight)}%)`;
+
+      const formulaBadge = document.getElementById('sopFormulaBadge');
+      if (formulaBadge) {
+        formulaBadge.innerHTML = `រូបមន្ត៖ <span class="text-amber-300">KPI = (S1×${s.s1.weight}%) + (S2×${s.s2.weight}%) + (S3×${s.s3.weight}%) + (S4×${s.s4.weight}%)</span>`;
+      }
+    }
+
     // --- AUTHENTICATION & ROLE MANAGEMENT ---
     function initAuthSession() {
       const storedSession = localStorage.getItem('currentUser');
@@ -1144,7 +1546,6 @@
       }
 
       if (!currentUser) {
-        // Default to Super Admin for smooth initial testing, or prompt login
         currentUser = adminUsers.find(u => u.role === 'SUPER_ADMIN') || INITIAL_USERS[0];
         localStorage.setItem('currentUser', JSON.stringify(currentUser));
       }
@@ -1158,6 +1559,7 @@
       const banner = document.getElementById('branchAdminBanner');
       const bannerBranch = document.getElementById('bannerBranchName');
       const tabBtnAdmins = document.getElementById('tabBtnAdmins');
+      const tabBtnSettings = document.getElementById('tabBtnSettings');
 
       // 1. Render Profile Chip in Navbar
       if (chip) {
@@ -1169,7 +1571,7 @@
             <div class="hidden lg:block text-left">
               <div class="text-xs font-bold text-slate-800 leading-tight">${currentUser.name}</div>
               <div class="text-[10px] ${isSuper ? 'text-amber-700' : 'text-indigo-700'} font-semibold leading-tight">
-                ${isSuper ? '👑 Admin ធំ (គ្រប់សាខា)' : `🏢 ${currentUser.branch}`}
+                ${isSuper ? '👑 Admin ធំ (កែប្រែបានទាំងអស់)' : `🏢 ${currentUser.branch}`}
               </div>
             </div>
             <button onclick="handleLogout()" title="ចាកចេញ (Logout)" class="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition border border-transparent hover:border-rose-100">
@@ -1189,13 +1591,21 @@
         }
       }
 
-      // 3. Tab "គ្រប់គ្រង Admin សាខា" (Super Admin ONLY)
+      // 3. Super Admin Exclusive Tabs: Admins & Settings
       if (tabBtnAdmins) {
         if (isSuper) {
           tabBtnAdmins.classList.remove('hidden');
         } else {
           tabBtnAdmins.classList.add('hidden');
-          if (activeTab === 'admins') {
+        }
+      }
+
+      if (tabBtnSettings) {
+        if (isSuper) {
+          tabBtnSettings.classList.remove('hidden');
+        } else {
+          tabBtnSettings.classList.add('hidden');
+          if (activeTab === 'settings' || activeTab === 'admins') {
             switchTab('list');
           }
         }
@@ -1267,8 +1677,7 @@
 
     // --- BRANCH HELPERS & DATA ISOLATION ---
     function getUniqueBranches() {
-      const branchesSet = new Set();
-      ['សាខាទួលគោក', 'សាខាសែនសុខ', 'សាខាច្បារអំពៅ', 'សាខាបឹងកេងកង', 'សាខាជ្រោយចង្វារ', 'សាខាចំការមន'].forEach(b => branchesSet.add(b));
+      const branchesSet = new Set(systemSettings.branches || []);
       staffList.forEach(s => {
         if (s.branch) branchesSet.add(s.branch.trim());
       });
@@ -1280,7 +1689,6 @@
       if (!currentUser || currentUser.role === 'SUPER_ADMIN') {
         return staffList;
       }
-      // Branch Admin is restricted to their branch
       return staffList.filter(s => (s.branch || 'សាខាទូទៅ') === currentUser.branch);
     }
 
@@ -1291,7 +1699,6 @@
       const isSuper = currentUser && currentUser.role === 'SUPER_ADMIN';
 
       if (!isSuper) {
-        // Locked to Branch Admin's branch
         branchFilter.innerHTML = `<option value="${currentUser.branch}">${currentUser.branch} (ជាប់សោរ)</option>`;
         branchFilter.disabled = true;
         branchFilter.value = currentUser.branch;
@@ -1365,25 +1772,32 @@
       });
     }
 
-    // --- FORMULA & GRADING SCALING LOGIC ---
+    // --- FORMULA & GRADING SCALING LOGIC (DYNAMIC BASED ON SETTINGS) ---
     function calculateKPI(s1, s2, s3, s4) {
+      const w1 = (systemSettings.sopCriteria.s1.weight || 25) / 100;
+      const w2 = (systemSettings.sopCriteria.s2.weight || 35) / 100;
+      const w3 = (systemSettings.sopCriteria.s3.weight || 30) / 100;
+      const w4 = (systemSettings.sopCriteria.s4.weight || 10) / 100;
+
       const v1 = parseFloat(s1) || 0;
       const v2 = parseFloat(s2) || 0;
       const v3 = parseFloat(s3) || 0;
       const v4 = parseFloat(s4) || 0;
-      return Math.round((v1 * 0.25) + (v2 * 0.35) + (v3 * 0.30) + (v4 * 0.10));
+
+      return Math.round((v1 * w1) + (v2 * w2) + (v3 * w3) + (v4 * w4));
     }
 
     function getGradeInfo(kpi) {
-      if (kpi >= 90) {
+      const gs = systemSettings.gradingScale || DEFAULT_SYSTEM_SETTINGS.gradingScale;
+      if (kpi >= gs.A) {
         return { grade: 'A', label: 'ឆ្នើម', colorClass: 'bg-emerald-100 text-emerald-800 border-emerald-300', badgeText: 'A (ឆ្នើម)' };
-      } else if (kpi >= 80) {
+      } else if (kpi >= gs.B) {
         return { grade: 'B', label: 'ល្អប្រសើរ', colorClass: 'bg-blue-100 text-blue-800 border-blue-300', badgeText: 'B (ល្អប្រសើរ)' };
-      } else if (kpi >= 70) {
+      } else if (kpi >= gs.C) {
         return { grade: 'C', label: 'ល្អ', colorClass: 'bg-teal-100 text-teal-800 border-teal-300', badgeText: 'C (ល្អ)' };
-      } else if (kpi >= 60) {
+      } else if (kpi >= gs.D) {
         return { grade: 'D', label: 'ល្អបង្គួរ', colorClass: 'bg-amber-100 text-amber-800 border-amber-300', badgeText: 'D (ល្អបង្គួរ)' };
-      } else if (kpi >= 50) {
+      } else if (kpi >= gs.E) {
         return { grade: 'E', label: 'មធ្យម', colorClass: 'bg-orange-100 text-orange-800 border-orange-300', badgeText: 'E (មធ្យម)' };
       } else {
         return { grade: 'F', label: 'ត្រូវការកែលម្អ', colorClass: 'bg-rose-100 text-rose-800 border-rose-300', badgeText: 'F (ត្រូវការកែលម្អ)' };
@@ -1396,39 +1810,76 @@
       const tabList = document.getElementById('tabStaffList');
       const tabAnalysis = document.getElementById('tabSopAnalysis');
       const tabAdmins = document.getElementById('tabAdminManagement');
+      const tabSettings = document.getElementById('tabSettings');
 
       const btnList = document.getElementById('tabBtnList');
       const btnAnalysis = document.getElementById('tabBtnAnalysis');
       const btnAdmins = document.getElementById('tabBtnAdmins');
+      const btnSettings = document.getElementById('tabBtnSettings');
 
       tabList.classList.add('hidden');
       tabAnalysis.classList.add('hidden');
       tabAdmins.classList.add('hidden');
+      tabSettings.classList.add('hidden');
 
       btnList.className = 'px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900';
       btnAnalysis.className = 'px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900';
       btnAdmins.className = 'px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900';
+      btnSettings.className = 'px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900';
 
       if (tab === 'list') {
         tabList.classList.remove('hidden');
-        btnList.className = 'px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center space-x-1.5 bg-white text-blue-900 shadow-sm';
+        btnList.className = 'px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center space-x-1.5 bg-white text-[#007AFF] shadow-xs';
       } else if (tab === 'analysis') {
         tabAnalysis.classList.remove('hidden');
-        btnAnalysis.className = 'px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center space-x-1.5 bg-white text-blue-900 shadow-sm';
+        btnAnalysis.className = 'px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center space-x-1.5 bg-white text-[#007AFF] shadow-xs';
       } else if (tab === 'admins') {
         tabAdmins.classList.remove('hidden');
-        btnAdmins.className = 'px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center space-x-1.5 bg-white text-amber-900 shadow-sm border border-amber-200';
+        btnAdmins.className = 'px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center space-x-1.5 bg-white text-indigo-600 shadow-xs';
         renderAdminUsersTable();
+      } else if (tab === 'settings') {
+        tabSettings.classList.remove('hidden');
+        btnSettings.className = 'px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center space-x-1.5 bg-white text-amber-600 shadow-xs';
+        populateSettingsForm();
+      }
+
+      // Sync Mobile Bottom Tab Bar
+      const mobList = document.getElementById('mobTabList');
+      const mobAnalysis = document.getElementById('mobTabAnalysis');
+      const mobAdmins = document.getElementById('mobTabAdmins');
+      const mobSettings = document.getElementById('mobTabSettings');
+      
+      [mobList, mobAnalysis, mobAdmins, mobSettings].forEach(btn => {
+        if (btn) {
+          btn.classList.remove('text-[#007AFF]', 'text-indigo-600', 'text-amber-600');
+          btn.classList.add('text-slate-400');
+        }
+      });
+
+      if (tab === 'list' && mobList) {
+        mobList.classList.remove('text-slate-400');
+        mobList.classList.add('text-[#007AFF]');
+      } else if (tab === 'analysis' && mobAnalysis) {
+        mobAnalysis.classList.remove('text-slate-400');
+        mobAnalysis.classList.add('text-[#007AFF]');
+      } else if (tab === 'admins' && mobAdmins) {
+        mobAdmins.classList.remove('text-slate-400');
+        mobAdmins.classList.add('text-indigo-600');
+      } else if (tab === 'settings' && mobSettings) {
+        mobSettings.classList.remove('text-slate-400');
+        mobSettings.classList.add('text-amber-600');
       }
       lucide.createIcons();
     }
 
     // --- RENDER ALL VIEWS & METRICS ---
     function renderAll() {
+      applySystemSettingsToUI();
       renderMetrics();
       renderStaffTable();
       renderAnalysisView();
       if (activeTab === 'admins') renderAdminUsersTable();
+      if (activeTab === 'settings') populateSettingsForm();
       lucide.createIcons();
     }
 
@@ -1498,11 +1949,12 @@
 
       if (!visibleStaff || visibleStaff.length === 0) {
         tbody.innerHTML = '';
+        const cardsCont = document.getElementById('staffCardsContainer');
+        if (cardsCont) cardsCont.innerHTML = '';
         emptyState.classList.remove('hidden');
         return;
       }
 
-      // Pair staff with their assessment for this month
       let staffRows = visibleStaff.map(staff => {
         const asm = assessments.find(a => a.staffId === staff.id && a.month === selectedMonth && a.year === currentYear);
         return { staff, asm };
@@ -1535,6 +1987,7 @@
         }
       }
 
+      const cardsContainer = document.getElementById('staffCardsContainer');
       if (staffRows.length === 0) {
         tbody.innerHTML = `
           <tr>
@@ -1544,6 +1997,15 @@
             </td>
           </tr>
         `;
+        if (cardsContainer) {
+          cardsContainer.innerHTML = `
+            <div class="col-span-full bg-white rounded-2xl sm:rounded-3xl p-8 text-center text-slate-400 text-xs border border-slate-200/70 shadow-xs">
+              <i data-lucide="search-x" class="w-8 h-8 mx-auto mb-2 text-slate-300"></i>
+              <div class="font-bold text-slate-700 text-sm">រកមិនឃើញទិន្នន័យ</div>
+              <p class="text-slate-400 mt-1">មិនមានទិន្នន័យត្រូវនឹងលក្ខខណ្ឌស្វែងរក ឬតម្រងឡើយ</p>
+            </div>
+          `;
+        }
         emptyState.classList.add('hidden');
         lucide.createIcons();
         return;
@@ -1551,6 +2013,107 @@
 
       emptyState.classList.add('hidden');
 
+      const s = systemSettings.sopCriteria;
+
+      
+      // Render Mobile iOS Inset Cards
+      if (cardsContainer) {
+        cardsContainer.innerHTML = staffRows.map(({ staff, asm }, index) => {
+          const initial = staff.name ? staff.name.trim().charAt(0) : 'ប';
+          const branchName = staff.branch || 'សាខាទូទៅ';
+          let gradePill = '';
+          let scoreBox = '';
+          if (asm) {
+            const gInfo = getGradeInfo(asm.totalKpi);
+            gradePill = `<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border shadow-2xs ${gInfo.colorClass}">${gInfo.badgeText}</span>`;
+            scoreBox = `
+              <div class="bg-slate-50/90 rounded-xl p-2.5 border border-slate-200/70 space-y-1.5">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="font-semibold text-slate-600">ពិន្ទុ SOP ទាំង ៤៖</span>
+                  <span class="font-black text-[#007AFF] font-display text-sm">${toKhmerNum(asm.totalKpi)}<span class="text-xs text-slate-400 font-normal">/100</span></span>
+                </div>
+                <div class="grid grid-cols-4 gap-1.5 text-center text-xs">
+                  <div class="bg-amber-50 border border-amber-200/80 rounded-lg py-1 px-1">
+                    <div class="text-[9px] text-amber-800 font-semibold truncate">${s.s1.name.split(' ')[0]}</div>
+                    <div class="font-black text-amber-900 text-xs">${toKhmerNum(asm.s1)}</div>
+                  </div>
+                  <div class="bg-emerald-50 border border-emerald-200/80 rounded-lg py-1 px-1">
+                    <div class="text-[9px] text-emerald-800 font-semibold truncate">${s.s2.name.split(' ')[0]}</div>
+                    <div class="font-black text-emerald-900 text-xs">${toKhmerNum(asm.s2)}</div>
+                  </div>
+                  <div class="bg-cyan-50 border border-cyan-200/80 rounded-lg py-1 px-1">
+                    <div class="text-[9px] text-cyan-800 font-semibold truncate">${s.s3.name.split(' ')[0]}</div>
+                    <div class="font-black text-cyan-900 text-xs">${toKhmerNum(asm.s3)}</div>
+                  </div>
+                  <div class="bg-indigo-50 border border-indigo-200/80 rounded-lg py-1 px-1">
+                    <div class="text-[9px] text-indigo-800 font-semibold truncate">${s.s4.name.split(' ')[0]}</div>
+                    <div class="font-black text-indigo-900 text-xs">${toKhmerNum(asm.s4)}</div>
+                  </div>
+                </div>
+              </div>
+            `;
+          } else {
+            gradePill = `<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-slate-100 text-slate-500 border border-slate-200">មិនទាន់វាយតម្លៃ</span>`;
+            scoreBox = `
+              <div class="bg-slate-50/70 rounded-xl p-2.5 text-center text-xs text-slate-400 font-medium border border-dashed border-slate-200">
+                មិនទាន់បានបញ្ចូលពិន្ទុ SOP ប្រចាំខែនេះនៅឡើយទេ
+              </div>
+            `;
+          }
+
+          return `
+            <div class="bg-white rounded-2xl p-4 border border-slate-200/70 shadow-[0_2px_8px_rgba(0,0,0,0.03)] space-y-3 transition active:scale-[0.995]">
+              <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center space-x-3 min-w-0">
+                  <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-bold flex items-center justify-center text-sm shadow-xs shrink-0">
+                    ${initial}
+                  </div>
+                  <div class="min-w-0">
+                    <h4 class="font-bold text-slate-900 text-base leading-tight truncate">${staff.name}</h4>
+                    <p class="text-xs text-slate-500 font-medium flex items-center gap-1 mt-0.5">
+                      <i data-lucide="phone" class="w-3 h-3 text-slate-400"></i> ${staff.phone}
+                    </p>
+                  </div>
+                </div>
+                <div class="shrink-0">
+                  ${gradePill}
+                </div>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-1.5 text-xs pt-1 border-t border-slate-100">
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg font-bold bg-indigo-50 text-indigo-800 border border-indigo-100">
+                  <i data-lucide="building-2" class="w-3 h-3 text-indigo-600"></i>
+                  ${branchName}
+                </span>
+                <span class="px-2 py-0.5 rounded-lg font-medium bg-slate-100 text-slate-700">
+                  ${staff.role}
+                </span>
+                <span class="px-2 py-0.5 rounded-lg font-medium text-blue-700 bg-blue-50">
+                  ${staff.subject}
+                </span>
+              </div>
+
+              ${scoreBox}
+
+              <div class="flex items-center space-x-2 pt-1">
+                <button onclick="openAssessmentForStaff('${staff.id}')" class="flex-1 py-2 px-3 bg-[#007AFF] hover:bg-blue-600 active:scale-95 text-white rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow-xs">
+                  <i data-lucide="award" class="w-3.5 h-3.5 text-amber-300"></i>
+                  <span>${asm ? 'កែប្រែពិន្ទុ' : 'បញ្ចូលពិន្ទុ SOP'}</span>
+                </button>
+                <button onclick="editStaff('${staff.id}')" class="py-2 px-3 bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 rounded-xl text-xs font-semibold transition flex items-center justify-center space-x-1 border border-slate-200">
+                  <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                  <span>កែប្រែ</span>
+                </button>
+                <button onclick="confirmDeleteStaff('${staff.id}')" class="py-2 px-2.5 bg-rose-50 hover:bg-rose-100 active:scale-95 text-rose-600 rounded-xl text-xs font-semibold transition border border-rose-200">
+                  <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Render Desktop Table Rows
       tbody.innerHTML = staffRows.map(({ staff, asm }, index) => {
         const initial = staff.name ? staff.name.trim().charAt(0) : 'ប';
         const branchName = staff.branch || 'សាខាទូទៅ';
@@ -1563,13 +2126,13 @@
           const gInfo = getGradeInfo(asm.totalKpi);
           scoreBadgesHtml = `
             <div class="flex items-center justify-center space-x-1 text-xs">
-              <span class="px-1.5 py-0.5 rounded bg-amber-50 text-amber-800 font-semibold border border-amber-200" title="វិន័យ (25%)">${toKhmerNum(asm.s1)}</span>
+              <span class="px-1.5 py-0.5 rounded bg-amber-50 text-amber-800 font-semibold border border-amber-200" title="${s.s1.name} (${s.s1.weight}%)">${toKhmerNum(asm.s1)}</span>
               <span class="text-slate-300">|</span>
-              <span class="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-800 font-semibold border border-emerald-200" title="វិធីសាស្ត្រ (35%)">${toKhmerNum(asm.s2)}</span>
+              <span class="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-800 font-semibold border border-emerald-200" title="${s.s2.name} (${s.s2.weight}%)">${toKhmerNum(asm.s2)}</span>
               <span class="text-slate-300">|</span>
-              <span class="px-1.5 py-0.5 rounded bg-cyan-50 text-cyan-800 font-semibold border border-cyan-200" title="លទ្ធផល (30%)">${toKhmerNum(asm.s3)}</span>
+              <span class="px-1.5 py-0.5 rounded bg-cyan-50 text-cyan-800 font-semibold border border-cyan-200" title="${s.s3.name} (${s.s3.weight}%)">${toKhmerNum(asm.s3)}</span>
               <span class="text-slate-300">|</span>
-              <span class="px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-800 font-semibold border border-indigo-200" title="សីលធម៌ (10%)">${toKhmerNum(asm.s4)}</span>
+              <span class="px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-800 font-semibold border border-indigo-200" title="${s.s4.name} (${s.s4.weight}%)">${toKhmerNum(asm.s4)}</span>
             </div>
           `;
 
@@ -1698,6 +2261,8 @@
         return;
       }
 
+      const s = systemSettings.sopCriteria;
+
       grid.innerHTML = visibleStaff.map(staff => {
         const asm = assessments.find(a => a.staffId === staff.id && a.month === selectedMonth && a.year === currentYear);
         const branchName = staff.branch || 'សាខាទូទៅ';
@@ -1729,10 +2294,10 @@
         const gInfo = getGradeInfo(asm.totalKpi);
 
         const scores = [
-          { name: 'ការគោរពវិន័យ', score: asm.s1 },
-          { name: 'វិធីសាស្ត្របង្រៀន', score: asm.s2 },
-          { name: 'លទ្ធផលសិស្ស', score: asm.s3 },
-          { name: 'សីលធម៌វិជ្ជាជីវៈ', score: asm.s4 }
+          { name: s.s1.name, score: asm.s1 },
+          { name: s.s2.name, score: asm.s2 },
+          { name: s.s3.name, score: asm.s3 },
+          { name: s.s4.name, score: asm.s4 }
         ];
 
         const sorted = [...scores].sort((a, b) => b.score - a.score);
@@ -1766,7 +2331,7 @@
             <div class="space-y-2.5 pt-1">
               <div class="space-y-1">
                 <div class="flex justify-between text-xs font-semibold">
-                  <span class="text-slate-600">១. ការគោរពវិន័យ (២៥%)</span>
+                  <span class="text-slate-600">១. ${s.s1.name} (${toKhmerNum(s.s1.weight)}%)</span>
                   <span class="text-slate-800">${toKhmerNum(asm.s1)}%</span>
                 </div>
                 <div class="w-full bg-slate-100 rounded-full h-2">
@@ -1776,7 +2341,7 @@
 
               <div class="space-y-1">
                 <div class="flex justify-between text-xs font-semibold">
-                  <span class="text-slate-600">២. វិធីសាស្ត្របង្រៀន (៣៥%)</span>
+                  <span class="text-slate-600">២. ${s.s2.name} (${toKhmerNum(s.s2.weight)}%)</span>
                   <span class="text-slate-800">${toKhmerNum(asm.s2)}%</span>
                 </div>
                 <div class="w-full bg-slate-100 rounded-full h-2">
@@ -1786,7 +2351,7 @@
 
               <div class="space-y-1">
                 <div class="flex justify-between text-xs font-semibold">
-                  <span class="text-slate-600">៣. លទ្ធផលសិស្ស (៣០%)</span>
+                  <span class="text-slate-600">៣. ${s.s3.name} (${toKhmerNum(s.s3.weight)}%)</span>
                   <span class="text-slate-800">${toKhmerNum(asm.s3)}%</span>
                 </div>
                 <div class="w-full bg-slate-100 rounded-full h-2">
@@ -1796,7 +2361,7 @@
 
               <div class="space-y-1">
                 <div class="flex justify-between text-xs font-semibold">
-                  <span class="text-slate-600">៤. សីលធម៌វិជ្ជាជីវៈ (១០%)</span>
+                  <span class="text-slate-600">៤. ${s.s4.name} (${toKhmerNum(s.s4.weight)}%)</span>
                   <span class="text-slate-800">${toKhmerNum(asm.s4)}%</span>
                 </div>
                 <div class="w-full bg-slate-100 rounded-full h-2">
@@ -1833,7 +2398,232 @@
       }).join('');
     }
 
-    // --- 4. ADMIN USERS MANAGEMENT (SUPER ADMIN ONLY) ---
+    // --- 4. SUPER ADMIN CONFIGURATION CENTER (TAB 4) ---
+    function populateSettingsForm() {
+      if (!systemSettings) return;
+
+      // 1. Criteria & Weights
+      const s = systemSettings.sopCriteria;
+      document.getElementById('cfgNameS1').value = s.s1.name;
+      document.getElementById('cfgWeightS1').value = s.s1.weight;
+
+      document.getElementById('cfgNameS2').value = s.s2.name;
+      document.getElementById('cfgWeightS2').value = s.s2.weight;
+
+      document.getElementById('cfgNameS3').value = s.s3.name;
+      document.getElementById('cfgWeightS3').value = s.s3.weight;
+
+      document.getElementById('cfgNameS4').value = s.s4.name;
+      document.getElementById('cfgWeightS4').value = s.s4.weight;
+
+      calculateSettingsWeightTotal();
+
+      // 2. Branches
+      renderSettingsBranchesList();
+
+      // 3. School & Print info
+      document.getElementById('cfgSchoolName').value = systemSettings.schoolName;
+      document.getElementById('cfgAppTitle').value = systemSettings.appTitle;
+      document.getElementById('cfgAcademicYear').value = systemSettings.academicYear;
+      document.getElementById('cfgSigner1').value = systemSettings.printSigner1;
+      document.getElementById('cfgSigner2').value = systemSettings.printSigner2;
+      document.getElementById('cfgSigner3').value = systemSettings.printSigner3;
+
+      // 4. Grading Cutoffs
+      const gs = systemSettings.gradingScale;
+      document.getElementById('cfgGradeA').value = gs.A;
+      document.getElementById('cfgGradeB').value = gs.B;
+      document.getElementById('cfgGradeC').value = gs.C;
+      document.getElementById('cfgGradeD').value = gs.D;
+      document.getElementById('cfgGradeE').value = gs.E;
+
+      lucide.createIcons();
+    }
+
+    function calculateSettingsWeightTotal() {
+      const w1 = parseInt(document.getElementById('cfgWeightS1').value, 10) || 0;
+      const w2 = parseInt(document.getElementById('cfgWeightS2').value, 10) || 0;
+      const w3 = parseInt(document.getElementById('cfgWeightS3').value, 10) || 0;
+      const w4 = parseInt(document.getElementById('cfgWeightS4').value, 10) || 0;
+
+      const total = w1 + w2 + w3 + w4;
+      const label = document.getElementById('settingsTotalWeight');
+      const err = document.getElementById('weightErrorAlert');
+
+      label.textContent = `${toKhmerNum(total)}%`;
+
+      if (total === 100) {
+        label.className = 'text-emerald-600 font-extrabold text-sm';
+        err.classList.add('hidden');
+      } else {
+        label.className = 'text-rose-600 font-extrabold text-sm';
+        err.classList.remove('hidden');
+      }
+    }
+
+    function renderSettingsBranchesList() {
+      const container = document.getElementById('cfgBranchesListContainer');
+      const badge = document.getElementById('cfgBranchCountBadge');
+      if (!container) return;
+
+      const branches = systemSettings.branches || [];
+      badge.textContent = `${toKhmerNum(branches.length)} សាខា`;
+
+      container.innerHTML = branches.map((branch, idx) => `
+        <div class="flex items-center justify-between p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-800">
+          <div class="flex items-center space-x-2">
+            <span class="w-5 h-5 rounded-full bg-indigo-100 text-indigo-800 flex items-center justify-center text-[10px] font-bold">${toKhmerNum(idx + 1)}</span>
+            <span>${branch}</span>
+          </div>
+          <div class="flex items-center space-x-1">
+            <button onclick="renameBranchFromSettings('${branch}')" title="ប្តូរឈ្មោះ" class="p-1 hover:bg-slate-200 rounded text-slate-600">
+              <i data-lucide="edit-2" class="w-3.5 h-3.5"></i>
+            </button>
+            <button onclick="deleteBranchFromSettings('${branch}')" title="លុបសាខា" class="p-1 hover:bg-rose-100 rounded text-rose-600">
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+      `).join('');
+
+      lucide.createIcons();
+    }
+
+    function addNewBranchFromSettings() {
+      const input = document.getElementById('newBranchInput');
+      const val = input.value.trim();
+      if (!val) {
+        alert('សូមបញ្ចូលឈ្មោះសាខាថ្មី!');
+        return;
+      }
+
+      if (!systemSettings.branches) systemSettings.branches = [];
+      if (systemSettings.branches.includes(val)) {
+        alert('សាខានេះមានរួចហើយ!');
+        return;
+      }
+
+      systemSettings.branches.push(val);
+      saveSettingsToStorage();
+      input.value = '';
+      renderSettingsBranchesList();
+      renderBranchFilterOptions();
+      showToast(`បានបន្ថែម «${val}» ជោគជ័យ!`, 'success');
+    }
+
+    function renameBranchFromSettings(oldName) {
+      const newName = prompt(`សូមបញ្ចូលឈ្មោះថ្មីសម្រាប់ «${oldName}»៖`, oldName);
+      if (!newName || newName.trim() === '' || newName.trim() === oldName) return;
+
+      const trimmed = newName.trim();
+      const idx = systemSettings.branches.indexOf(oldName);
+      if (idx !== -1) {
+        systemSettings.branches[idx] = trimmed;
+      }
+
+      // Update staff with old branch
+      staffList.forEach(s => {
+        if (s.branch === oldName) s.branch = trimmed;
+      });
+      // Update admin users with old branch
+      adminUsers.forEach(u => {
+        if (u.branch === oldName) u.branch = trimmed;
+      });
+
+      saveSettingsToStorage();
+      saveStaffToStorage();
+      saveUsersToStorage();
+      renderSettingsBranchesList();
+      renderAll();
+      showToast(`បានប្តូរឈ្មោះសាខាទៅជា «${trimmed}» ជោគជ័យ!`, 'success');
+    }
+
+    function deleteBranchFromSettings(branchName) {
+      if (!confirm(`តើអ្នកពិតជាចង់លុប «${branchName}» ចេញពីបញ្ជីសាខាមែនទេ?`)) return;
+
+      systemSettings.branches = systemSettings.branches.filter(b => b !== branchName);
+      saveSettingsToStorage();
+      renderSettingsBranchesList();
+      renderBranchFilterOptions();
+      showToast(`បានលុប «${branchName}» រួចរាល់!`, 'info');
+    }
+
+    function saveSystemSettingsFromForm() {
+      const w1 = parseInt(document.getElementById('cfgWeightS1').value, 10) || 0;
+      const w2 = parseInt(document.getElementById('cfgWeightS2').value, 10) || 0;
+      const w3 = parseInt(document.getElementById('cfgWeightS3').value, 10) || 0;
+      const w4 = parseInt(document.getElementById('cfgWeightS4').value, 10) || 0;
+
+      if ((w1 + w2 + w3 + w4) !== 100) {
+        alert('សូមត្រួតពិនិត្យទម្ងន់ពិន្ទុ! ផលបូកទម្ងន់សូចនាករទាំង ៤ ត្រូវតែស្មើ ១០០% គត់។');
+        return;
+      }
+
+      // Update Criteria
+      systemSettings.sopCriteria.s1.name = document.getElementById('cfgNameS1').value.trim() || 'សូចនាករ ទី១';
+      systemSettings.sopCriteria.s1.weight = w1;
+
+      systemSettings.sopCriteria.s2.name = document.getElementById('cfgNameS2').value.trim() || 'សូចនាករ ទី២';
+      systemSettings.sopCriteria.s2.weight = w2;
+
+      systemSettings.sopCriteria.s3.name = document.getElementById('cfgNameS3').value.trim() || 'សូចនាករ ទី៣';
+      systemSettings.sopCriteria.s3.weight = w3;
+
+      systemSettings.sopCriteria.s4.name = document.getElementById('cfgNameS4').value.trim() || 'សូចនាករ ទី៤';
+      systemSettings.sopCriteria.s4.weight = w4;
+
+      // Update Institution & Print
+      systemSettings.schoolName = document.getElementById('cfgSchoolName').value.trim() || DEFAULT_SYSTEM_SETTINGS.schoolName;
+      systemSettings.appTitle = document.getElementById('cfgAppTitle').value.trim() || DEFAULT_SYSTEM_SETTINGS.appTitle;
+      systemSettings.academicYear = document.getElementById('cfgAcademicYear').value.trim() || DEFAULT_SYSTEM_SETTINGS.academicYear;
+      systemSettings.printSigner1 = document.getElementById('cfgSigner1').value.trim() || DEFAULT_SYSTEM_SETTINGS.printSigner1;
+      systemSettings.printSigner2 = document.getElementById('cfgSigner2').value.trim() || DEFAULT_SYSTEM_SETTINGS.printSigner2;
+      systemSettings.printSigner3 = document.getElementById('cfgSigner3').value.trim() || DEFAULT_SYSTEM_SETTINGS.printSigner3;
+
+      // Update Grading
+      systemSettings.gradingScale.A = parseInt(document.getElementById('cfgGradeA').value, 10) || 90;
+      systemSettings.gradingScale.B = parseInt(document.getElementById('cfgGradeB').value, 10) || 80;
+      systemSettings.gradingScale.C = parseInt(document.getElementById('cfgGradeC').value, 10) || 70;
+      systemSettings.gradingScale.D = parseInt(document.getElementById('cfgGradeD').value, 10) || 60;
+      systemSettings.gradingScale.E = parseInt(document.getElementById('cfgGradeE').value, 10) || 50;
+
+      // Recalculate all existing assessments with new weights!
+      assessments = assessments.map(asm => {
+        const total = calculateKPI(asm.s1, asm.s2, asm.s3, asm.s4);
+        const gInfo = getGradeInfo(total);
+        return {
+          ...asm,
+          totalKpi: total,
+          grade: gInfo.grade,
+          gradeLabel: gInfo.label
+        };
+      });
+
+      saveSettingsToStorage();
+      saveAssessmentsToStorage();
+      renderAll();
+      showToast('បានរក្សាទុកការកំណត់ប្រព័ន្ធ និងគណនាពិន្ទុឡើងវិញជោគជ័យ!', 'success');
+    }
+
+    function resetSettingsToDefault() {
+      if (!confirm('តើអ្នកពិតជាចង់កំណត់ការកំណត់ប្រព័ន្ធទាំងអស់មកទម្រង់ដើមវិញមែនទេ?')) return;
+
+      systemSettings = JSON.parse(JSON.stringify(DEFAULT_SYSTEM_SETTINGS));
+      saveSettingsToStorage();
+
+      // Recalculate
+      assessments = assessments.map(asm => {
+        const total = calculateKPI(asm.s1, asm.s2, asm.s3, asm.s4);
+        const gInfo = getGradeInfo(total);
+        return { ...asm, totalKpi: total, grade: gInfo.grade, gradeLabel: gInfo.label };
+      });
+      saveAssessmentsToStorage();
+
+      renderAll();
+      showToast('បានកំណត់ប្រព័ន្ធមកទម្រង់ដើមវិញជោគជ័យ!', 'info');
+    }
+
+    // --- 5. ADMIN USERS MANAGEMENT (SUPER ADMIN ONLY) ---
     function renderAdminUsersTable() {
       const tbody = document.getElementById('adminUsersTableBody');
       if (!tbody) return;
@@ -1903,7 +2693,6 @@
       form.reset();
       document.getElementById('adminUserEditId').value = '';
 
-      // Populate branches
       const branches = getUniqueBranches();
       branchSelect.innerHTML = branches.map(b => `<option value="${b}">${b}</option>`).join('');
 
@@ -1944,7 +2733,6 @@
         return;
       }
 
-      // Check unique username
       const duplicate = adminUsers.find(u => u.username.toLowerCase() === username.toLowerCase() && u.id !== editId);
       if (duplicate) {
         alert(`ឈ្មោះគណនី «${username}» នេះមានគេប្រើរួចហើយ! សូមជ្រើសរើសឈ្មោះផ្សេង។`);
@@ -1997,7 +2785,7 @@
       lucide.createIcons();
     }
 
-    // --- 5. STAFF MANAGEMENT (CRUD) ---
+    // --- 6. STAFF MANAGEMENT (CRUD) ---
     function openStaffModal(editId = null) {
       const modal = document.getElementById('staffModal');
       const title = document.getElementById('staffModalTitle');
@@ -2014,7 +2802,6 @@
       const isSuper = currentUser && currentUser.role === 'SUPER_ADMIN';
 
       if (!isSuper) {
-        // Locked to Branch Admin's branch
         branchSelect.innerHTML = `<option value="${currentUser.branch}">${currentUser.branch}</option>`;
         branchSelect.disabled = true;
         lockedNote.classList.remove('hidden');
@@ -2150,7 +2937,7 @@
       showToast('បានលុបបុគ្គលិកចេញពីប្រព័ន្ធជោគជ័យ', 'info');
     }
 
-    // --- 6. ASSESSMENT MODAL & SCORING LOGIC ---
+    // --- 7. ASSESSMENT MODAL & SCORING LOGIC ---
     function openAssessmentModal(presetStaffId = null) {
       const visibleStaff = getScopedStaffList();
       if (!visibleStaff || visibleStaff.length === 0) {
@@ -2288,7 +3075,7 @@
       renderAll();
     }
 
-    // --- 7. EXCEL EXPORT BY BRANCH (NATIVE .XLSX VIA SHEETJS) ---
+    // --- 8. EXCEL EXPORT BY BRANCH (DYNAMIC HEADERS & WEIGHTS) ---
     function openExcelExportModal() {
       const visibleStaff = getScopedStaffList();
       if (!visibleStaff || visibleStaff.length === 0) {
@@ -2354,10 +3141,11 @@
     function generateExcelRowsForStaff(staffSubList, monthId, specificBranchName = null) {
       const monthObj = KHMER_MONTHS.find(m => m.id === monthId);
       const monthTitle = monthObj ? `ខែ${monthObj.name} (${monthObj.eng})` : '';
+      const s = systemSettings.sopCriteria;
 
       const rows = [
-        ["សាលារៀន អន្តរជាតិ និងវិទ្យាស្ថានបណ្តុះបណ្តាល"],
-        ["របាយការណ៍បុគ្គលិក និងលទ្ធផលវាយតម្លៃ SOP & KPI ប្រចាំខែ"],
+        [systemSettings.schoolName],
+        [systemSettings.appTitle + " - របាយការណ៍វាយតម្លៃលទ្ធផលការងារប្រចាំខែ"],
         [
           specificBranchName ? `សាខា៖ ${specificBranchName}` : `សាខា៖ គ្រប់សាខាទាំងអស់`,
           `កាលបរិច្ឆេទវាយតម្លៃ៖ ${monthTitle} ឆ្នាំ${currentYear}`
@@ -2371,10 +3159,10 @@
           "សាខា / បរិវេណ",
           "តួនាទី / មុខតំណែង",
           "ជំនាញ / កម្រិតបង្រៀន",
-          "១. វិន័យ & ម៉ោង (25%)",
-          "២. វិធីសាស្ត្របង្រៀន (35%)",
-          "៣. លទ្ធផលសិស្ស (30%)",
-          "៤. សីលធម៌វិជ្ជាជីវៈ (10%)",
+          `១. ${s.s1.name} (${s.s1.weight}%)`,
+          `២. ${s.s2.name} (${s.s2.weight}%)`,
+          `៣. ${s.s3.name} (${s.s3.weight}%)`,
+          `៤. ${s.s4.name} (${s.s4.weight}%)`,
           "ពិន្ទុ KPI សរុប",
           "និទ្ទេស",
           "ស្ថានភាពវាយតម្លៃ",
@@ -2413,10 +3201,10 @@
         { wch: 20 }, // Branch
         { wch: 24 }, // Role
         { wch: 28 }, // Subject
-        { wch: 20 }, // S1
-        { wch: 22 }, // S2
-        { wch: 20 }, // S3
-        { wch: 22 }, // S4
+        { wch: 24 }, // S1
+        { wch: 24 }, // S2
+        { wch: 24 }, // S3
+        { wch: 24 }, // S4
         { wch: 16 }, // KPI
         { wch: 18 }, // Grade
         { wch: 18 }, // Status
@@ -2483,7 +3271,7 @@
       closeExcelExportModal();
     }
 
-    // --- 8. TOAST NOTIFICATION UTILITY ---
+    // --- 9. TOAST NOTIFICATION UTILITY ---
     let toastTimeout = null;
     function showToast(message, type = 'success') {
       const toast = document.getElementById('toast');
@@ -2517,10 +3305,12 @@
     // Reset Sample Data
     function resetToSampleData() {
       if (confirm('តើអ្នកពិតជាចង់កំណត់ទិន្នន័យគំរូឡើងវិញមែនទេ?')) {
+        systemSettings = JSON.parse(JSON.stringify(DEFAULT_SYSTEM_SETTINGS));
         adminUsers = [...INITIAL_USERS];
         staffList = [...INITIAL_STAFF];
         assessments = [...INITIAL_ASSESSMENTS];
         currentUser = adminUsers[0];
+        saveSettingsToStorage();
         saveUsersToStorage();
         saveStaffToStorage();
         saveAssessmentsToStorage();
@@ -2542,5 +3332,26 @@
       }
     }
   </script>
+
+  <!-- ==================== iOS MOBILE BOTTOM TAB BAR ==================== -->
+  <nav id="mobileBottomBar" class="no-print fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/85 backdrop-blur-2xl border-t border-slate-200/80 py-1.5 px-3 flex justify-around items-center shadow-[0_-2px_12px_rgba(0,0,0,0.05)] safe-bottom">
+    <button id="mobTabList" onclick="switchTab('list')" class="flex flex-col items-center py-1 px-3 text-[#007AFF] transition active:scale-90">
+      <i data-lucide="users" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold mt-0.5">បុគ្គលិក</span>
+    </button>
+    <button id="mobTabAnalysis" onclick="switchTab('analysis')" class="flex flex-col items-center py-1 px-3 text-slate-400 hover:text-slate-600 transition active:scale-90">
+      <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+      <span class="text-[10px] font-semibold mt-0.5">វិភាគ SOP</span>
+    </button>
+    <button id="mobTabAdmins" onclick="switchTab('admins')" class="hidden flex flex-col items-center py-1 px-3 text-slate-400 hover:text-slate-600 transition active:scale-90">
+      <i data-lucide="shield-check" class="w-5 h-5"></i>
+      <span class="text-[10px] font-semibold mt-0.5">Admin</span>
+    </button>
+    <button id="mobTabSettings" onclick="switchTab('settings')" class="hidden flex flex-col items-center py-1 px-3 text-slate-400 hover:text-slate-600 transition active:scale-90">
+      <i data-lucide="settings" class="w-5 h-5"></i>
+      <span class="text-[10px] font-semibold mt-0.5">កំណត់ប្រព័ន្ធ</span>
+    </button>
+  </nav>
+
 </body>
 </html>
