@@ -15,6 +15,7 @@
   <meta name="apple-mobile-web-app-title" content="V2-KPI">
   <meta name="application-name" content="V2-KPI">
   <meta name="theme-color" content="#ffffff">
+  <link rel="icon" type="image/png" href="v2b.png">
   
   <!-- Google Fonts: Kantumruy Pro & Battambang -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -188,57 +189,57 @@
   </div>
 
   <!-- ==================== TOP NAVIGATION BAR ==================== -->
-  <header class="no-print sticky top-0 z-40 bg-white/85 backdrop-blur-xl border-b border-slate-200/80 shadow-[0_1px_4px_rgba(0,0,0,0.03)] safe-top">
+  <header class="no-print sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-200/70 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
     <div class="w-full max-w-[1720px] mx-auto px-3 sm:px-5 lg:px-8 transition-all duration-300">
-      <div class="flex items-center justify-between h-15 sm:h-18">
+      <div class="flex items-center justify-between h-16 sm:h-20">
         
         <!-- Brand Logo & Title -->
-        <div class="flex items-center space-x-2 sm:space-x-3 shrink-0">
-          <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-white p-1 flex items-center justify-center shadow-xs border border-slate-200/90 shrink-0">
-            <img src="v2b.png" alt="V2-KPI Logo" class="w-full h-full object-contain rounded-xl">
+        <div class="flex items-center space-x-3 rtl:space-x-reverse">
+          <div class="w-11 h-11 sm:w-13 sm:h-13 rounded-2xl bg-white p-1 flex items-center justify-center shadow-md border border-slate-200 shrink-0">
+            <img src="v2b.png" alt="V2 Education Logo" class="w-full h-full object-contain rounded-xl">
           </div>
           <div>
-            <div class="flex items-center space-x-1.5 sm:space-x-2">
+            <div class="flex items-center space-x-2">
               <span id="headerAppTitle" class="font-display font-black text-lg sm:text-xl text-slate-900 tracking-tight">V2-KPI</span>
-              <span class="bg-blue-50 text-[#007AFF] text-[10px] sm:text-xs px-2 py-0.5 rounded-full font-bold border border-blue-100 hidden sm:inline-flex">Pro</span>
+              <span class="bg-blue-50 text-[#007AFF] text-[10px] sm:text-xs px-2.5 py-0.5 rounded-full font-bold border border-blue-100 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-[#007AFF] animate-pulse"></span> Pro</span>
             </div>
-            <p id="headerSchoolSubtitle" class="text-[11px] sm:text-xs text-slate-500 font-medium hidden md:block truncate max-w-xs">School SOP & KPI Management System</p>
+            <p id="headerSchoolSubtitle" class="text-xs text-slate-500 font-medium hidden sm:block">School SOP & KPI Management System</p>
           </div>
         </div>
 
         <!-- Controls: Live Date, Month Selector, User Profile & Actions -->
-        <div class="flex items-center space-x-1.5 sm:space-x-3">
+        <div class="flex items-center space-x-2 sm:space-x-3">
           
-          <!-- Real-Time Khmer Clock (Desktop only) -->
-          <div class="hidden 2xl:flex items-center space-x-2 bg-slate-100/90 px-3 py-1.5 rounded-full border border-slate-200/80 text-xs text-slate-600 font-medium">
-            <i data-lucide="clock" class="w-3.5 h-3.5 text-[#007AFF]"></i>
+          <!-- Real-Time Khmer Clock -->
+          <div class="hidden 2xl:flex items-center space-x-2 bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200/80 text-xs text-slate-600 font-medium">
+            <i data-lucide="clock" class="w-3.5 h-3.5 text-blue-700"></i>
             <span id="liveKhmerClock">កំពុងផ្ទុក...</span>
           </div>
 
-          <!-- Month Selector (Compact on Mobile, Full on Desktop) -->
-          <div class="flex items-center space-x-1 bg-slate-100/90 hover:bg-slate-200/70 border border-slate-200/80 rounded-full px-2 sm:px-2.5 py-1 transition">
-            <i data-lucide="calendar" class="w-3.5 h-3.5 text-[#007AFF] shrink-0"></i>
-            <span class="text-xs font-semibold text-slate-700 hidden sm:inline">ខែ៖</span>
-            <select id="monthSelector" class="bg-transparent text-xs sm:text-sm font-bold text-slate-900 focus:outline-none cursor-pointer py-0.5 pr-0.5 max-w-[110px] xs:max-w-none">
+          <!-- Month Selector -->
+          <div class="flex items-center space-x-1 bg-slate-100/90 hover:bg-slate-200/70 border border-slate-200/80 rounded-full px-2.5 py-1 transition">
+            <i data-lucide="calendar" class="w-4 h-4 text-blue-900"></i>
+            <span class="text-xs font-semibold text-blue-950 hidden sm:inline">ខែ៖</span>
+            <select id="monthSelector" class="bg-transparent text-sm font-bold text-blue-950 focus:outline-none cursor-pointer py-1 pr-1">
               <!-- Populated in JS -->
             </select>
           </div>
 
-          <!-- Add Staff Button (Tablet / Laptop / Desktop Only) -->
-          <button onclick="openStaffModal()" class="hidden md:inline-flex items-center space-x-1.5 px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-full text-xs sm:text-sm font-semibold transition border border-slate-200 shadow-2xs active:scale-95">
+          <!-- Add Staff Button -->
+          <button onclick="openStaffModal()" class="inline-flex items-center space-x-1.5 px-3 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-full text-xs sm:text-sm font-semibold transition border border-slate-200 shadow-xs active:scale-95">
             <i data-lucide="user-plus" class="w-4 h-4 text-slate-700"></i>
-            <span>ចុះឈ្មោះបុគ្គលិក</span>
+            <span class="hidden md:inline">ចុះឈ្មោះបុគ្គលិក</span>
+            <span class="md:hidden">បុគ្គលិក</span>
           </button>
 
           <!-- Submit Monthly SOP Button -->
-          <button onclick="openAssessmentModal()" class="inline-flex items-center space-x-1 px-2.5 sm:px-4 py-1.5 sm:py-2 bg-[#007AFF] hover:bg-blue-600 text-white rounded-full text-xs sm:text-sm font-bold transition shadow-sm shadow-blue-500/20 active:scale-95 shrink-0">
-            <i data-lucide="award" class="w-3.5 h-3.5 text-amber-300"></i>
-            <span class="hidden xs:inline sm:inline">បញ្ចូលពិន្ទុ SOP</span>
-            <span class="xs:hidden sm:hidden">ពិន្ទុ</span>
+          <button onclick="openAssessmentModal()" class="inline-flex items-center space-x-1.5 px-3 sm:px-4 py-2 bg-[#007AFF] hover:bg-blue-600 text-white rounded-full text-xs sm:text-sm font-bold transition shadow-sm shadow-blue-500/20 active:scale-95">
+            <i data-lucide="award" class="w-4 h-4 text-amber-300"></i>
+            <span>បញ្ចូលពិន្ទុ SOP</span>
           </button>
 
           <!-- User Profile & Logout Chip -->
-          <div id="userProfileChip" class="flex items-center space-x-1 sm:space-x-2 pl-1 sm:pl-2 border-l border-slate-200">
+          <div id="userProfileChip" class="flex items-center space-x-2 pl-2 border-l border-slate-200">
             <!-- Populated via JS -->
           </div>
 
@@ -269,71 +270,266 @@
       </div>
     </div>
 
-    <!-- ==================== SUMMARY METRIC CARDS (iOS WIDGET 2x2 ON MOBILE, 4 COLS ON DESKTOP) ==================== -->
+    <!-- ==================== SUMMARY METRIC CARDS ==================== -->
     <div class="no-print grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
       
       <!-- Card 1: Total Staff -->
-      <div class="bg-white p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-200/70 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-md transition flex items-center justify-between">
-        <div class="space-y-0.5 sm:space-y-1 min-w-0">
-          <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-400 truncate">បុគ្គលិកសរុប</p>
-          <div class="flex items-baseline space-x-1.5">
-            <h3 id="metricTotalStaff" class="text-2xl sm:text-3xl font-black text-slate-900 font-display">០</h3>
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow transition flex items-center justify-between">
+        <div class="space-y-1">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">បុគ្គលិកសរុប</p>
+          <div class="flex items-baseline space-x-2">
+            <h3 id="metricTotalStaff" class="text-3xl font-bold text-slate-900 font-display">០</h3>
             <span class="text-xs text-slate-500 font-medium">នាក់</span>
           </div>
-          <p id="metricBranchesCountSub" class="text-[10px] sm:text-xs text-indigo-600 flex items-center gap-1 font-medium truncate">
-            <i data-lucide="building-2" class="w-3 h-3 shrink-0"></i> គ្រប់សាខា
+          <p id="metricBranchesCountSub" class="text-xs text-indigo-600 flex items-center gap-1 font-medium">
+            <i data-lucide="building-2" class="w-3.5 h-3.5"></i> ក្នុងដែនសមត្ថកិច្ច
           </p>
         </div>
-        <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-blue-50 border border-blue-100/80 flex items-center justify-center text-[#007AFF] shrink-0 ml-1">
-          <i data-lucide="users" class="w-4 h-4 sm:w-6 sm:h-6"></i>
+        <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-900">
+          <i data-lucide="users" class="w-6 h-6"></i>
         </div>
       </div>
 
       <!-- Card 2: Average KPI -->
-      <div class="bg-white p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-200/70 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-md transition flex items-center justify-between">
-        <div class="space-y-0.5 sm:space-y-1 min-w-0">
-          <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-400 truncate">មធ្យមភាគ KPI</p>
-          <div class="flex items-baseline space-x-1.5">
-            <h3 id="metricAvgKpi" class="text-2xl sm:text-3xl font-black text-[#007AFF] font-display">0%</h3>
-            <span id="metricAvgGradeBadge" class="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 rounded-full font-bold bg-slate-100 text-slate-600 truncate">គ្មាន</span>
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow transition flex items-center justify-between">
+        <div class="space-y-1">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">មធ្យមភាគ KPI ប្រចាំខែ</p>
+          <div class="flex items-baseline space-x-2">
+            <h3 id="metricAvgKpi" class="text-3xl font-bold text-blue-900 font-display">0%</h3>
+            <span id="metricAvgGradeBadge" class="text-xs px-2 py-0.5 rounded-full font-bold bg-slate-100 text-slate-600">គ្មាន</span>
           </div>
-          <p id="metricAvgKpiSub" class="text-[10px] sm:text-xs text-slate-500 font-medium truncate">ប្រចាំខែ</p>
+          <p id="metricAvgKpiSub" class="text-xs text-slate-500 font-medium">គិតលើបុគ្គលិកដែលបានវាយតម្លៃ</p>
         </div>
-        <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-indigo-50 border border-indigo-100/80 flex items-center justify-center text-indigo-600 shrink-0 ml-1">
-          <i data-lucide="trending-up" class="w-4 h-4 sm:w-6 sm:h-6"></i>
+        <div class="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-700">
+          <i data-lucide="trending-up" class="w-6 h-6"></i>
         </div>
       </div>
 
       <!-- Card 3: Evaluated vs Pending -->
-      <div class="bg-white p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-200/70 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-md transition flex items-center justify-between">
-        <div class="space-y-0.5 sm:space-y-1 min-w-0">
-          <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-400 truncate">ស្ថានភាពវាយតម្លៃ</p>
-          <div class="flex items-baseline space-x-1.5">
-            <h3 id="metricEvaluatedCount" class="text-2xl sm:text-3xl font-black text-[#34C759] font-display">០/០</h3>
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow transition flex items-center justify-between">
+        <div class="space-y-1">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">ស្ថានភាពវាយតម្លៃ</p>
+          <div class="flex items-baseline space-x-2">
+            <h3 id="metricEvaluatedCount" class="text-3xl font-bold text-emerald-700 font-display">០/០</h3>
             <span class="text-xs text-slate-500 font-medium">នាក់</span>
           </div>
-          <div class="w-20 sm:w-32 bg-slate-100 rounded-full h-1.5 sm:h-2 overflow-hidden">
-            <div id="metricProgressBar" class="bg-[#34C759] h-1.5 sm:h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+          <div class="w-32 bg-slate-100 rounded-full h-2 overflow-hidden">
+            <div id="metricProgressBar" class="bg-emerald-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
           </div>
         </div>
-        <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-emerald-50 border border-emerald-100/80 flex items-center justify-center text-[#34C759] shrink-0 ml-1">
-          <i data-lucide="clipboard-check" class="w-4 h-4 sm:w-6 sm:h-6"></i>
+        <div class="w-12 h-12 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-700">
+          <i data-lucide="clipboard-check" class="w-6 h-6"></i>
         </div>
       </div>
 
       <!-- Card 4: Selected Period -->
-      <div class="bg-white p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl border border-slate-200/70 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-md transition flex items-center justify-between">
-        <div class="space-y-0.5 sm:space-y-1 min-w-0">
-          <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-slate-400 truncate">ខែសកម្ម</p>
-          <h3 id="metricActiveMonthLabel" class="text-xl sm:text-2xl font-black text-slate-800 font-display truncate">ខែ...</h3>
-          <p id="metricAcademicYearLabel" class="text-[10px] sm:text-xs text-slate-500 font-medium truncate">២០២៦</p>
+      <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:shadow transition flex items-center justify-between">
+        <div class="space-y-1">
+          <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">ខែសកម្មបច្ចុប្បន្ន</p>
+          <h3 id="metricActiveMonthLabel" class="text-2xl font-bold text-slate-800 font-display">ខែ...</h3>
+          <p id="metricAcademicYearLabel" class="text-xs text-slate-500 font-medium">២០២៦ (Academic Year)</p>
         </div>
-        <div class="w-9 h-9 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-amber-50 border border-amber-100/80 flex items-center justify-center text-[#FF9500] shrink-0 ml-1">
-          <i data-lucide="calendar-check" class="w-4 h-4 sm:w-6 sm:h-6"></i>
+        <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-700">
+          <i data-lucide="calendar-check" class="w-6 h-6"></i>
         </div>
       </div>
 
     </div>
+
+    <!-- ==================== TABS & ACTION TOOLBAR ==================== -->
+    <div class="no-print flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 pb-3">
+      
+      <!-- Tab Buttons -->
+      <div class="flex items-center space-x-1 sm:space-x-1.5 bg-slate-200/80 p-1.5 rounded-2xl w-full md:w-fit border border-slate-200/60 shadow-inner overflow-x-auto no-scrollbar">
+        <!-- Tab 1: Staff List -->
+        <button id="tabBtnList" onclick="switchTab('list')" class="px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center space-x-1.5 bg-white text-[#007AFF] shadow-xs shrink-0">
+          <i data-lucide="list" class="w-4 h-4"></i>
+          <span>បញ្ជីបុគ្គលិក</span>
+        </button>
+        
+        <!-- Tab 2: SOP Analysis -->
+        <button id="tabBtnAnalysis" onclick="switchTab('analysis')" class="px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900 shrink-0">
+          <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+          <span>វិភាគ SOP</span>
+        </button>
+
+        <!-- Tab 3: Admin Accounts Management (Super Admin ONLY) -->
+        <button id="tabBtnAdmins" onclick="switchTab('admins')" class="hidden px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900 shrink-0">
+          <i data-lucide="users" class="w-4 h-4 text-indigo-600"></i>
+          <span>Admin សាខា</span>
+        </button>
+
+        <!-- Tab 4: System Configuration Center (Super Admin ONLY) -->
+        <button id="tabBtnSettings" onclick="switchTab('settings')" class="hidden px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900 shrink-0">
+          <i data-lucide="sliders" class="w-4 h-4 text-amber-600"></i>
+          <span>⚙️ កំណត់ប្រព័ន្ធ</span>
+          <span class="bg-amber-100 text-amber-900 text-[10px] px-1.5 py-0.5 rounded-full font-bold">Admin ធំ</span>
+        </button>
+      </div>
+
+      <!-- Action & Export Tools -->
+      <div class="flex items-center flex-wrap gap-2">
+        <button onclick="openExcelExportModal()" class="inline-flex items-center space-x-1.5 px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs sm:text-sm font-semibold shadow-sm transition active:scale-95">
+          <i data-lucide="file-spreadsheet" class="w-4 h-4 text-emerald-200"></i>
+          <span>ទាញយក Excel</span>
+        </button>
+
+        <button onclick="window.print()" class="inline-flex items-center space-x-1.5 px-3 py-2 bg-white hover:bg-slate-50 text-slate-700 rounded-xl text-xs sm:text-sm font-semibold border border-slate-300 shadow-sm transition">
+          <i data-lucide="printer" class="w-4 h-4 text-slate-600"></i>
+          <span>បោះពុម្ព (PDF)</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 1: STAFF LIST VIEW ==================== -->
+    <section id="tabStaffList" class="space-y-4">
+      
+      <!-- Search & Filter Controls -->
+      <div class="no-print bg-white p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl border border-slate-200/70 shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between w-full">
+        
+        <!-- Search Input -->
+        <div class="relative flex-1 min-w-[220px] w-full md:w-auto">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+          <input type="text" id="searchInput" oninput="filterStaffTable()" placeholder="ស្វែងរកតាមឈ្មោះ, លេខ, ជំនាញ..." class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition">
+        </div>
+
+        <!-- Filters: Branch & Grade -->
+        <div class="flex flex-wrap items-center gap-2 justify-end">
+          
+          <!-- Branch Filter -->
+          <div class="flex items-center space-x-1.5 bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1">
+            <i data-lucide="building-2" class="w-4 h-4 text-indigo-600"></i>
+            <span class="text-xs font-semibold text-slate-600">សាខា៖</span>
+            <select id="branchFilter" onchange="filterStaffTable()" class="bg-transparent text-xs sm:text-sm font-medium text-slate-800 focus:outline-none cursor-pointer py-1">
+              <option value="ALL">គ្រប់សាខាទាំងអស់ (All)</option>
+            </select>
+          </div>
+
+          <!-- Grade Filter -->
+          <div class="flex items-center space-x-1.5 bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1">
+            <i data-lucide="filter" class="w-4 h-4 text-blue-800"></i>
+            <span class="text-xs font-semibold text-slate-600">និទ្ទេស៖</span>
+            <select id="gradeFilter" onchange="filterStaffTable()" class="bg-transparent text-xs sm:text-sm font-medium text-slate-800 focus:outline-none cursor-pointer py-1">
+              <option value="ALL">បង្ហាញទាំងអស់ (All)</option>
+              <option value="EVALUATED">បានវាយតម្លៃរួច</option>
+              <option value="NOT_EVALUATED">មិនទាន់វាយតម្លៃ</option>
+              <option value="A">និទ្ទេស A (ឆ្នើម)</option>
+              <option value="B">និទ្ទេស B (ល្អប្រសើរ)</option>
+              <option value="C">និទ្ទេស C (ល្អ)</option>
+              <option value="D">និទ្ទេស D (ល្អបង្គួរ)</option>
+              <option value="E">និទ្ទេស E (មធ្យម)</option>
+              <option value="F">និទ្ទេស F (ត្រូវការកែលម្អ)</option>
+            </select>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- MOBILE / TABLET VIEW: iOS INSET GROUPED CARDS (block lg:hidden) -->
+      <div id="staffCardsContainer" class="block lg:hidden grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4">
+        <!-- Populated in JS -->
+      </div>
+
+      <!-- DESKTOP VIEW: iOS MODERN GLASS TABLE (hidden lg:block) -->
+      <div class="hidden lg:block bg-white rounded-2xl sm:rounded-3xl border border-slate-200/70 shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr id="staffTableHeaderRow" class="bg-slate-50/90 text-slate-700 text-xs font-semibold border-b border-slate-200 tracking-wider">
+                <th class="py-3.5 px-4 text-center w-12">ល.រ</th>
+                <th class="py-3.5 px-4">ឈ្មោះ និងព័ត៌មានបុគ្គលិក</th>
+                <th class="py-3.5 px-4">សាខា / បរិវេណ</th>
+                <th class="py-3.5 px-4">តួនាទី / កម្រិតបង្រៀន</th>
+                <th id="thSopScores" class="py-3.5 px-4 text-center">ពិន្ទុ SOP ទាំង ៤ សូចនាករ</th>
+                <th class="py-3.5 px-4 text-center">សរុប KPI</th>
+                <th class="py-3.5 px-4 text-center">និទ្ទេស</th>
+                <th class="no-print py-3.5 px-4 text-center w-36">សកម្មភាព</th>
+              </tr>
+            </thead>
+            <tbody id="staffTableBody" class="divide-y divide-slate-100 text-sm">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Empty State Container -->
+        <div id="emptyState" class="hidden py-16 px-4 text-center space-y-3">
+          <div class="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
+            <i data-lucide="users-round" class="w-8 h-8"></i>
+          </div>
+          <h4 class="text-base font-bold text-slate-700">មិនមានទិន្នន័យបុគ្គលិកនៅឡើយទេ</h4>
+          <p class="text-xs text-slate-500 max-w-sm mx-auto">សូមចុចប៊ូតុងខាងក្រោមដើម្បីចុះឈ្មោះបុគ្គលិកថ្មីចូលក្នុងប្រព័ន្ធ ឬកែប្រែការស្វែងរករបស់អ្នក។</p>
+          <button onclick="openStaffModal()" class="inline-flex items-center space-x-1.5 px-4 py-2 bg-blue-900 text-white rounded-xl text-xs font-semibold hover:bg-blue-800 transition">
+            <i data-lucide="user-plus" class="w-4 h-4"></i>
+            <span>ចុះឈ្មោះបុគ្គលិកថ្មី</span>
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ==================== TAB 2: SOP ANALYTICAL BREAKDOWN ==================== -->
+    <section id="tabSopAnalysis" class="hidden space-y-6">
+      
+      <!-- Criteria Overview Header -->
+      <div class="bg-gradient-to-r from-blue-950 via-blue-900 to-indigo-900 text-white p-6 rounded-2xl shadow-md space-y-4">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h2 class="font-display font-bold text-xl flex items-center gap-2">
+              <i data-lucide="pie-chart" class="w-5 h-5 text-amber-300"></i>
+              <span>វិភាគលទ្ធផលសូចនាករ SOP សាលារៀន</span>
+            </h2>
+            <p id="sopAnalysisSubtext" class="text-xs text-blue-200 mt-1">ទម្ងន់ពិន្ទុ និងមធ្យមភាគសរុបតាមសូចនាករស្នូលទាំង ៤ សម្រាប់ខែដែលបានជ្រើសរើស</p>
+          </div>
+          <div id="sopFormulaBadge" class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/10 text-xs font-semibold">
+            <!-- Dynamic formula preview -->
+          </div>
+        </div>
+
+        <!-- 4 Criteria Global Averages -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
+          
+          <div class="bg-white/10 backdrop-blur-sm p-3.5 rounded-xl border border-white/10 space-y-1.5">
+            <div class="flex justify-between items-center text-xs">
+              <span id="globalHeaderS1" class="text-blue-200 font-semibold">១. សូចនាករ ទី១</span>
+              <span id="globalAvgS1Badge" class="font-bold text-amber-300">0%</span>
+            </div>
+            <div class="w-full bg-black/20 rounded-full h-2">
+              <div id="globalAvgS1Bar" class="bg-amber-400 h-2 rounded-full transition-all" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div class="bg-white/10 backdrop-blur-sm p-3.5 rounded-xl border border-white/10 space-y-1.5">
+            <div class="flex justify-between items-center text-xs">
+              <span id="globalHeaderS2" class="text-blue-200 font-semibold">២. សូចនាករ ទី២</span>
+              <span id="globalAvgS2Badge" class="font-bold text-emerald-300">0%</span>
+            </div>
+            <div class="w-full bg-black/20 rounded-full h-2">
+              <div id="globalAvgS2Bar" class="bg-emerald-400 h-2 rounded-full transition-all" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div class="bg-white/10 backdrop-blur-sm p-3.5 rounded-xl border border-white/10 space-y-1.5">
+            <div class="flex justify-between items-center text-xs">
+              <span id="globalHeaderS3" class="text-blue-200 font-semibold">៣. សូចនាករ ទី៣</span>
+              <span id="globalAvgS3Badge" class="font-bold text-cyan-300">0%</span>
+            </div>
+            <div class="w-full bg-black/20 rounded-full h-2">
+              <div id="globalAvgS3Bar" class="bg-cyan-400 h-2 rounded-full transition-all" style="width: 0%"></div>
+            </div>
+          </div>
+
+          <div class="bg-white/10 backdrop-blur-sm p-3.5 rounded-xl border border-white/10 space-y-1.5">
+            <div class="flex justify-between items-center text-xs">
+              <span id="globalHeaderS4" class="text-blue-200 font-semibold">៤. សូចនាករ ទី៤</span>
+              <span id="globalAvgS4Badge" class="font-bold text-indigo-200">0%</span>
+            </div>
+            <div class="w-full bg-black/20 rounded-full h-2">
+              <div id="globalAvgS4Bar" class="bg-indigo-400 h-2 rounded-full transition-all" style="width: 0%"></div>
+            </div>
+          </div>
+
+        </div>
       </div>
 
       <!-- Staff Analysis Cards Grid -->
@@ -605,6 +801,37 @@
           </div>
         </div>
 
+        
+        <!-- CARD 5: ROLES & POSITIONS MANAGEMENT (ADMIN ធំ អាចកែសម្រួលបាន) -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4 lg:col-span-2">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div class="flex items-center space-x-2">
+              <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center font-bold">
+                <i data-lucide="briefcase" class="w-4 h-4"></i>
+              </div>
+              <h3 class="font-display font-bold text-base text-slate-900">៥. គ្រប់គ្រងបញ្ជីតួនាទី / មុខតំណែង (Roles & Positions)</h3>
+            </div>
+            <span id="cfgRoleCountBadge" class="text-xs font-bold bg-indigo-50 text-indigo-800 px-2.5 py-0.5 rounded-full border border-indigo-200">០ តួនាទី</span>
+          </div>
+
+          <p class="text-xs text-slate-500">Admin ធំអាចបង្កើតតួនាទីថ្មី កែប្រែឈ្មោះតួនាទី ឬលុបតួនាទីដែលលែងប្រើប្រាស់បានដោយសេរី (ប្រព័ន្ធនឹងធ្វើបច្ចុប្បន្នភាពលើគ្រប់ទិន្នន័យដោយស្វ័យប្រវត្តិ)៖</p>
+
+          <!-- Add Role Input -->
+          <div class="flex gap-2 max-w-xl">
+            <input type="text" id="newRoleInput" placeholder="វាយឈ្មោះតួនាទីថ្មី (ឧ. នាយករង, ប្រធានការិយាល័យ, បណ្ណារក្ស)..." class="flex-1 px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-900/20 focus:border-indigo-900">
+            <button onclick="addNewRoleFromSettings()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition shadow-xs flex items-center gap-1 active:scale-95">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+              <span>បន្ថែមតួនាទី</span>
+            </button>
+          </div>
+
+          <!-- Roles Grid List -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 max-h-72 overflow-y-auto pr-1" id="cfgRolesListContainer">
+            <!-- Rendered in JS -->
+          </div>
+        </div>
+
+
       </div>
 
     </section>
@@ -758,17 +985,16 @@
           <p id="staffBranchLockedNote" class="text-[11px] text-indigo-600 font-medium hidden mt-1">🔒 សាខាកំណត់តាមសិទ្ធិគណនី Admin របស់អ្នក</p>
         </div>
 
-        <!-- Role / Position -->
+        <!-- Role / Position (Customizable & Editable) -->
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">តួនាទី / មុខតំណែង <span class="text-rose-500">*</span></label>
-          <select id="staffRole" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition">
-            <option value="គ្រូបង្រៀនពេញម៉ោង">គ្រូបង្រៀនពេញម៉ោង</option>
-            <option value="គ្រូបង្រៀនក្រៅម៉ោង">គ្រូបង្រៀនក្រៅម៉ោង</option>
-            <option value="ប្រធានដេប៉ាតឺម៉ង់">ប្រធានដេប៉ាតឺម៉ង់</option>
-            <option value="គណៈគ្រប់គ្រងសាលា">គណៈគ្រប់គ្រងសាលា</option>
-            <option value="បុគ្គលិករដ្ឋបាល និងហិរញ្ញវត្ថុ">បុគ្គលិករដ្ឋបាល និងហិរញ្ញវត្ថុ</option>
-            <option value="គ្រូទទួលបន្ទុកថ្នាក់">គ្រូទទួលបន្ទុកថ្នាក់</option>
-          </select>
+          <div class="space-y-1.5">
+            <select id="staffRole" onchange="toggleCustomRole(this.value)" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition font-medium text-slate-800">
+              <!-- Rendered dynamically via JS -->
+            </select>
+            <input type="text" id="staffCustomRole" placeholder="វាយបញ្ចូលតួនាទីថ្មីនៅទីនេះ..." class="hidden w-full px-3.5 py-2 bg-white border border-blue-400 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-900/20 font-semibold text-blue-950">
+          </div>
+          <p class="text-[11px] text-slate-400 mt-1">💡 អាចជ្រើសរើសពីបញ្ជី ឬចុច «+ សរសេរតួនាទីថ្មី» ដើម្បីសរសេរថែម</p>
         </div>
 
         <!-- Subject / Skill -->
@@ -1136,6 +1362,17 @@
         'សាខាជ្រោយចង្វារ',
         'សាខាចំការមន'
       ],
+      roles: [
+        'គ្រូបង្រៀនពេញម៉ោង',
+        'គ្រូបង្រៀនក្រៅម៉ោង',
+        'ប្រធានដេប៉ាតឺម៉ង់',
+        'គណៈគ្រប់គ្រងសាលា',
+        'បុគ្គលិករដ្ឋបាល និងហិរញ្ញវត្ថុ',
+        'គ្រូទទួលបន្ទុកថ្នាក់',
+        'បណ្ណារក្ស / ឯកសារ',
+        'គណនេយ្យករ / ហិរញ្ញវត្ថុ',
+        'សន្តិសុខ / សណ្តាប់ធ្នាប់'
+      ],
       gradingScale: {
         A: 90,
         B: 80,
@@ -1233,9 +1470,12 @@
         const storedSettings = localStorage.getItem('systemSettings');
         if (storedSettings) {
           systemSettings = JSON.parse(storedSettings);
-          // Upgrade app title to V2-KPI
           if (!systemSettings.appTitle || systemSettings.appTitle === 'ប្រព័ន្ធគ្រប់គ្រង SOP & KPI') {
             systemSettings.appTitle = 'V2-KPI';
+            saveSettingsToStorage();
+          }
+          if (!systemSettings.roles || !Array.isArray(systemSettings.roles) || systemSettings.roles.length === 0) {
+            systemSettings.roles = [...DEFAULT_SYSTEM_SETTINGS.roles];
             saveSettingsToStorage();
           }
         } else {
@@ -1383,20 +1623,20 @@
       const tabBtnAdmins = document.getElementById('tabBtnAdmins');
       const tabBtnSettings = document.getElementById('tabBtnSettings');
 
-      // 1. Render Profile Chip in Navbar (Compact on phone, expanded on desktop)
+      // 1. Render Profile Chip in Navbar
       if (chip) {
         chip.innerHTML = `
-          <div class="flex items-center space-x-1 sm:space-x-2">
-            <div class="w-8 h-8 rounded-full ${isSuper ? 'bg-amber-100 text-amber-800 border-amber-300' : 'bg-indigo-100 text-indigo-800 border-indigo-300'} border flex items-center justify-center font-bold text-xs shadow-xs shrink-0" title="${currentUser.name}">
+          <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 rounded-full ${isSuper ? 'bg-amber-100 text-amber-800 border-amber-300' : 'bg-indigo-100 text-indigo-800 border-indigo-300'} border flex items-center justify-center font-bold text-xs shadow-xs">
               <i data-lucide="${isSuper ? 'crown' : 'building-2'}" class="w-4 h-4"></i>
             </div>
-            <div class="hidden xl:block text-left max-w-[130px] truncate">
-              <div class="text-xs font-bold text-slate-800 leading-tight truncate">${currentUser.name}</div>
-              <div class="text-[10px] ${isSuper ? 'text-amber-700' : 'text-indigo-700'} font-semibold leading-tight truncate">
-                ${isSuper ? '👑 Admin ធំ' : `🏢 ${currentUser.branch}`}
+            <div class="hidden lg:block text-left">
+              <div class="text-xs font-bold text-slate-800 leading-tight">${currentUser.name}</div>
+              <div class="text-[10px] ${isSuper ? 'text-amber-700' : 'text-indigo-700'} font-semibold leading-tight">
+                ${isSuper ? '👑 Admin ធំ (កែប្រែបានទាំងអស់)' : `🏢 ${currentUser.branch}`}
               </div>
             </div>
-            <button onclick="handleLogout()" title="ចាកចេញ (Logout)" class="p-1 sm:p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition shrink-0">
+            <button onclick="handleLogout()" title="ចាកចេញ (Logout)" class="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition border border-transparent hover:border-rose-100">
               <i data-lucide="log-out" class="w-4 h-4"></i>
             </button>
           </div>
@@ -1644,10 +1884,10 @@
       tabAdmins.classList.add('hidden');
       tabSettings.classList.add('hidden');
 
-      btnList.className = 'px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900 shrink-0';
-      btnAnalysis.className = 'px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900 shrink-0';
-      btnAdmins.className = 'px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900 shrink-0';
-      btnSettings.className = 'px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900 shrink-0';
+      btnList.className = 'px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900';
+      btnAnalysis.className = 'px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900';
+      btnAdmins.className = 'px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900';
+      btnSettings.className = 'px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900';
 
       if (tab === 'list') {
         tabList.classList.remove('hidden');
@@ -2242,6 +2482,7 @@
 
       // 2. Branches
       renderSettingsBranchesList();
+      renderSettingsRolesList();
 
       // 3. School & Print info
       document.getElementById('cfgSchoolName').value = systemSettings.schoolName;
@@ -2644,7 +2885,7 @@
           document.getElementById('staffEditId').value = staff.id;
           document.getElementById('staffName').value = staff.name;
           document.getElementById('staffPhone').value = staff.phone;
-          document.getElementById('staffRole').value = staff.role;
+          renderStaffRoleOptions(staff.role);
           document.getElementById('staffSubject').value = staff.subject;
           
           if (isSuper) {
@@ -2675,7 +2916,21 @@
       const editId = document.getElementById('staffEditId').value;
       const name = document.getElementById('staffName').value.trim();
       const phone = document.getElementById('staffPhone').value.trim();
-      const role = document.getElementById('staffRole').value;
+      let role = document.getElementById('staffRole').value;
+      if (role === '__CUSTOM__') {
+        role = (document.getElementById('staffCustomRole')?.value || '').trim();
+        if (!role) {
+          alert('សូមបញ្ចូលឈ្មោះតួនាទីថ្មី!');
+          return;
+        }
+        // Save to systemSettings.roles if new
+        if (!systemSettings.roles) systemSettings.roles = [...DEFAULT_SYSTEM_SETTINGS.roles];
+        if (!systemSettings.roles.includes(role)) {
+          systemSettings.roles.push(role);
+          saveSettingsToStorage();
+          renderSettingsRolesList();
+        }
+      }
       const subject = document.getElementById('staffSubject').value.trim();
       
       const isSuper = currentUser && currentUser.role === 'SUPER_ADMIN';
@@ -3156,25 +3411,23 @@
   </script>
 
   <!-- ==================== iOS MOBILE BOTTOM TAB BAR ==================== -->
-  <nav id="mobileBottomBar" class="no-print fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/90 backdrop-blur-2xl border-t border-slate-200/80 py-1.5 px-3 shadow-[0_-2px_12px_rgba(0,0,0,0.05)] safe-bottom">
-    <div class="max-w-md mx-auto w-full flex justify-around items-center">
-      <button id="mobTabList" onclick="switchTab('list')" class="flex flex-col items-center py-1 px-3 text-[#007AFF] transition active:scale-90">
-        <i data-lucide="users" class="w-5 h-5"></i>
-        <span class="text-[10px] font-bold mt-0.5">បុគ្គលិក</span>
-      </button>
-      <button id="mobTabAnalysis" onclick="switchTab('analysis')" class="flex flex-col items-center py-1 px-3 text-slate-400 hover:text-slate-600 transition active:scale-90">
-        <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
-        <span class="text-[10px] font-semibold mt-0.5">វិភាគ SOP</span>
-      </button>
-      <button id="mobTabAdmins" onclick="switchTab('admins')" class="hidden flex flex-col items-center py-1 px-3 text-slate-400 hover:text-slate-600 transition active:scale-90">
-        <i data-lucide="shield-check" class="w-5 h-5"></i>
-        <span class="text-[10px] font-semibold mt-0.5">Admin</span>
-      </button>
-      <button id="mobTabSettings" onclick="switchTab('settings')" class="hidden flex flex-col items-center py-1 px-3 text-slate-400 hover:text-slate-600 transition active:scale-90">
-        <i data-lucide="settings" class="w-5 h-5"></i>
-        <span class="text-[10px] font-semibold mt-0.5">កំណត់</span>
-      </button>
-    </div>
+  <nav id="mobileBottomBar" class="no-print fixed bottom-0 left-0 right-0 z-40 md:hidden bg-white/85 backdrop-blur-2xl border-t border-slate-200/80 py-1.5 px-3 flex justify-around items-center shadow-[0_-2px_12px_rgba(0,0,0,0.05)] safe-bottom">
+    <button id="mobTabList" onclick="switchTab('list')" class="flex flex-col items-center py-1 px-3 text-[#007AFF] transition active:scale-90">
+      <i data-lucide="users" class="w-5 h-5"></i>
+      <span class="text-[10px] font-bold mt-0.5">បុគ្គលិក</span>
+    </button>
+    <button id="mobTabAnalysis" onclick="switchTab('analysis')" class="flex flex-col items-center py-1 px-3 text-slate-400 hover:text-slate-600 transition active:scale-90">
+      <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+      <span class="text-[10px] font-semibold mt-0.5">វិភាគ SOP</span>
+    </button>
+    <button id="mobTabAdmins" onclick="switchTab('admins')" class="hidden flex flex-col items-center py-1 px-3 text-slate-400 hover:text-slate-600 transition active:scale-90">
+      <i data-lucide="shield-check" class="w-5 h-5"></i>
+      <span class="text-[10px] font-semibold mt-0.5">Admin</span>
+    </button>
+    <button id="mobTabSettings" onclick="switchTab('settings')" class="hidden flex flex-col items-center py-1 px-3 text-slate-400 hover:text-slate-600 transition active:scale-90">
+      <i data-lucide="settings" class="w-5 h-5"></i>
+      <span class="text-[10px] font-semibold mt-0.5">កំណត់ប្រព័ន្ធ</span>
+    </button>
   </nav>
 
 </body>
