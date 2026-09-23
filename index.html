@@ -1281,12 +1281,16 @@
           <input type="text" id="adminPassword" required placeholder="បញ្ចូលពាក្យសម្ងាត់ថ្មី..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition font-mono">
         </div>
 
-        <!-- Branch Assignment -->
+        <!-- Branch Assignment (Free Text Input with Suggestions) -->
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">សាខាដែលត្រូវគ្រប់គ្រង (Assigned Branch) <span class="text-rose-500">*</span></label>
-          <select id="adminBranchSelect" required class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition font-medium">
-            <!-- Rendered in JS -->
-          </select>
+          <div class="relative">
+            <input type="text" id="adminBranchInput" list="adminBranchDatalist" required placeholder="វាយបញ្ចូលឈ្មោះសាខា (ឧ. សាខាបឹងកេងកង, សាខាទួលគោក...)" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition font-medium text-slate-800">
+            <datalist id="adminBranchDatalist">
+              <!-- Rendered via JS -->
+            </datalist>
+          </div>
+          <p class="text-[11px] text-slate-400 mt-1">💡 លោកអ្នកអាចវាយបញ្ចូលឈ្មោះសាខាថ្មីដោយសេរី ឬជ្រើសរើសពីបញ្ជីសាខា</p>
         </div>
 
         <!-- Status -->
@@ -2854,17 +2858,32 @@
       try { if (window.lucide && lucide.createIcons) lucide.createIcons(); } catch (e) {}
     }
 
+    function ensureBranchExists(branchName) {
+      if (!branchName) return;
+      const trimmed = branchName.trim();
+      if (!trimmed || trimmed === 'ALL' || trimmed === 'CUSTOM') return;
+      if (!systemSettings.branches) systemSettings.branches = [];
+      if (!systemSettings.branches.includes(trimmed)) {
+        systemSettings.branches.push(trimmed);
+        saveSettingsToStorage();
+        renderBranchFilterOptions();
+      }
+    }
+
     function openAdminUserModal(editId = null) {
       const modal = document.getElementById('adminUserModal');
       const title = document.getElementById('adminUserModalTitle');
       const form = document.getElementById('adminUserForm');
-      const branchSelect = document.getElementById('adminBranchSelect');
+      const branchInput = document.getElementById('adminBranchInput');
+      const branchDatalist = document.getElementById('adminBranchDatalist');
 
       form.reset();
       document.getElementById('adminUserEditId').value = '';
 
-      const branches = getUniqueBranches();
-      branchSelect.innerHTML = branches.map(b => `<option value="${b}">${b}</option>`).join('');
+      if (branchDatalist) {
+        const branches = getUniqueBranches();
+        branchDatalist.innerHTML = branches.map(b => `<option value="${b}">${b}</option>`).join('');
+      }
 
       if (editId) {
         const user = adminUsers.find(u => u.id === editId);
@@ -2874,11 +2893,12 @@
           document.getElementById('adminFullName').value = user.name;
           document.getElementById('adminUsername').value = user.username;
           document.getElementById('adminPassword').value = user.password;
-          document.getElementById('adminBranchSelect').value = user.branch;
+          if (branchInput) branchInput.value = user.branch || '';
           document.getElementById('adminStatusSelect').value = user.status;
         }
       } else {
         title.textContent = 'បង្កើត Admin សាខាថ្មី';
+        if (branchInput) branchInput.value = '';
       }
 
       modal.classList.remove('hidden');
@@ -2895,13 +2915,16 @@
       const name = document.getElementById('adminFullName').value.trim();
       const username = document.getElementById('adminUsername').value.trim();
       const password = document.getElementById('adminPassword').value.trim();
-      const branch = document.getElementById('adminBranchSelect').value;
+      const branchInput = document.getElementById('adminBranchInput');
+      const branch = (branchInput ? branchInput.value : '').trim();
       const status = document.getElementById('adminStatusSelect').value;
 
       if (!name || !username || !password || !branch) {
-        alert('សូមបំពេញគ្រប់ប្រអប់ទិន្នន័យចាំបាច់!');
+        alert('សូមបំពេញគ្រប់ប្រអប់ទិន្នន័យចាំបាច់ រួមទាំងឈ្មោះសាខាផងដែរ!');
         return;
       }
+
+      ensureBranchExists(branch);
 
       const duplicate = adminUsers.find(u => u.username.toLowerCase() === username.toLowerCase() && u.id !== editId);
       if (duplicate) {
@@ -3063,6 +3086,8 @@
           branch = document.getElementById('staffCustomBranch').value.trim() || 'សាខាទូទៅ';
         }
       }
+
+      ensureBranchExists(branch);
 
       if (!name || !phone || !subject || !branch) {
         alert('សូមបំពេញគ្រប់ប្រអប់ទិន្នន័យចាំបាច់!');
