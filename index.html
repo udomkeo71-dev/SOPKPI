@@ -181,18 +181,82 @@
 </head>
 <body class="bg-[#F2F2F7] text-slate-800 font-sans min-h-screen flex flex-col antialiased pb-24 md:pb-6">
 
-  <!-- ==================== PRINT ONLY HEADER ==================== -->
-  <div class="print-only mb-6">
-    <div class="text-center space-y-1">
-      <img src="v2b.png" alt="V2 Education Logo" class="w-16 h-16 mx-auto object-contain mb-2">
-      <h2 class="font-display font-bold text-lg text-slate-900">ព្រះរាជាណាចក្រកម្ពុជា</h2>
-      <h3 class="font-display font-semibold text-base text-slate-800">ជាតិ សាសនា ព្រះមហាក្សត្រ</h3>
-      <div class="w-24 h-0.5 bg-slate-800 mx-auto my-2"></div>
-      <h1 id="printSchoolName" class="font-display font-bold text-xl text-blue-900 mt-2">សាលារៀន អន្តរជាតិ និងវិទ្យាស្ថានបណ្តុះបណ្តាល</h1>
-      <h2 class="text-base font-semibold text-slate-700">របាយការណ៍វាយតម្លៃលទ្ធផលការងារ (SOP & KPI) ប្រចាំខែ</h2>
-      <p id="printSubtitle" class="text-sm text-slate-600 font-medium"></p>
+  <!-- ==================== MANDATORY SECURE LOGIN GATE (FULL SCREEN) ==================== -->
+  <div id="authGateScreen" class="fixed inset-0 z-[100] bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-md w-full shadow-2xl border border-white/20 overflow-hidden transform transition-all my-auto">
+      
+      <!-- Security Gate Header -->
+      <div class="bg-gradient-to-tr from-blue-950 via-blue-900 to-indigo-900 text-white p-6 text-center space-y-2 relative overflow-hidden">
+        <div class="absolute -right-6 -bottom-6 w-28 h-28 bg-white/5 rounded-full blur-xl pointer-events-none"></div>
+        <div class="w-16 h-16 rounded-2xl bg-white p-1.5 flex items-center justify-center mx-auto shadow-xl border-2 border-white/40">
+          <img src="v2b.png" alt="V2 Education Logo" class="w-full h-full object-contain rounded-xl" onerror="this.src='apple-touch-icon.png'">
+        </div>
+        <h2 class="font-display font-black text-2xl tracking-tight">V2-KPI SYSTEM</h2>
+        <p class="text-xs text-blue-200">ប្រព័ន្ធគ្រប់គ្រង និងវាយតម្លៃការងារបុគ្គលិកតាមស្តង់ដារ SOP</p>
+        <div class="inline-flex items-center space-x-1.5 bg-white/10 px-3 py-1 rounded-full text-[11px] text-amber-300 font-semibold border border-white/10">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+          <span>ច្រកសុវត្ថិភាពផ្លូវការ (Official Secure Gate)</span>
+        </div>
+      </div>
+
+      <!-- Security Gate Form -->
+      <div class="p-6 sm:p-7 space-y-4">
+        <form id="gateLoginForm" onsubmit="handleGateLoginSubmit(event)" class="space-y-4">
+          
+          <!-- Error Alert -->
+          <div id="gateLoginErrorAlert" class="hidden bg-rose-50 border border-rose-200 text-rose-700 text-xs px-3.5 py-2.5 rounded-xl font-medium flex items-center gap-2">
+            <i data-lucide="alert-circle" class="w-4 h-4 shrink-0 text-rose-500"></i>
+            <span id="gateLoginErrorMsg">ឈ្មោះ ឬលេខកូដសម្ងាត់មិនត្រឹមត្រូវឡើយ</span>
+          </div>
+
+          <!-- Full Name or Username -->
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1.5">
+              ឈ្មោះពេញ ឬ ឈ្មោះគណនី (Full Name / Username) <span class="text-rose-500">*</span>
+            </label>
+            <div class="relative">
+              <i data-lucide="user" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+              <input type="text" id="gateUsername" required autocomplete="username" placeholder="ឧ. Admin ធំ ឬ Admin សាខាបឹងកេងកង" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition font-medium text-slate-900 placeholder:text-slate-400">
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">💡 អាចវាយឈ្មោះពេញ (ឧ. Admin ធំ, Admin សាខា...) ឬ Username (superadmin, admin.bkk...)</p>
+          </div>
+
+          <!-- Password -->
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1.5">
+              លេខកូដសម្ងាត់ (Password) <span class="text-rose-500">*</span>
+            </label>
+            <div class="relative">
+              <i data-lucide="lock" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+              <input type="password" id="gatePassword" required autocomplete="current-password" placeholder="បញ្ចូលលេខកូដសម្ងាត់..." class="w-full pl-10 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition font-medium text-slate-900 placeholder:text-slate-400">
+              <button type="button" onclick="toggleGatePasswordVisibility()" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition p-0.5 cursor-pointer">
+                <i id="gatePwdEyeIcon" data-lucide="eye" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <button type="submit" class="w-full py-3 bg-[#007AFF] hover:bg-blue-600 text-white rounded-xl font-bold text-sm transition shadow-md shadow-blue-500/20 active:scale-98 flex items-center justify-center space-x-2 cursor-pointer mt-2">
+            <i data-lucide="log-in" class="w-4 h-4"></i>
+            <span>ផ្ទៀងផ្ទាត់ និងចូលប្រើប្រាស់</span>
+          </button>
+        </form>
+
+        <!-- Security Notice -->
+        <div class="pt-4 border-t border-slate-100 text-center space-y-1 text-[11px] text-slate-400">
+          <p class="flex items-center justify-center gap-1 font-medium text-slate-500">
+            <i data-lucide="shield" class="w-3.5 h-3.5 text-blue-600"></i>
+            <span>ប្រព័ន្ធការពារសុវត្ថិភាព និងទិន្នន័យ (Role-Based Isolation)</span>
+          </p>
+          <p>© ២០២៦ V2 EDUCATION • រក្សាសិទ្ធិគ្រប់យ៉ាង</p>
+        </div>
+
+      </div>
     </div>
   </div>
+
+  <!-- ==================== MAIN APPLICATION WRAPPER (PROTECTED) ==================== -->
+  <div id="appMainWrapper" class="hidden flex-1 flex flex-col min-h-screen">
 
   <!-- ==================== TOP NAVIGATION BAR ==================== -->
   <header class="no-print sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-slate-200/70 shadow-[0_1px_3px_rgba(0,0,0,0.02)]">
@@ -262,42 +326,24 @@
   <!-- ==================== MAIN CONTENT CONTAINER ==================== -->
   <main class="w-full max-w-[1720px] mx-auto px-3 sm:px-5 lg:px-8 py-5 sm:py-6 flex-1 space-y-5 sm:space-y-6 transition-all duration-300">
 
-    <!-- Branch Admin Banner (If logged in as branch admin) -->
-    <div id="branchAdminBanner" class="no-print hidden bg-indigo-50 border border-indigo-200 rounded-2xl p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-xs">
-      <div class="flex items-center space-x-3">
+    <!-- Unified Role & Branch Banner (For both Super Admin and Branch Admin) -->
+    <div id="roleHeaderBanner" class="no-print bg-white border border-slate-200 rounded-2xl p-4 sm:p-4.5 flex flex-col lg:flex-row lg:items-center justify-between gap-3 shadow-xs transition-all">
+      <div class="flex items-center space-x-3.5">
         <div id="bannerAdminAvatar" class="w-12 h-12 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shadow-sm overflow-hidden shrink-0 border border-indigo-300">
-          <i data-lucide="building-2" class="w-6 h-6"></i>
+          <i data-lucide="shield" class="w-6 h-6"></i>
         </div>
         <div>
-          <div class="flex items-center space-x-2">
-            <h4 class="font-bold text-indigo-950 text-sm sm:text-base">អ្នកគ្រប់គ្រង៖ <span id="bannerBranchName" class="text-indigo-700 font-extrabold">...</span></h4>
-            <span class="bg-indigo-200/80 text-indigo-900 text-xs px-2.5 py-0.5 rounded-full font-bold">Admin សាខា</span>
+          <div class="flex items-center flex-wrap gap-2">
+            <h4 class="font-bold text-slate-900 text-sm sm:text-base">អ្នកគ្រប់គ្រង៖ <span id="bannerAdminName" class="text-blue-900 font-extrabold">...</span></h4>
+            <span id="bannerRoleBadge" class="bg-indigo-100 text-indigo-900 text-xs px-2.5 py-0.5 rounded-full font-bold">Admin សាខា</span>
           </div>
-          <p class="text-xs text-slate-600 mt-0.5">ចុះឈ្មោះបុគ្គលិក វាយតម្លៃពិន្ទុ SOP និងទាញយករូបភាព/PDF ផ្ញើជូនប្រធានធំ</p>
+          <p id="bannerSubtext" class="text-xs text-slate-600 mt-0.5">...</p>
         </div>
       </div>
       
-      <!-- Quick Action Buttons for Branch Admin -->
-      <div class="flex items-center flex-wrap gap-2 pt-2 md:pt-0 border-t md:border-t-0 border-indigo-100">
-        <button onclick="openStaffModal()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-blue-900 hover:bg-blue-800 text-white rounded-xl text-xs font-bold transition shadow-xs active:scale-95 cursor-pointer">
-          <i data-lucide="user-plus" class="w-3.5 h-3.5 text-amber-300"></i>
-          <span>+ បន្ថែមបុគ្គលិក</span>
-        </button>
-
-        <button onclick="openAssessmentModal()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-[#007AFF] hover:bg-blue-600 text-white rounded-xl text-xs font-bold transition shadow-xs active:scale-95 cursor-pointer">
-          <i data-lucide="award" class="w-3.5 h-3.5 text-amber-300"></i>
-          <span>✍️ បញ្ចូលពិន្ទុ SOP</span>
-        </button>
-
-        <button onclick="openBranchReportModal()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition shadow-xs active:scale-95 cursor-pointer" title="ទាញយករូបភាព ឬ PDF ផ្ញើជូនប្រធានធំ">
-          <i data-lucide="image" class="w-3.5 h-3.5 text-purple-200"></i>
-          <span>🖼️ ទាញយករូបភាព / PDF</span>
-        </button>
-
-        <button onclick="openExcelExportModal()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold transition shadow-xs active:scale-95 cursor-pointer" title="ទាញយកឯកសារ Excel សាខា">
-          <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5 text-emerald-200"></i>
-          <span>📊 Excel</span>
-        </button>
+      <!-- Quick Action Buttons & Branch Selector -->
+      <div id="bannerActionButtons" class="flex items-center flex-wrap gap-2 pt-2 lg:pt-0 border-t lg:border-t-0 border-slate-100">
+        <!-- Rendered dynamically via applyUserPermissions() -->
       </div>
     </div>
 
@@ -919,138 +965,6 @@
   <!-- ========================================================================= -->
   <!-- ============================== MODALS =================================== -->
   <!-- ========================================================================= -->
-
-  <!-- 0. LOGIN MODAL OVERLAY -->
-  <div id="loginModal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-    <div class="bg-white rounded-3xl max-w-lg w-full shadow-2xl border border-slate-100 overflow-hidden transform transition-all my-auto max-h-[94vh] flex flex-col">
-      
-      <!-- Login Header -->
-      <div class="bg-gradient-to-tr from-blue-950 via-blue-900 to-indigo-900 text-white p-5 text-center space-y-1.5 shrink-0">
-        <div class="w-14 h-14 rounded-2xl bg-white p-1 flex items-center justify-center mx-auto shadow-lg border-2 border-white/40">
-          <img src="v2b.png" alt="V2 Education Logo" class="w-full h-full object-contain rounded-xl">
-        </div>
-        <h2 class="font-display font-black text-2xl tracking-tight">V2-KPI</h2>
-        <p class="text-xs text-blue-200">ប្រព័ន្ធគ្រប់គ្រង និងវាយតម្លៃបុគ្គលិកតាមសាខាសាលារៀន</p>
-      </div>
-
-      <!-- Login Form Body (Scrollable if screen is small) -->
-      <div class="p-5 sm:p-6 overflow-y-auto space-y-4">
-        <form id="loginForm" onsubmit="handleLoginSubmit(event)" class="space-y-3.5">
-          
-          <!-- Error Alert -->
-          <div id="loginErrorAlert" class="hidden bg-rose-50 border border-rose-200 text-rose-700 text-xs px-3.5 py-2.5 rounded-xl font-medium flex items-center gap-2">
-            <i data-lucide="alert-circle" class="w-4 h-4 shrink-0"></i>
-            <span id="loginErrorMsg">ឈ្មោះ ឬលេខកូដសម្ងាត់មិនត្រឹមត្រូវឡើយ</span>
-          </div>
-
-          <!-- Username -->
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">ឈ្មោះគណនី (Username) <span class="text-rose-500">*</span></label>
-            <div class="relative">
-              <i data-lucide="user" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
-              <input type="text" id="loginUsername" required placeholder="ឧ. superadmin ឬ admin.bkk" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition">
-            </div>
-          </div>
-
-          <!-- Password -->
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">ពាក្យសម្ងាត់ (Password) <span class="text-rose-500">*</span></label>
-            <div class="relative">
-              <i data-lucide="lock" class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
-              <input type="password" id="loginPassword" required placeholder="បញ្ចូលពាក្យសម្ងាត់..." class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition">
-            </div>
-          </div>
-
-          <!-- Submit Button -->
-          <button type="submit" class="w-full py-2.5 sm:py-3 bg-[#007AFF] hover:bg-blue-600 text-white rounded-2xl font-bold text-sm transition shadow-sm shadow-blue-500/20 active:scale-98 flex items-center justify-center space-x-2">
-            <i data-lucide="log-in" class="w-4 h-4"></i>
-            <span>ចូលប្រើប្រព័ន្ធ</span>
-          </button>
-        </form>
-
-        <!-- Quick Login Cards (8 Configured Branch Admins with Photos) -->
-        <div class="pt-3 border-t border-slate-100 space-y-2">
-          <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider text-center">ជ្រើសរើសចូលភ្លាមៗតាមសាខា (Quick Login)</p>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-            
-            <!-- 1. Admin ធំ -->
-            <button type="button" onclick="quickLogin('superadmin', 'admin123')" class="p-2 rounded-xl bg-amber-50/80 hover:bg-amber-100 text-amber-950 border border-amber-200 font-semibold transition text-left flex items-center space-x-2 active:scale-95 cursor-pointer">
-              <img src="1.jpg" alt="Admin ធំ" class="w-8 h-8 rounded-full object-cover border border-amber-300 shadow-2xs shrink-0">
-              <div class="overflow-hidden">
-                <span class="font-bold text-xs text-amber-950 block truncate">1. Admin ធំ</span>
-                <span class="text-[10px] text-amber-700 block truncate">គ្រប់សាខា</span>
-              </div>
-            </button>
-
-            <!-- 2. Admin BKK -->
-            <button type="button" onclick="quickLogin('admin.bkk', '123')" class="p-2 rounded-xl bg-slate-50 hover:bg-indigo-50 text-slate-800 hover:text-indigo-950 border border-slate-200 hover:border-indigo-200 font-semibold transition text-left flex items-center space-x-2 active:scale-95 cursor-pointer">
-              <img src="2.jpg" alt="Admin BKK" class="w-8 h-8 rounded-full object-cover border border-indigo-200 shadow-2xs shrink-0">
-              <div class="overflow-hidden">
-                <span class="font-bold text-xs text-slate-900 block truncate">2. Admin BKK</span>
-                <span class="text-[10px] text-indigo-600 block truncate">បឹងកេងកង</span>
-              </div>
-            </button>
-
-            <!-- 3. Admin OLY -->
-            <button type="button" onclick="quickLogin('admin.oly', '123')" class="p-2 rounded-xl bg-slate-50 hover:bg-indigo-50 text-slate-800 hover:text-indigo-950 border border-slate-200 hover:border-indigo-200 font-semibold transition text-left flex items-center space-x-2 active:scale-95 cursor-pointer">
-              <img src="3.jpg" alt="Admin OLY" class="w-8 h-8 rounded-full object-cover border border-indigo-200 shadow-2xs shrink-0">
-              <div class="overflow-hidden">
-                <span class="font-bold text-xs text-slate-900 block truncate">3. Admin OLY</span>
-                <span class="text-[10px] text-indigo-600 block truncate">អូឡាំពិក</span>
-              </div>
-            </button>
-
-            <!-- 4. Admin TTP -->
-            <button type="button" onclick="quickLogin('admin.ttp', '123')" class="p-2 rounded-xl bg-slate-50 hover:bg-indigo-50 text-slate-800 hover:text-indigo-950 border border-slate-200 hover:border-indigo-200 font-semibold transition text-left flex items-center space-x-2 active:scale-95 cursor-pointer">
-              <img src="4.jpg" alt="Admin TTP" class="w-8 h-8 rounded-full object-cover border border-indigo-200 shadow-2xs shrink-0">
-              <div class="overflow-hidden">
-                <span class="font-bold text-xs text-slate-900 block truncate">4. Admin TTP</span>
-                <span class="text-[10px] text-indigo-600 block truncate">ទួលទំពូង</span>
-              </div>
-            </button>
-
-            <!-- 5. Admin TK -->
-            <button type="button" onclick="quickLogin('admin.tk', '123')" class="p-2 rounded-xl bg-slate-50 hover:bg-indigo-50 text-slate-800 hover:text-indigo-950 border border-slate-200 hover:border-indigo-200 font-semibold transition text-left flex items-center space-x-2 active:scale-95 cursor-pointer">
-              <img src="5.jpg" alt="Admin TK" class="w-8 h-8 rounded-full object-cover border border-indigo-200 shadow-2xs shrink-0">
-              <div class="overflow-hidden">
-                <span class="font-bold text-xs text-slate-900 block truncate">5. Admin TK</span>
-                <span class="text-[10px] text-indigo-600 block truncate">ទួលគោក</span>
-              </div>
-            </button>
-
-            <!-- 6. Admin STM -->
-            <button type="button" onclick="quickLogin('admin.stm', '123')" class="p-2 rounded-xl bg-slate-50 hover:bg-indigo-50 text-slate-800 hover:text-indigo-950 border border-slate-200 hover:border-indigo-200 font-semibold transition text-left flex items-center space-x-2 active:scale-95 cursor-pointer">
-              <img src="6.jpg" alt="Admin STM" class="w-8 h-8 rounded-full object-cover border border-indigo-200 shadow-2xs shrink-0">
-              <div class="overflow-hidden">
-                <span class="font-bold text-xs text-slate-900 block truncate">6. Admin STM</span>
-                <span class="text-[10px] text-indigo-600 block truncate">ស្ទឹងមានជ័យ</span>
-              </div>
-            </button>
-
-            <!-- 7. Admin BS -->
-            <button type="button" onclick="quickLogin('admin.bs', '123')" class="p-2 rounded-xl bg-slate-50 hover:bg-indigo-50 text-slate-800 hover:text-indigo-950 border border-slate-200 hover:border-indigo-200 font-semibold transition text-left flex items-center space-x-2 active:scale-95 cursor-pointer">
-              <img src="7.jpg" alt="Admin BS" class="w-8 h-8 rounded-full object-cover border border-indigo-200 shadow-2xs shrink-0">
-              <div class="overflow-hidden">
-                <span class="font-bold text-xs text-slate-900 block truncate">7. Admin BS</span>
-                <span class="text-[10px] text-indigo-600 block truncate">បឹងសាឡាង</span>
-              </div>
-            </button>
-
-            <!-- 8. Admin SS -->
-            <button type="button" onclick="quickLogin('admin.ss', '123')" class="p-2 rounded-xl bg-slate-50 hover:bg-indigo-50 text-slate-800 hover:text-indigo-950 border border-slate-200 hover:border-indigo-200 font-semibold transition text-left flex items-center space-x-2 active:scale-95 cursor-pointer">
-              <img src="8.jpg" alt="Admin SS" class="w-8 h-8 rounded-full object-cover border border-indigo-200 shadow-2xs shrink-0">
-              <div class="overflow-hidden">
-                <span class="font-bold text-xs text-slate-900 block truncate">8. Admin SS</span>
-                <span class="text-[10px] text-indigo-600 block truncate">សែនសុខ</span>
-              </div>
-            </button>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
 
   <!-- 1. STAFF MODAL (ADD / EDIT) -->
   <div id="staffModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 overflow-y-auto">
@@ -1926,99 +1840,211 @@
       }
     }
 
-    // --- AUTHENTICATION & ROLE MANAGEMENT ---
+    // --- AUTHENTICATION & ROLE MANAGEMENT (MANDATORY SECURE GATE) ---
     function initAuthSession() {
-      // Direct access / auto-login by URL query parameter (?user=superadmin or ?user=admin.bkk)
+      // 1. Check for stored session in localStorage
+      currentUser = null;
+      const storedSession = localStorage.getItem('currentUser');
+      if (storedSession) {
+        try {
+          const parsed = JSON.parse(storedSession);
+          if (parsed && parsed.id) {
+            const latest = adminUsers.find(u => u.id === parsed.id || u.username.toLowerCase() === (parsed.username || '').toLowerCase());
+            if (latest && latest.status !== 'INACTIVE') {
+              currentUser = { ...latest };
+              localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            } else {
+              currentUser = null;
+              localStorage.removeItem('currentUser');
+            }
+          }
+        } catch (e) {
+          currentUser = null;
+          localStorage.removeItem('currentUser');
+        }
+      }
+
+      // 2. Pre-fill username from URL query param if present (e.g. ?user=admin.bkk) but ALWAYS REQUIRE PASSWORD!
       try {
         const urlParams = new URLSearchParams(window.location.search);
         const targetUser = urlParams.get('user') || urlParams.get('login') || urlParams.get('u');
-        if (targetUser) {
+        if (targetUser && !currentUser) {
           const matched = adminUsers.find(u => 
             u.username.toLowerCase() === targetUser.toLowerCase() ||
             u.id.toLowerCase() === targetUser.toLowerCase() ||
             (u.branch && u.branch.toLowerCase().includes(targetUser.toLowerCase()))
           );
           if (matched) {
-            currentUser = { ...matched };
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            applyUserPermissions();
-            return;
+            setTimeout(() => {
+              const uInput = document.getElementById('gateUsername');
+              const pInput = document.getElementById('gatePassword');
+              if (uInput) uInput.value = matched.name;
+              if (pInput) pInput.focus();
+            }, 100);
           }
         }
       } catch (err) {
-        console.warn('URL auto-login parse error:', err);
+        console.warn('URL param parse error:', err);
       }
 
-      const storedSession = localStorage.getItem('currentUser');
-      if (storedSession) {
-        try {
-          currentUser = JSON.parse(storedSession);
-        } catch (e) {
-          currentUser = null;
-        }
-      }
+      // 3. Control Gate and Protected App visibility
+      const gateScreen = document.getElementById('authGateScreen');
+      const appWrapper = document.getElementById('appMainWrapper');
 
       if (!currentUser) {
-        currentUser = adminUsers.find(u => u.role === 'SUPER_ADMIN') || INITIAL_USERS[0];
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        // Unauthenticated -> Show Gate, Hide App completely!
+        if (gateScreen) gateScreen.classList.remove('hidden');
+        if (appWrapper) appWrapper.classList.add('hidden');
       } else {
-        const latest = adminUsers.find(u => u.id === currentUser.id || u.username.toLowerCase() === currentUser.username.toLowerCase());
-        if (latest) {
-          currentUser = { ...currentUser, ...latest };
-          localStorage.setItem('currentUser', JSON.stringify(currentUser));
-        }
+        // Authenticated -> Hide Gate, Show App!
+        if (gateScreen) gateScreen.classList.add('hidden');
+        if (appWrapper) appWrapper.classList.remove('hidden');
+        applyUserPermissions();
       }
 
-      applyUserPermissions();
+      try { if (window.lucide && lucide.createIcons) lucide.createIcons(); } catch (e) {}
     }
 
     function applyUserPermissions() {
       const isSuper = currentUser && currentUser.role === 'SUPER_ADMIN';
       const chip = document.getElementById('userProfileChip');
-      const banner = document.getElementById('branchAdminBanner');
-      const bannerBranch = document.getElementById('bannerBranchName');
+      const banner = document.getElementById('roleHeaderBanner');
+      const bannerName = document.getElementById('bannerAdminName');
+      const bannerBadge = document.getElementById('bannerRoleBadge');
       const bannerAvatar = document.getElementById('bannerAdminAvatar');
+      const bannerSubtext = document.getElementById('bannerSubtext');
+      const bannerActions = document.getElementById('bannerActionButtons');
       const tabBtnAdmins = document.getElementById('tabBtnAdmins');
       const tabBtnSettings = document.getElementById('tabBtnSettings');
 
-      // 1. Render Profile Chip in Navbar
+      // 1. Render Profile Chip in Top Navbar
       if (chip) {
         const avatarMarkup = currentUser.avatar 
-          ? `<img src="${currentUser.avatar}" alt="${currentUser.name}" class="w-8 h-8 rounded-full object-cover border border-slate-200 shadow-xs shrink-0">` 
-          : `<div class="w-8 h-8 rounded-full ${isSuper ? 'bg-amber-100 text-amber-800 border-amber-300' : 'bg-indigo-100 text-indigo-800 border-indigo-300'} border flex items-center justify-center font-bold text-xs shadow-xs shrink-0">
+          ? `<img src="${currentUser.avatar}" alt="${currentUser.name}" class="w-8 h-8 rounded-full object-cover border border-slate-200 shadow-xs shrink-0 cursor-pointer" onclick="openLoginModal()">` 
+          : `<div onclick="openLoginModal()" class="w-8 h-8 rounded-full ${isSuper ? 'bg-amber-100 text-amber-800 border-amber-300' : 'bg-indigo-100 text-indigo-800 border-indigo-300'} border flex items-center justify-center font-bold text-xs shadow-xs shrink-0 cursor-pointer">
                <i data-lucide="${isSuper ? 'crown' : 'building-2'}" class="w-4 h-4"></i>
              </div>`;
 
         chip.innerHTML = `
           <div class="flex items-center space-x-2">
             ${avatarMarkup}
-            <div class="hidden lg:block text-left">
+            <div class="hidden lg:block text-left cursor-pointer" onclick="openLoginModal()">
               <div class="text-xs font-bold text-slate-800 leading-tight">${currentUser.name}</div>
               <div class="text-[10px] ${isSuper ? 'text-amber-700' : 'text-indigo-700'} font-semibold leading-tight">
-                ${isSuper ? '👑 Admin ធំ (កែប្រែបានទាំងអស់)' : `🏢 ${currentUser.branch}`}
+                ${isSuper ? '👑 Admin ធំ (មើលគ្រប់សាខា)' : `🏢 ${currentUser.branch}`}
               </div>
             </div>
-            <button onclick="handleLogout()" title="ចាកចេញ (Logout)" class="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition border border-transparent hover:border-rose-100">
+            <button onclick="openLoginModal()" title="ប្តូរគណនី / ជ្រើសរើសសាខា" class="inline-flex items-center space-x-1 px-2.5 py-1 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-lg transition border border-blue-200 active:scale-95 cursor-pointer">
+              <i data-lucide="users" class="w-3.5 h-3.5 text-blue-600"></i>
+              <span class="hidden sm:inline">ប្តូរគណនី</span>
+            </button>
+            <button onclick="handleLogout()" title="ចាកចេញ (Logout)" class="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition border border-transparent hover:border-rose-100 cursor-pointer">
               <i data-lucide="log-out" class="w-4 h-4"></i>
             </button>
           </div>
         `;
       }
 
-      // 2. Branch Admin Banner
+      // 2. Render Role & Branch Header Banner
       if (banner) {
-        if (!isSuper && currentUser.branch) {
-          banner.classList.remove('hidden');
-          if (bannerBranch) bannerBranch.textContent = currentUser.branch;
+        banner.classList.remove('hidden');
+
+        if (isSuper) {
+          banner.className = "no-print bg-gradient-to-r from-amber-50/95 via-blue-50/70 to-indigo-50/95 border border-amber-200/90 rounded-2xl p-4 sm:p-4.5 flex flex-col lg:flex-row lg:items-center justify-between gap-3 shadow-xs";
+          if (bannerName) bannerName.textContent = currentUser.name;
+          if (bannerBadge) {
+            bannerBadge.className = "bg-amber-200/90 text-amber-950 text-xs px-2.5 py-0.5 rounded-full font-bold border border-amber-300 flex items-center gap-1";
+            bannerBadge.innerHTML = `<i data-lucide="crown" class="w-3.5 h-3.5 text-amber-700"></i> Admin ធំ (មើលគ្រប់សាខា)`;
+          }
           if (bannerAvatar) {
-            if (currentUser.avatar) {
-              bannerAvatar.innerHTML = `<img src="${currentUser.avatar}" alt="${currentUser.name}" class="w-full h-full object-cover rounded-xl">`;
-            } else {
-              bannerAvatar.innerHTML = `<i data-lucide="building-2" class="w-5 h-5"></i>`;
-            }
+            bannerAvatar.className = "w-12 h-12 rounded-xl bg-amber-500 text-white flex items-center justify-center font-bold shadow-sm overflow-hidden shrink-0 border border-amber-300";
+            bannerAvatar.innerHTML = `<img src="${currentUser.avatar || '1.jpg'}" alt="Admin ធំ" class="w-full h-full object-cover">`;
+          }
+          if (bannerSubtext) {
+            bannerSubtext.innerHTML = `លោកអ្នកជា <strong>Admin ធំ</strong> មានសិទ្ធិមើលទិន្នន័យគ្រប់សាខាទាំងអស់ បញ្ចូលពិន្ទុ SOP និងគ្រប់គ្រង Admin តាមសាខា`;
+          }
+          if (bannerActions) {
+            const branches = getUniqueBranches();
+            const curBranchVal = document.getElementById('branchFilter')?.value || 'ALL';
+            bannerActions.innerHTML = `
+              <div class="flex items-center space-x-1.5 bg-white border border-amber-300 rounded-xl px-2.5 py-1.5 shadow-2xs">
+                <i data-lucide="building-2" class="w-4 h-4 text-amber-600"></i>
+                <span class="text-xs font-bold text-slate-700">មើលសាខា៖</span>
+                <select id="bannerBranchFilter" onchange="syncBranchFilter(this.value)" class="bg-transparent text-xs font-bold text-blue-950 focus:outline-none cursor-pointer">
+                  <option value="ALL" ${curBranchVal === 'ALL' ? 'selected' : ''}>🏢 គ្រប់សាខាទាំងអស់ (ទូទាំងសាលា)</option>
+                  ${branches.map(b => `<option value="${b}" ${curBranchVal === b ? 'selected' : ''}>${b}</option>`).join('')}
+                </select>
+              </div>
+
+              <button onclick="openStaffModal()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-blue-900 hover:bg-blue-800 text-white rounded-xl text-xs font-bold transition shadow-xs active:scale-95 cursor-pointer">
+                <i data-lucide="user-plus" class="w-3.5 h-3.5 text-amber-300"></i>
+                <span>+ បុគ្គលិក</span>
+              </button>
+
+              <button onclick="openAssessmentModal()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-[#007AFF] hover:bg-blue-600 text-white rounded-xl text-xs font-bold transition shadow-xs active:scale-95 cursor-pointer">
+                <i data-lucide="award" class="w-3.5 h-3.5 text-amber-300"></i>
+                <span>✍️ វាយតម្លៃ SOP</span>
+              </button>
+
+              <button onclick="openBranchReportModal()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition shadow-xs active:scale-95 cursor-pointer" title="របាយការណ៍កាតរូបភាព / PDF">
+                <i data-lucide="image" class="w-3.5 h-3.5 text-purple-200"></i>
+                <span>🖼️ របាយការណ៍កាត</span>
+              </button>
+
+              <button onclick="switchTab('admins')" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-bold transition shadow-xs active:scale-95 cursor-pointer" title="គ្រប់គ្រង Admin">
+                <i data-lucide="shield" class="w-3.5 h-3.5 text-amber-300"></i>
+                <span>👥 Admin</span>
+              </button>
+
+              <button onclick="openLoginModal()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold transition shadow-2xs active:scale-95 cursor-pointer">
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-blue-600"></i>
+                <span>ប្តូរគណនី</span>
+              </button>
+            `;
           }
         } else {
-          banner.classList.add('hidden');
+          // Branch Admin View
+          banner.className = "no-print bg-indigo-50 border border-indigo-200 rounded-2xl p-4 sm:p-4.5 flex flex-col lg:flex-row lg:items-center justify-between gap-3 shadow-xs";
+          if (bannerName) bannerName.textContent = currentUser.name;
+          if (bannerBadge) {
+            bannerBadge.className = "bg-indigo-200/80 text-indigo-900 text-xs px-2.5 py-0.5 rounded-full font-bold";
+            bannerBadge.textContent = `🏢 ${currentUser.branch}`;
+          }
+          if (bannerAvatar) {
+            bannerAvatar.className = "w-12 h-12 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shadow-sm overflow-hidden shrink-0 border border-indigo-300";
+            bannerAvatar.innerHTML = `<img src="${currentUser.avatar || '2.jpg'}" alt="${currentUser.name}" class="w-full h-full object-cover">`;
+          }
+          if (bannerSubtext) {
+            bannerSubtext.textContent = `លោកអ្នកកំពុងគ្រប់គ្រង និងវាយតម្លៃពិន្ទុ SOP សម្រាប់តែ ${currentUser.branch} ប៉ុណ្ណោះ`;
+          }
+          if (bannerActions) {
+            bannerActions.innerHTML = `
+              <button onclick="openStaffModal()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-blue-900 hover:bg-blue-800 text-white rounded-xl text-xs font-bold transition shadow-xs active:scale-95 cursor-pointer">
+                <i data-lucide="user-plus" class="w-3.5 h-3.5 text-amber-300"></i>
+                <span>+ បន្ថែមបុគ្គលិក</span>
+              </button>
+
+              <button onclick="openAssessmentModal()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-[#007AFF] hover:bg-blue-600 text-white rounded-xl text-xs font-bold transition shadow-xs active:scale-95 cursor-pointer">
+                <i data-lucide="award" class="w-3.5 h-3.5 text-amber-300"></i>
+                <span>✍️ បញ្ចូលពិន្ទុ SOP</span>
+              </button>
+
+              <button onclick="openBranchReportModal()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold transition shadow-xs active:scale-95 cursor-pointer" title="ទាញយករូបភាព ឬ PDF ផ្ញើជូនប្រធានធំ">
+                <i data-lucide="image" class="w-3.5 h-3.5 text-purple-200"></i>
+                <span>🖼️ ទាញយករូបភាព / PDF</span>
+              </button>
+
+              <button onclick="openExcelExportModal()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs font-bold transition shadow-xs active:scale-95 cursor-pointer" title="ទាញយកឯកសារ Excel សាខា">
+                <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5 text-emerald-200"></i>
+                <span>📊 Excel</span>
+              </button>
+
+              <button onclick="openLoginModal()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 rounded-xl text-xs font-bold transition shadow-2xs active:scale-95 cursor-pointer">
+                <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-blue-600"></i>
+                <span>ប្តូរគណនី</span>
+              </button>
+            `;
+          }
         }
       }
 
@@ -2062,86 +2088,132 @@
 
       // 4. Update Branch Selector & Filter Options
       renderBranchFilterOptions();
+      try { if (window.lucide && lucide.createIcons) lucide.createIcons(); } catch (e) {}
+    }
+
+    function syncBranchFilter(value) {
+      const bFilter = document.getElementById('branchFilter');
+      const bannerFilter = document.getElementById('bannerBranchFilter');
+      if (bFilter) bFilter.value = value;
+      if (bannerFilter) bannerFilter.value = value;
+      filterStaffTable();
     }
 
     function openLoginModal() {
-      document.getElementById('loginModal').classList.remove('hidden');
-      document.getElementById('loginErrorAlert').classList.add('hidden');
-      document.getElementById('loginUsername').value = '';
-      document.getElementById('loginPassword').value = '';
-      lucide.createIcons();
+      if (confirm('តើលោកអ្នកចង់ចាកចេញពីគណនីបច្ចុប្បន្ន ដើម្បីប្តូរចូលគណនីផ្សេងមែនទេ?')) {
+        currentUser = null;
+        localStorage.removeItem('currentUser');
+        initAuthSession();
+        showToast('សូមបញ្ចូលឈ្មោះ និងលេខសម្ងាត់ដើម្បីចូលគណនីថ្មី', 'info');
+      }
     }
 
-    function closeLoginModal() {
-      document.getElementById('loginModal').classList.add('hidden');
-    }
-
-    function handleLoginSubmit(e) {
+    function handleGateLoginSubmit(e) {
       e.preventDefault();
-      const uName = document.getElementById('loginUsername').value.trim();
-      const pwd = document.getElementById('loginPassword').value.trim();
+      const uName = (document.getElementById('gateUsername')?.value || '').trim();
+      const pwd = (document.getElementById('gatePassword')?.value || '').trim();
+      const alertBox = document.getElementById('gateLoginErrorAlert');
+      const alertMsg = document.getElementById('gateLoginErrorMsg');
 
-      const norm = (s) => (s || '').toLowerCase().replace(/[\s\-_.]/g, '');
+      if (!uName || !pwd) {
+        if (alertMsg) alertMsg.textContent = 'សូមបញ្ចូលឈ្មោះគណនី និងលេខកូដសម្ងាត់!';
+        if (alertBox) alertBox.classList.remove('hidden');
+        return;
+      }
+
+      const norm = (s) => (s || '').toLowerCase().replace(/[\s\-_.\(\)]/g, '');
       const inputNorm = norm(uName);
 
+      // Match by Full Name, Username, or Branch
       const found = adminUsers.find(u => {
         const uNorm = norm(u.username);
-        const nameMatch = (
-          u.username.toLowerCase() === uName.toLowerCase() ||
-          uNorm === inputNorm ||
-          (inputNorm === 'superadmin' && u.role === 'SUPER_ADMIN') ||
-          (inputNorm === 'admin' && u.role === 'SUPER_ADMIN') ||
-          (inputNorm === 'adminmain' && u.role === 'SUPER_ADMIN') ||
-          (inputNorm === 'adminbkk' && norm(u.branch).includes('កេងកង')) ||
-          (inputNorm === 'adminoly' && norm(u.branch).includes('អូឡាំពិក')) ||
-          (inputNorm === 'adminttp' && norm(u.branch).includes('ទួលទំពូង')) ||
-          (inputNorm === 'admintk' && norm(u.branch).includes('ទួលគោក')) ||
-          (inputNorm === 'adminstm' && norm(u.branch).includes('ស្ទឹងមានជ័យ')) ||
-          (inputNorm === 'adminbs' && norm(u.branch).includes('បឹងសាឡាង')) ||
-          (inputNorm === 'adminss' && norm(u.branch).includes('សែនសុខ')) ||
-          (inputNorm === 'adminsensok' && norm(u.branch).includes('សែនសុខ'))
-        );
-        const pwdMatch = (u.password === pwd || pwd === '123' || pwd === 'admin123');
-        return nameMatch && pwdMatch;
+        const nameNorm = norm(u.name);
+        const branchNorm = norm(u.branch);
+
+        if (u.username.toLowerCase() === uName.toLowerCase()) return true;
+        if (u.name.toLowerCase() === uName.toLowerCase()) return true;
+        if (uNorm === inputNorm) return true;
+        if (nameNorm === inputNorm) return true;
+
+        if (inputNorm.length >= 3 && nameNorm.includes(inputNorm)) return true;
+        if (inputNorm.length >= 3 && branchNorm.includes(inputNorm)) return true;
+
+        if (u.role === 'SUPER_ADMIN') {
+          if (inputNorm === 'superadmin' || inputNorm === 'admin' || inputNorm === 'adminធំ' || inputNorm.includes('អភិបាល')) return true;
+        }
+
+        if (u.branch) {
+          if (u.username.includes('bkk') && (inputNorm === 'bkk' || inputNorm.includes('កេងកង'))) return true;
+          if (u.username.includes('oly') && (inputNorm === 'oly' || inputNorm.includes('ឡាំពិក'))) return true;
+          if (u.username.includes('ttp') && (inputNorm === 'ttp' || inputNorm.includes('ទំពូង'))) return true;
+          if (u.username.includes('tk') && (inputNorm === 'tk' || inputNorm.includes('ទួលគោក'))) return true;
+          if (u.username.includes('stm') && (inputNorm === 'stm' || inputNorm.includes('មានជ័យ'))) return true;
+          if (u.username.includes('bs') && (inputNorm === 'bs' || inputNorm.includes('សាឡាង'))) return true;
+          if (u.username.includes('ss') && (inputNorm === 'ss' || inputNorm.includes('សែនសុខ'))) return true;
+        }
+
+        return false;
       });
 
       if (!found) {
-        const alertBox = document.getElementById('loginErrorAlert');
-        const alertMsg = document.getElementById('loginErrorMsg');
-        alertMsg.textContent = 'ឈ្មោះគណនី ឬលេខកូដសម្ងាត់មិនត្រឹមត្រូវឡើយ!';
-        alertBox.classList.remove('hidden');
-        lucide.createIcons();
+        if (alertMsg) alertMsg.textContent = 'រកមិនឃើញគណនី ឬឈ្មោះនេះក្នុងប្រព័ន្ធឡើយ!';
+        if (alertBox) alertBox.classList.remove('hidden');
+        try { if (window.lucide && lucide.createIcons) lucide.createIcons(); } catch (e) {}
+        return;
+      }
+
+      // STRICT PASSWORD MATCH: Absolute Security!
+      if (found.password !== pwd) {
+        if (alertMsg) alertMsg.textContent = 'លេខកូដសម្ងាត់មិនត្រឹមត្រូវឡើយ! សូមព្យាយាមម្តងទៀត។';
+        if (alertBox) alertBox.classList.remove('hidden');
+        try { if (window.lucide && lucide.createIcons) lucide.createIcons(); } catch (e) {}
         return;
       }
 
       if (found.status === 'INACTIVE') {
-        const alertBox = document.getElementById('loginErrorAlert');
-        const alertMsg = document.getElementById('loginErrorMsg');
-        alertMsg.textContent = 'គណនីនេះត្រូវបានផ្អាកដំណើរការបណ្តោះអាសន្ន!';
-        alertBox.classList.remove('hidden');
-        lucide.createIcons();
+        if (alertMsg) alertMsg.textContent = 'គណនីនេះត្រូវបានផ្អាកដំណើរការបណ្តោះអាសន្ន!';
+        if (alertBox) alertBox.classList.remove('hidden');
+        try { if (window.lucide && lucide.createIcons) lucide.createIcons(); } catch (e) {}
         return;
       }
 
-      currentUser = found;
+      // Successful Login
+      currentUser = { ...found };
       localStorage.setItem('currentUser', JSON.stringify(currentUser));
-      closeLoginModal();
+
+      if (alertBox) alertBox.classList.add('hidden');
+      const pwdEl = document.getElementById('gatePassword');
+      if (pwdEl) pwdEl.value = '';
+
+      const gateScreen = document.getElementById('authGateScreen');
+      const appWrapper = document.getElementById('appMainWrapper');
+      if (gateScreen) gateScreen.classList.add('hidden');
+      if (appWrapper) appWrapper.classList.remove('hidden');
+
       applyUserPermissions();
       renderAll();
-      showToast(`សូមស្វាគមន៍! អ្នកបានចូលជា «${currentUser.name}»`, 'success');
+      showToast(`សូមស្វាគមន៍! លោកអ្នកបានចូលប្រើប្រាស់ជា «${currentUser.name}»`, 'success');
     }
 
-    function quickLogin(username, password) {
-      document.getElementById('loginUsername').value = username;
-      document.getElementById('loginPassword').value = password;
-      document.getElementById('loginForm').requestSubmit();
+    function toggleGatePasswordVisibility() {
+      const pwdInput = document.getElementById('gatePassword');
+      const icon = document.getElementById('gatePwdEyeIcon');
+      if (!pwdInput) return;
+      if (pwdInput.type === 'password') {
+        pwdInput.type = 'text';
+        if (icon) icon.setAttribute('data-lucide', 'eye-off');
+      } else {
+        pwdInput.type = 'password';
+        if (icon) icon.setAttribute('data-lucide', 'eye');
+      }
+      try { if (window.lucide && lucide.createIcons) lucide.createIcons(); } catch (e) {}
     }
 
     function handleLogout() {
-      if (confirm('តើអ្នកពិតជាចង់ចាកចេញពីប្រព័ន្ធមែនទេ?')) {
+      if (confirm('តើលោកអ្នកពិតជាចង់ចាកចេញពីប្រព័ន្ធមែនទេ?')) {
         currentUser = null;
         localStorage.removeItem('currentUser');
-        openLoginModal();
+        initAuthSession();
         showToast('បានចាកចេញពីប្រព័ន្ធដោយជោគជ័យ', 'info');
       }
     }
@@ -2158,6 +2230,10 @@
     function getScopedStaffList() {
       if (!staffList) return [];
       if (!currentUser || currentUser.role === 'SUPER_ADMIN') {
+        const branchFilter = document.getElementById('branchFilter');
+        if (branchFilter && branchFilter.value && branchFilter.value !== 'ALL') {
+          return staffList.filter(s => (s.branch || 'សាខាទូទៅ') === branchFilter.value);
+        }
         return staffList;
       }
       return staffList.filter(s => (s.branch || 'សាខាទូទៅ') === currentUser.branch);
@@ -2165,24 +2241,38 @@
 
     function renderBranchFilterOptions() {
       const branchFilter = document.getElementById('branchFilter');
+      const bannerBranchFilter = document.getElementById('bannerBranchFilter');
       if (!branchFilter) return;
 
       const isSuper = currentUser && currentUser.role === 'SUPER_ADMIN';
 
       if (!isSuper) {
-        branchFilter.innerHTML = `<option value="${currentUser.branch}">${currentUser.branch} (ជាប់សោរ)</option>`;
+        const lockedOption = `<option value="${currentUser.branch}">${currentUser.branch} (ជាប់សោរ)</option>`;
+        branchFilter.innerHTML = lockedOption;
         branchFilter.disabled = true;
         branchFilter.value = currentUser.branch;
+        if (bannerBranchFilter) {
+          bannerBranchFilter.innerHTML = lockedOption;
+          bannerBranchFilter.disabled = true;
+          bannerBranchFilter.value = currentUser.branch;
+        }
       } else {
         branchFilter.disabled = false;
         const currentVal = branchFilter.value || 'ALL';
         const branches = getUniqueBranches();
 
-        branchFilter.innerHTML = `
-          <option value="ALL">គ្រប់សាខាទាំងអស់ (All)</option>
+        const optionsHtml = `
+          <option value="ALL">🏢 គ្រប់សាខាទាំងអស់ (ទូទាំងសាលា)</option>
           ${branches.map(b => `<option value="${b}">${b}</option>`).join('')}
         `;
+        branchFilter.innerHTML = optionsHtml;
         branchFilter.value = currentVal;
+
+        if (bannerBranchFilter) {
+          bannerBranchFilter.innerHTML = optionsHtml;
+          bannerBranchFilter.value = currentVal;
+          bannerBranchFilter.disabled = false;
+        }
       }
     }
 
@@ -2695,7 +2785,9 @@
     }
 
     function filterStaffTable() {
+      renderMetrics();
       renderStaffTable();
+      renderAnalysisView();
       try { if (window.lucide && lucide.createIcons) lucide.createIcons(); } catch (e) {}
     }
 
@@ -4499,6 +4591,8 @@
       <span class="text-[10px] font-semibold mt-0.5">កំណត់ប្រព័ន្ធ</span>
     </button>
   </nav>
+
+  </div> <!-- /#appMainWrapper -->
 
 </body>
 </html>
