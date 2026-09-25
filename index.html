@@ -981,35 +981,57 @@
 
         <!-- CARD 3: INSTITUTION & REPORT SETTINGS -->
         <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-4">
-          <div class="flex items-center space-x-2 border-b border-slate-100 pb-3">
-            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold">
-              <i data-lucide="school" class="w-4 h-4"></i>
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3 gap-2 flex-wrap">
+            <div class="flex items-center space-x-2">
+              <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold">
+                <i data-lucide="school" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <h3 class="font-display font-bold text-base text-slate-900 leading-tight">៣. ព័ត៌មានស្ថាប័ន & របាយការណ៍បោះពុម្ព</h3>
+                <p class="text-[11px] text-slate-400">កំណត់ឈ្មោះសាលា ក្បាលរបាយការណ៍ និងហត្ថលេខាផ្លូវការ</p>
+              </div>
             </div>
-            <h3 class="font-display font-bold text-base text-slate-900">៣. ព័ត៌មានស្ថាប័ន & របាយការណ៍បោះពុម្ព</h3>
+            <button type="button" onclick="autoFillStandardInstitutionSettings()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 rounded-xl text-xs font-bold transition active:scale-95 cursor-pointer shadow-2xs" title="បំពេញឈ្មោះសាលា និងតួនាទីអ្នកចុះហត្ថលេខាស្តង់ដារដោយស្វ័យប្រវត្តិ">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-emerald-600"></i>
+              <span>✨ បំពេញទម្រង់ស្តង់ដារ V2</span>
+            </button>
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">ឈ្មោះសាលារៀន / ស្ថាប័ន</label>
-            <input type="text" id="cfgSchoolName" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 font-semibold text-slate-800">
+            <label class="block text-xs font-bold text-slate-700 mb-1">ឈ្មោះសាលារៀន / ស្ថាប័ន (School / Institution Name)</label>
+            <input type="text" id="cfgSchoolName" placeholder="ឧ. វិទ្យាស្ថានអប់រំ វីធូ (V2 Education Institution)" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 font-semibold text-slate-800">
+            <p class="text-[10px] text-slate-400 mt-1">💡 ឈ្មោះនេះនឹងបង្ហាញលើក្បាលរបាយការណ៍បោះពុម្ព A4 និងលើវិញ្ញាបនបត្រផ្លូវការ</p>
           </div>
 
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">ចំណងជើងប្រព័ន្ធ (App Title)</label>
-            <input type="text" id="cfgAppTitle" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 font-semibold text-slate-800">
+            <input type="text" id="cfgAppTitle" placeholder="ឧ. V2-KPI | ប្រព័ន្ធគ្រប់គ្រង និងវាយតម្លៃបុគ្គលិកតាមស្តង់ដារ SOP" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 font-semibold text-slate-800">
+            <p class="text-[10px] text-slate-400 mt-1">💡 បង្ហាញលើ Header ផ្នែកខាងលើនៃកម្មវិធី និងផ្ទាំង Login</p>
           </div>
 
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1">ឆ្នាំសិក្សា (Academic Period)</label>
-            <input type="text" id="cfgAcademicYear" class="w-full px-3.5 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 font-semibold text-slate-800">
+            <input type="text" id="cfgAcademicYear" placeholder="ឧ. ឆ្នាំសិក្សា ២០២៥ - ២០២៦ (Academic Year)" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 font-semibold text-slate-800">
+            <p class="text-[10px] text-slate-400 mt-1">💡 បង្ហាញលើកាតស្ថិតិខាងលើ និងលើរបាយការណ៍បោះពុម្ព</p>
           </div>
 
           <div class="pt-2 border-t border-slate-100 space-y-2">
-            <label class="block text-xs font-bold text-slate-700">តួនាទីអ្នកចុះហត្ថលេខា ៣ ថ្នាក់ (ទម្រង់បោះពុម្ព A4)</label>
+            <label class="block text-xs font-bold text-slate-700">តួនាទីអ្នកចុះហត្ថលេខា ៣ ថ្នាក់ (ទម្រង់បោះពុម្ព A4 & របាយការណ៍)</label>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
-              <input type="text" id="cfgSigner1" placeholder="អ្នករៀបចំ" class="px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-medium">
-              <input type="text" id="cfgSigner2" placeholder="ប្រធានផ្នែក/សាខា" class="px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-medium">
-              <input type="text" id="cfgSigner3" placeholder="នាយកសាលា" class="px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-medium">
+              <div>
+                <span class="text-[10px] font-semibold text-slate-400 block mb-0.5">ថ្នាក់ទី១ (អ្នករៀបចំ)</span>
+                <input type="text" id="cfgSigner1" placeholder="អ្នករៀបចំរបាយការណ៍" class="w-full px-2.5 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-medium text-slate-800 focus:bg-white focus:outline-none focus:border-blue-900">
+              </div>
+              <div>
+                <span class="text-[10px] font-semibold text-slate-400 block mb-0.5">ថ្នាក់ទី២ (ត្រួតពិនិត្យ)</span>
+                <input type="text" id="cfgSigner2" placeholder="បានឃើញ និងពិនិត្យដោយ ប្រធានសាខា" class="w-full px-2.5 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-medium text-slate-800 focus:bg-white focus:outline-none focus:border-blue-900">
+              </div>
+              <div>
+                <span class="text-[10px] font-semibold text-slate-400 block mb-0.5">ថ្នាក់ទី៣ (អនុម័តចុងក្រោយ)</span>
+                <input type="text" id="cfgSigner3" placeholder="បានឃើញ និងឯកភាពដោយ នាយកសាលា" class="w-full px-2.5 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-medium text-slate-800 focus:bg-white focus:outline-none focus:border-blue-900">
+              </div>
             </div>
+            <p class="text-[10px] text-slate-400">💡 ថ្នាក់ហត្ថលេខាទាំង ៣ នេះនឹងត្រូវបោះពុម្ពនៅផ្នែកខាងក្រោមនៃទម្រង់តារាងពិន្ទុ A4</p>
           </div>
         </div>
 
@@ -1105,8 +1127,45 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 max-h-72 overflow-y-auto pr-1" id="cfgRolesListContainer">
             <!-- Rendered in JS -->
           </div>
-        </div>
+        <!-- CARD 6: DATA BACKUP, RESTORE & SAFETY (រក្សាទុកទិន្នន័យ 100%) -->
+        <div class="bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 text-white p-6 rounded-2xl shadow-xl space-y-4 lg:col-span-2 border border-blue-800/40">
+          <div class="flex items-center justify-between border-b border-blue-800/60 pb-3 flex-wrap gap-2">
+            <div class="flex items-center space-x-3">
+              <div class="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-300 border border-blue-400/30 flex items-center justify-center font-bold">
+                <i data-lucide="shield-check" class="w-5 h-5 text-emerald-400"></i>
+              </div>
+              <div>
+                <h3 class="font-display font-bold text-base text-white leading-tight">៦. សុវត្ថិភាពទិន្នន័យ & ការបម្រុងទុក (Data Backup & Safety Protection)</h3>
+                <p class="text-xs text-blue-200">ធានារក្សាទុកទិន្នន័យបុគ្គលិក ពិន្ទុ និងការកំណត់ទាំងអស់ ១០០% មិនបាត់បង់</p>
+              </div>
+            </div>
+            <span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-3 py-1 rounded-full font-bold flex items-center gap-1.5">
+              <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+              <span>ទិន្នន័យចាស់ត្រូវបានរក្សាទុកជាប់ជានិច្ច</span>
+            </span>
+          </div>
 
+          <p class="text-xs text-blue-100 leading-relaxed">
+            រាល់ទិន្នន័យដែលលោកអ្នកបានបញ្ចូល (បញ្ជីបុគ្គលិក, ពិន្ទុវាយតម្លៃ, មតិកែលម្អ, គណនី Admin, និងព័ត៌មានស្ថាប័ន) ត្រូវបានរក្សាទុកជាប់ជានិច្ចក្នុងប្រព័ន្ធ។ ដើម្បីសុវត្ថិភាពទ្វេដង លោកអ្នកអាចចុចទាញយក File បម្រុងទុក (Backup JSON) ទុកក្នុងកុំព្យូទ័រ ឬទូរស័ព្ទដៃ ហើយអាចយកមកស្តារឡើងវិញបានគ្រប់ពេលវេលា៖
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+            <!-- Download Backup Button -->
+            <button type="button" onclick="exportSystemBackupJSON()" class="flex items-center justify-center space-x-2 px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-emerald-950/40 active:scale-95 transition cursor-pointer">
+              <i data-lucide="download" class="w-4 h-4"></i>
+              <span>💾 ទាញយកទិន្នន័យបម្រុងទុក (Backup JSON)</span>
+            </button>
+
+            <!-- Restore Backup Button -->
+            <div>
+              <input type="file" id="backupFileInput" accept=".json" class="hidden" onchange="importSystemBackupJSON(event)">
+              <button type="button" onclick="document.getElementById('backupFileInput').click()" class="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-xl text-xs font-bold shadow-lg shadow-blue-950/40 active:scale-95 transition cursor-pointer border border-blue-400/30">
+                <i data-lucide="upload" class="w-4 h-4"></i>
+                <span>📥 នាំចូលទិន្នន័យបម្រុងទុកមកវិញ (Restore Backup)</span>
+              </button>
+            </div>
+          </div>
+        </div>
 
       </div>
 
@@ -1136,10 +1195,15 @@
   <footer class="no-print mt-auto border-t border-slate-200 bg-white py-4 text-center text-xs text-slate-500 font-medium">
     <div class="w-full max-w-[1720px] mx-auto px-3 sm:px-5 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-2 transition-all duration-300">
       <p id="footerCopyText">© ២០២៦ V2-KPI • ប្រព័ន្ធគ្រប់គ្រង និងវាយតម្លៃការងារតាមសាខាសាលារៀន</p>
-      <div class="flex items-center space-x-3">
-        <button onclick="resetToSampleData()" class="text-blue-800 hover:underline">បញ្ចូលទិន្នន័យគំរូឡើងវិញ</button>
+      <div class="flex items-center space-x-3 text-xs flex-wrap justify-center">
+        <button type="button" onclick="exportSystemBackupJSON()" class="text-emerald-700 hover:text-emerald-800 font-bold hover:underline inline-flex items-center gap-1 cursor-pointer">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+          <span>💾 បម្រុងទុកទិន្នន័យ (Backup JSON)</span>
+        </button>
         <span class="text-slate-300">|</span>
-        <button onclick="clearAllData()" class="text-rose-600 hover:underline">សម្អាតទិន្នន័យទាំងអស់</button>
+        <button type="button" onclick="resetToSampleData()" class="text-slate-400 hover:text-blue-800 hover:underline cursor-pointer" title="សម្រាប់ Admin ធំប៉ុណ្ណោះ (មានការបញ្ជាក់សុវត្ថិភាព)">ទិន្នន័យគំរូ</button>
+        <span class="text-slate-300">|</span>
+        <button type="button" onclick="clearAllData()" class="text-slate-400 hover:text-rose-600 hover:underline cursor-pointer" title="សម្រាប់ Admin ធំប៉ុណ្ណោះ (មានការបញ្ជាក់សុវត្ថិភាព)">សម្អាតទិន្នន័យ</button>
       </div>
     </div>
   </footer>
@@ -1907,7 +1971,7 @@
                   <img src="v2b.png" alt="V2 Education Logo" class="w-full h-full object-contain" onerror="this.src='apple-touch-icon.png'">
                 </div>
                 <div>
-                  <h3 class="font-display font-black text-blue-950 text-base leading-tight">វិទ្យាស្ថាន / សាលា V2 EDUCATION</h3>
+                  <h3 id="certInstitutionName" class="font-display font-black text-blue-950 text-base leading-tight">វិទ្យាស្ថានអប់រំ វីធូ (V2 Education Institution)</h3>
                   <p class="text-[10px] font-bold tracking-wider text-amber-800 uppercase">V2 EDUCATION ACADEMY • STANDARDS OF EXCELLENCE</p>
                   <p class="text-[10px] text-slate-500 font-medium">ប្រព័ន្ធវាយតម្លៃគុណភាពអប់រំ និងស្តង់ដារប្រតិបត្តិ SOP</p>
                 </div>
@@ -2129,11 +2193,11 @@
 
     // --- DEFAULT SYSTEM SETTINGS (FULLY CUSTOMIZABLE BY SUPER ADMIN) ---
     const DEFAULT_SYSTEM_SETTINGS = {
-      schoolName: 'សាលារៀន អន្តរជាតិ និងវិទ្យាស្ថានបណ្តុះបណ្តាល',
-      appTitle: 'V2-KPI',
-      academicYear: '២០២៦ (Academic Year)',
+      schoolName: 'វិទ្យាស្ថានអប់រំ វីធូ (V2 Education Institution)',
+      appTitle: 'V2-KPI | ប្រព័ន្ធគ្រប់គ្រង និងវាយតម្លៃបុគ្គលិកតាមស្តង់ដារ SOP',
+      academicYear: 'ឆ្នាំសិក្សា ២០២៥ - ២០២៦',
       printSigner1: 'អ្នករៀបចំរបាយការណ៍',
-      printSigner2: 'ប្រធានដេប៉ាតឺម៉ង់ / សាខា',
+      printSigner2: 'បានឃើញ និងពិនិត្យដោយ ប្រធានសាខា',
       printSigner3: 'បានឃើញ និងឯកភាពដោយ នាយកសាលា',
       sopCriteria: {
         s1: { name: 'ការគោរពវិន័យ និងម៉ោងបង្រៀន', weight: 25 },
@@ -2345,34 +2409,38 @@
       initApp();
     }
 
-    // --- LOCAL STORAGE MANAGEMENT ---
+    // --- LOCAL STORAGE MANAGEMENT (100% DATA PRESERVATION) ---
     function loadStorageData() {
       try {
         const storedSettings = localStorage.getItem('systemSettings');
         if (storedSettings) {
-          systemSettings = JSON.parse(storedSettings);
-          if (!systemSettings.appTitle || systemSettings.appTitle === 'ប្រព័ន្ធគ្រប់គ្រង SOP & KPI') {
-            systemSettings.appTitle = 'V2-KPI';
-            saveSettingsToStorage();
+          try {
+            systemSettings = JSON.parse(storedSettings);
+          } catch (e) {
+            console.error('Failed to parse storedSettings', e);
+            systemSettings = JSON.parse(JSON.stringify(DEFAULT_SYSTEM_SETTINGS));
           }
+          // Fallback only if properties are missing, NEVER overwrite existing user settings:
+          if (!systemSettings.schoolName) systemSettings.schoolName = DEFAULT_SYSTEM_SETTINGS.schoolName;
+          if (!systemSettings.appTitle) systemSettings.appTitle = DEFAULT_SYSTEM_SETTINGS.appTitle;
+          if (!systemSettings.academicYear) systemSettings.academicYear = DEFAULT_SYSTEM_SETTINGS.academicYear;
+          if (!systemSettings.printSigner1) systemSettings.printSigner1 = DEFAULT_SYSTEM_SETTINGS.printSigner1;
+          if (!systemSettings.printSigner2) systemSettings.printSigner2 = DEFAULT_SYSTEM_SETTINGS.printSigner2;
+          if (!systemSettings.printSigner3) systemSettings.printSigner3 = DEFAULT_SYSTEM_SETTINGS.printSigner3;
           if (!systemSettings.roles || !Array.isArray(systemSettings.roles) || systemSettings.roles.length === 0) {
             systemSettings.roles = [...DEFAULT_SYSTEM_SETTINGS.roles];
-            saveSettingsToStorage();
           }
-          // Ensure core 8 branches are available in settings
-          const coreBranches = [
-            'សាខាបឹងកេងកង',
-            'សាខាអូឡាំពិក',
-            'សាខាទួលទំពូង',
-            'សាខាទួលគោក',
-            'សាខាស្ទឹងមានជ័យ',
-            'សាខាបឹងសាឡាង',
-            'សាខាសែនសុខ'
-          ];
+          if (!systemSettings.sopCriteria) {
+            systemSettings.sopCriteria = JSON.parse(JSON.stringify(DEFAULT_SYSTEM_SETTINGS.sopCriteria));
+          }
+          if (!systemSettings.gradingScale) {
+            systemSettings.gradingScale = JSON.parse(JSON.stringify(DEFAULT_SYSTEM_SETTINGS.gradingScale));
+          }
+          // Ensure core branches are present while preserving any branches the user added
           if (!systemSettings.branches || !Array.isArray(systemSettings.branches)) {
             systemSettings.branches = [...DEFAULT_SYSTEM_SETTINGS.branches];
           } else {
-            coreBranches.forEach(b => {
+            DEFAULT_SYSTEM_SETTINGS.branches.forEach(b => {
               if (!systemSettings.branches.includes(b)) systemSettings.branches.push(b);
             });
           }
@@ -2386,6 +2454,7 @@
         if (storedUsers) {
           try {
             adminUsers = JSON.parse(storedUsers);
+            if (!Array.isArray(adminUsers)) adminUsers = [];
           } catch (e) {
             adminUsers = [];
           }
@@ -2395,13 +2464,12 @@
 
         const normU = s => (s || '').toLowerCase().replace(/[\s\-_.]/g, '');
 
-        // Sync and ensure all 8 pre-configured admin accounts and their avatars 1.jpg to 8.jpg are active
+        // Sync and ensure 8 pre-configured admin accounts exist, while STRICTLY preserving all user edits & custom admins
         INITIAL_USERS.forEach(initU => {
           const initNorm = normU(initU.username);
           const idx = adminUsers.findIndex(u => 
             u.id === initU.id || 
-            normU(u.username) === initNorm ||
-            (initU.branch !== 'ALL' && u.branch === initU.branch)
+            normU(u.username) === initNorm
           );
 
           if (idx !== -1) {
@@ -2416,37 +2484,53 @@
         });
         localStorage.setItem('adminUsers', JSON.stringify(adminUsers));
 
+        // Load Staff: 100% preserve existing stored staff list!
         const storedStaff = localStorage.getItem('staffList');
         if (storedStaff) {
-          staffList = JSON.parse(storedStaff).map((s, idx) => ({
-            ...s,
-            branch: s.branch || 'សាខាទួលគោក',
-            startDate: s.startDate || (idx === 7 ? '2026-05-15' : (idx % 2 === 0 ? '2024-08-01' : '2025-08-01'))
-          }));
+          try {
+            const parsedStaff = JSON.parse(storedStaff);
+            if (Array.isArray(parsedStaff)) {
+              staffList = parsedStaff.map((s, idx) => ({
+                ...s,
+                branch: s.branch || 'សាខាទួលគោក',
+                startDate: s.startDate || (idx === 7 ? '2026-05-15' : (idx % 2 === 0 ? '2024-08-01' : '2025-08-01'))
+              }));
+            } else {
+              staffList = [...INITIAL_STAFF];
+            }
+          } catch (e) {
+            console.error('Failed to parse storedStaff', e);
+            if (!staffList || staffList.length === 0) staffList = [...INITIAL_STAFF];
+          }
         } else {
           staffList = [...INITIAL_STAFF];
           localStorage.setItem('staffList', JSON.stringify(staffList));
         }
 
+        // Load Assessments: 100% preserve existing user-entered evaluations!
         const storedAssessments = localStorage.getItem('assessments');
         if (storedAssessments) {
-          assessments = JSON.parse(storedAssessments);
-          INITIAL_ASSESSMENTS.forEach(initAsm => {
-            if (!assessments.some(a => a.id === initAsm.id)) {
-              assessments.push(initAsm);
+          try {
+            const parsedAssessments = JSON.parse(storedAssessments);
+            if (Array.isArray(parsedAssessments)) {
+              assessments = parsedAssessments;
+            } else {
+              assessments = [...INITIAL_ASSESSMENTS];
             }
-          });
-          localStorage.setItem('assessments', JSON.stringify(assessments));
+          } catch (e) {
+            console.error('Failed to parse storedAssessments', e);
+            if (!assessments || assessments.length === 0) assessments = [...INITIAL_ASSESSMENTS];
+          }
         } else {
           assessments = [...INITIAL_ASSESSMENTS];
           localStorage.setItem('assessments', JSON.stringify(assessments));
         }
       } catch (err) {
-        console.error('LocalStorage error:', err);
-        systemSettings = JSON.parse(JSON.stringify(DEFAULT_SYSTEM_SETTINGS));
-        adminUsers = [...INITIAL_USERS];
-        staffList = [...INITIAL_STAFF];
-        assessments = [...INITIAL_ASSESSMENTS];
+        console.error('LocalStorage critical error:', err);
+        if (!systemSettings) systemSettings = JSON.parse(JSON.stringify(DEFAULT_SYSTEM_SETTINGS));
+        if (!adminUsers || adminUsers.length === 0) adminUsers = [...INITIAL_USERS];
+        if (!staffList || staffList.length === 0) staffList = [...INITIAL_STAFF];
+        if (!assessments || assessments.length === 0) assessments = [...INITIAL_ASSESSMENTS];
       }
     }
 
@@ -2479,6 +2563,9 @@
 
       const printSchool = document.getElementById('printSchoolName');
       if (printSchool) printSchool.textContent = systemSettings.schoolName;
+
+      const certInst = document.getElementById('certInstitutionName');
+      if (certInst) certInst.textContent = systemSettings.schoolName;
 
       const acadPeriod = document.getElementById('metricAcademicYearLabel');
       if (acadPeriod) acadPeriod.textContent = systemSettings.academicYear;
@@ -3871,12 +3958,12 @@
       renderSettingsRolesList();
 
       // 3. School & Print info
-      document.getElementById('cfgSchoolName').value = systemSettings.schoolName;
-      document.getElementById('cfgAppTitle').value = systemSettings.appTitle;
-      document.getElementById('cfgAcademicYear').value = systemSettings.academicYear;
-      document.getElementById('cfgSigner1').value = systemSettings.printSigner1;
-      document.getElementById('cfgSigner2').value = systemSettings.printSigner2;
-      document.getElementById('cfgSigner3').value = systemSettings.printSigner3;
+      document.getElementById('cfgSchoolName').value = systemSettings.schoolName || DEFAULT_SYSTEM_SETTINGS.schoolName;
+      document.getElementById('cfgAppTitle').value = systemSettings.appTitle || DEFAULT_SYSTEM_SETTINGS.appTitle;
+      document.getElementById('cfgAcademicYear').value = systemSettings.academicYear || DEFAULT_SYSTEM_SETTINGS.academicYear;
+      document.getElementById('cfgSigner1').value = systemSettings.printSigner1 || DEFAULT_SYSTEM_SETTINGS.printSigner1;
+      document.getElementById('cfgSigner2').value = systemSettings.printSigner2 || DEFAULT_SYSTEM_SETTINGS.printSigner2;
+      document.getElementById('cfgSigner3').value = systemSettings.printSigner3 || DEFAULT_SYSTEM_SETTINGS.printSigner3;
 
       // 4. Grading Cutoffs
       const gs = systemSettings.gradingScale;
@@ -3995,6 +4082,33 @@
       renderSettingsBranchesList();
       renderBranchFilterOptions();
       showToast(`បានលុប «${branchName}» រួចរាល់!`, 'info');
+    }
+
+    function autoFillStandardInstitutionSettings() {
+      const standardVals = {
+        schoolName: 'វិទ្យាស្ថានអប់រំ វីធូ (V2 Education Institution)',
+        appTitle: 'V2-KPI | ប្រព័ន្ធគ្រប់គ្រង និងវាយតម្លៃបុគ្គលិកតាមស្តង់ដារ SOP',
+        academicYear: 'ឆ្នាំសិក្សា ២០២៥ - ២០២៦',
+        signer1: 'អ្នករៀបចំរបាយការណ៍',
+        signer2: 'បានឃើញ និងពិនិត្យដោយ ប្រធានសាខា',
+        signer3: 'បានឃើញ និងឯកភាពដោយ នាយកសាលា'
+      };
+
+      const elSchool = document.getElementById('cfgSchoolName');
+      const elApp = document.getElementById('cfgAppTitle');
+      const elAcad = document.getElementById('cfgAcademicYear');
+      const elS1 = document.getElementById('cfgSigner1');
+      const elS2 = document.getElementById('cfgSigner2');
+      const elS3 = document.getElementById('cfgSigner3');
+
+      if (elSchool) elSchool.value = standardVals.schoolName;
+      if (elApp) elApp.value = standardVals.appTitle;
+      if (elAcad) elAcad.value = standardVals.academicYear;
+      if (elS1) elS1.value = standardVals.signer1;
+      if (elS2) elS2.value = standardVals.signer2;
+      if (elS3) elS3.value = standardVals.signer3;
+
+      showToast('✨ បានបំពេញព័ត៌មានស្ថាប័នស្តង់ដារ V2 រួចរាល់! សូមចុច "រក្សាទុកការកំណត់" ដើម្បីអនុវត្ត។', 'success');
     }
 
     function saveSystemSettingsFromForm() {
@@ -6230,6 +6344,8 @@
       if (scoreEl) scoreEl.textContent = `${toKhmerNum(score)}/១០០`;
       if (cyclePeriodEl) cyclePeriodEl.textContent = cyclePeriod;
       if (certVerificationId) certVerificationId.textContent = `ID: V2-CERT-${currentYear}-${staff.id.replace('staff_', '')}`;
+      const instNameEl = document.getElementById('certInstitutionName');
+      if (instNameEl) instNameEl.textContent = (systemSettings && systemSettings.schoolName) ? systemSettings.schoolName : DEFAULT_SYSTEM_SETTINGS.schoolName;
 
       // Set Date in Khmer
       const now = new Date();
@@ -6554,34 +6670,132 @@
       printWindow.document.close();
     }
 
-    // Reset Sample Data
-    function resetToSampleData() {
-      if (confirm('តើអ្នកពិតជាចង់កំណត់ទិន្នន័យគំរូឡើងវិញមែនទេ?')) {
-        systemSettings = JSON.parse(JSON.stringify(DEFAULT_SYSTEM_SETTINGS));
-        adminUsers = [...INITIAL_USERS];
-        staffList = [...INITIAL_STAFF];
-        assessments = [...INITIAL_ASSESSMENTS];
-        currentUser = adminUsers[0];
-        saveSettingsToStorage();
-        saveUsersToStorage();
-        saveStaffToStorage();
-        saveAssessmentsToStorage();
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
-        applyUserPermissions();
-        renderAll();
-        showToast('បានកំណត់ទិន្នន័យគំរូឡើងវិញជោគជ័យ!', 'success');
+    // --- 9. DATA BACKUP & RESTORE (100% USER DATA PRESERVATION) ---
+    function exportSystemBackupJSON() {
+      try {
+        const backupData = {
+          app: 'V2-KPI SOP System',
+          version: '2.0',
+          exportedAt: new Date().toISOString(),
+          schoolName: systemSettings ? systemSettings.schoolName : '',
+          systemSettings: systemSettings,
+          adminUsers: adminUsers,
+          staffList: staffList,
+          assessments: assessments
+        };
+
+        const jsonStr = JSON.stringify(backupData, null, 2);
+        const blob = new Blob([jsonStr], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const now = new Date();
+        const dateStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+        a.href = url;
+        a.download = `V2_KPI_Backup_${dateStr}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        showToast('💾 បានទាញយកទិន្នន័យបម្រុងទុក (Backup JSON) ជោគជ័យ!', 'success');
+      } catch (err) {
+        console.error('Export backup error:', err);
+        alert('មានបញ្ហាក្នុងការទាញយកទិន្នន័យបម្រុងទុក៖ ' + err.message);
       }
     }
 
-    function clearAllData() {
-      if (confirm('តើអ្នកពិតជាចង់សម្អាតទិន្នន័យទាំងអស់មែនទេ?')) {
-        staffList = [];
-        assessments = [];
-        saveStaffToStorage();
-        saveAssessmentsToStorage();
-        renderAll();
-        showToast('បានសម្អាតទិន្នន័យទាំងអស់!', 'info');
+    function importSystemBackupJSON(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (!data || (!data.staffList && !data.assessments && !data.systemSettings)) {
+            alert('File នេះមិនមែនជា File បម្រុងទុកត្រឹមត្រូវរបស់ប្រព័ន្ធ V2-KPI ឡើយ!');
+            return;
+          }
+
+          const staffCount = Array.isArray(data.staffList) ? data.staffList.length : 0;
+          const asmCount = Array.isArray(data.assessments) ? data.assessments.length : 0;
+
+          if (!confirm(`តើលោកអ្នកពិតជាចង់ស្តារទិន្នន័យបម្រុងទុកនេះមែនទេ?\n\n• បុគ្គលិក៖ ${toKhmerNum(staffCount)} នាក់\n• ការវាយតម្លៃ៖ ${toKhmerNum(asmCount)} កំណត់ត្រា\n\nទិន្នន័យបច្ចុប្បន្ននឹងត្រូវជំនួសដោយទិន្នន័យក្នុង File នេះ។`)) {
+            event.target.value = '';
+            return;
+          }
+
+          if (Array.isArray(data.staffList)) staffList = data.staffList;
+          if (Array.isArray(data.assessments)) assessments = data.assessments;
+          if (data.systemSettings && typeof data.systemSettings === 'object') systemSettings = data.systemSettings;
+          if (Array.isArray(data.adminUsers) && data.adminUsers.length > 0) adminUsers = data.adminUsers;
+
+          saveStaffToStorage();
+          saveAssessmentsToStorage();
+          saveSettingsToStorage();
+          saveUsersToStorage();
+
+          applySystemSettingsToUI();
+          renderAll();
+
+          showToast('🎉 បានស្តារទិន្នន័យទាំងអស់ពី File Backup ជោគជ័យ ១០០%!', 'success');
+        } catch (err) {
+          console.error('Import backup error:', err);
+          alert('មិនអាចអាន File បម្រុងទុកបានទេ៖ ' + err.message);
+        } finally {
+          event.target.value = '';
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // Reset Sample Data - STRICTLY PROTECTED (SUPER ADMIN ONLY)
+    function resetToSampleData() {
+      if (!currentUser || currentUser.role !== 'SUPER_ADMIN') {
+        alert('⚠️ សិទ្ធិមិនគ្រប់គ្រាន់! មានតែ Super Admin (Admin ធំ) ប៉ុណ្ណោះដែលអាចកំណត់ទិន្នន័យឡើងវិញបាន។');
+        return;
       }
+
+      const code = prompt('⚠️ ការព្រមានសុវត្ថិភាពទិន្នន័យ៖\nតើលោកអ្នកពិតជាចង់កំណត់ទិន្នន័យគំរូឡើងវិញមែនទេ? រាល់ទិន្នន័យបុគ្គលិក និងពិន្ទុដែលបានបញ្ចូល នឹងត្រូវបាត់បង់!\n\nដើម្បីបញ្ជាក់ សូមវាយពាក្យ "CONFIRM"៖');
+      if (code !== 'CONFIRM') {
+        showToast('បានបោះបង់ការកំណត់ទិន្នន័យឡើងវិញ។ ទិន្នន័យរបស់អ្នកត្រូវបានការពារសុវត្ថិភាព។', 'info');
+        return;
+      }
+
+      systemSettings = JSON.parse(JSON.stringify(DEFAULT_SYSTEM_SETTINGS));
+      adminUsers = [...INITIAL_USERS];
+      staffList = [...INITIAL_STAFF];
+      assessments = [...INITIAL_ASSESSMENTS];
+      currentUser = adminUsers[0];
+      saveSettingsToStorage();
+      saveUsersToStorage();
+      saveStaffToStorage();
+      saveAssessmentsToStorage();
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      applyUserPermissions();
+      renderAll();
+      showToast('បានកំណត់ទិន្នន័យគំរូឡើងវិញជោគជ័យ!', 'success');
+    }
+
+    // Clear All Data - STRICTLY PROTECTED (SUPER ADMIN ONLY)
+    function clearAllData() {
+      if (!currentUser || currentUser.role !== 'SUPER_ADMIN') {
+        alert('⚠️ សិទ្ធិមិនគ្រប់គ្រាន់! មានតែ Super Admin (Admin ធំ) ប៉ុណ្ណោះដែលអាចសម្អាតទិន្នន័យបាន។');
+        return;
+      }
+
+      const code = prompt('🚨 ការព្រមានធ្ងន់ធ្ងរ៖\nតើលោកអ្នកពិតជាចង់សម្អាតទិន្នន័យបុគ្គលិក និងការវាយតម្លៃទាំងអស់មែនទេ? សកម្មភាពនេះមិនអាចត្រឡប់វិញបានឡើយ!\n\nដើម្បីបញ្ជាក់ សូមវាយពាក្យ "DELETE"៖');
+      if (code !== 'DELETE') {
+        showToast('បានបោះបង់ការសម្អាតទិន្នន័យ។ ទិន្នន័យរបស់អ្នកត្រូវបានការពារសុវត្ថិភាព។', 'info');
+        return;
+      }
+
+      staffList = [];
+      assessments = [];
+      saveStaffToStorage();
+      saveAssessmentsToStorage();
+      renderAll();
+      showToast('បានសម្អាតទិន្នន័យទាំងអស់!', 'info');
     }
   </script>
 
