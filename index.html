@@ -332,6 +332,20 @@
   <!-- ==================== MAIN CONTENT CONTAINER ==================== -->
   <main class="w-full max-w-[1720px] mx-auto px-3 sm:px-5 lg:px-8 py-5 sm:py-6 flex-1 space-y-5 sm:space-y-6 transition-all duration-300">
 
+    <!-- Switched Admin Return Notification Banner (Visible when Super Admin is viewing as a Branch Admin) -->
+    <div id="switchedAdminBanner" class="hidden no-print bg-gradient-to-r from-amber-600 via-amber-700 to-yellow-700 text-white rounded-2xl p-3 sm:px-4 sm:py-2.5 shadow-md flex items-center justify-between gap-3 border border-amber-400/50">
+      <div class="flex items-center space-x-2 text-xs sm:text-sm">
+        <span class="inline-flex items-center gap-1 bg-amber-950/60 px-2.5 py-1 rounded-full text-xs font-bold text-amber-200 border border-amber-500/40 shrink-0">
+          <i data-lucide="crown" class="w-3.5 h-3.5 text-amber-300"></i> សិទ្ធិ Admin ធំ
+        </span>
+        <span id="switchedAdminBannerText" class="text-white font-medium">លោកអ្នកកំពុងចូលមើលជា Admin សាខា...</span>
+      </div>
+      <button onclick="switchToSuperAdmin()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-white hover:bg-amber-50 text-amber-950 font-bold rounded-xl text-xs shadow-xs transition active:scale-95 cursor-pointer shrink-0">
+        <i data-lucide="arrow-left" class="w-3.5 h-3.5 text-amber-700"></i>
+        <span>👑 ត្រឡប់មក Admin ធំវិញ</span>
+      </button>
+    </div>
+
     <!-- Unified Role & Branch Banner (For both Super Admin and Branch Admin) -->
     <div id="roleHeaderBanner" class="no-print bg-white border border-slate-200 rounded-2xl p-4 sm:p-4.5 flex flex-col lg:flex-row lg:items-center justify-between gap-3 shadow-xs transition-all">
       <div class="flex items-center space-x-3.5">
@@ -1325,10 +1339,42 @@
           </div>
         </div>
 
-        <!-- Feedback & Notes -->
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">មតិកែលម្អ / ចំណុចខ្លាំងបន្ថែម (កំណត់សម្គាល់)</label>
-          <textarea id="assessmentNotes" rows="2" placeholder="បញ្ចូលចំណាំ ឬការណែនាំបន្ថែមជូនបុគ្គលិក..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs sm:text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition"></textarea>
+        <!-- KPI Performance Feedback (Strengths & Areas for Improvement) -->
+        <div class="bg-gradient-to-br from-slate-50 to-indigo-50/40 p-4 rounded-2xl border border-slate-200/90 space-y-3.5">
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center space-x-1.5">
+              <i data-lucide="sparkles" class="w-4 h-4 text-amber-500"></i>
+              <span class="text-xs font-bold text-slate-800">ការវាយតម្លៃលម្អិត និងមតិកែលម្អ (KPI Feedback)</span>
+            </div>
+            <button type="button" onclick="autoGenerateKpiFeedback()" class="inline-flex items-center space-x-1 px-2.5 py-1 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white rounded-xl text-[11px] font-bold shadow-xs active:scale-95 transition cursor-pointer" title="វិភាគចំណុចល្អ និងចំណុចបន្ថែមស្វ័យប្រវត្តិតាមពិន្ទុជាក់ស្តែង">
+              <i data-lucide="wand-2" class="w-3 h-3"></i>
+              <span>⚡ វិភាគតាម KPI</span>
+            </button>
+          </div>
+
+          <!-- Strengths (ចំណុចល្អ) -->
+          <div>
+            <label class="block text-xs font-bold text-emerald-800 mb-1 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span>🌟 ចំណុចល្អ និងភាពខ្លាំង (Strengths & Commendations)</span>
+            </label>
+            <textarea id="assessStrengths" rows="2" placeholder="ចំណុចខ្លាំងរបស់បុគ្គលិក (ឧ. មានវិន័យល្អ វិធីសាស្ត្របង្រៀនទាក់ទាញ...)" class="w-full px-3.5 py-2 bg-white border border-emerald-300/80 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition text-slate-800"></textarea>
+          </div>
+
+          <!-- Areas for Improvement (ចំណុចបន្ថែម) -->
+          <div>
+            <label class="block text-xs font-bold text-blue-900 mb-1 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+              <span>🎯 ចំណុចបន្ថែម និងត្រូវកែលម្អ (Areas for Improvement & Recommendations)</span>
+            </label>
+            <textarea id="assessImprovements" rows="2" placeholder="ចំណុចត្រូវពង្រឹងបន្ថែម (ឧ. គួរតាមដានសិស្សរៀនយឺតឱ្យបានដិតដល់បន្ថែម...)" class="w-full px-3.5 py-2 bg-white border border-blue-300/80 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition text-slate-800"></textarea>
+          </div>
+
+          <!-- General Remark / Notes -->
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-500 mb-1">កំណត់សម្គាល់បន្ថែមផ្សេងៗ (បើមាន)</label>
+            <input type="text" id="assessmentNotes" placeholder="បញ្ចូលកំណត់សម្គាល់ទូទៅបន្ថែម..." class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition">
+          </div>
         </div>
 
         <!-- Action Buttons -->
@@ -1549,16 +1595,26 @@
           <input type="text" id="adminPassword" required placeholder="បញ្ចូលពាក្យសម្ងាត់ថ្មី..." class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition font-mono">
         </div>
 
-        <!-- Branch Assignment (Free Text Input with Suggestions) -->
+        <!-- Role Selection (Super Admin vs Branch Admin) -->
         <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">តួនាទី (Admin Role) <span class="text-rose-500">*</span></label>
+          <select id="adminRoleSelect" onchange="toggleAdminRoleBranch(this.value)" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition font-medium text-slate-800">
+            <option value="BRANCH_ADMIN">🏢 Admin សាខា (គ្រប់គ្រង និងវាយតម្លៃតែសាខារបស់ខ្លួន)</option>
+            <option value="SUPER_ADMIN">👑 Admin ធំ (Super Admin - មើលគ្រប់សាខា & គ្រប់គ្រង Admin ទាំងអស់)</option>
+          </select>
+          <p class="text-[11px] text-slate-400 mt-1">💡 Admin ធំមានសិទ្ធិកំណត់ ឬដូរតួនាទីគណនីនេះបានដោយសេរី</p>
+        </div>
+
+        <!-- Branch Assignment (ដូរសាខា / ជ្រើសរើសសាខា ឬ បង្កើតសាខាថ្មី) -->
+        <div id="adminBranchContainer">
           <label class="block text-xs font-bold text-slate-700 mb-1">សាខាដែលត្រូវគ្រប់គ្រង (Assigned Branch) <span class="text-rose-500">*</span></label>
-          <div class="relative">
-            <input type="text" id="adminBranchInput" list="adminBranchDatalist" required placeholder="វាយបញ្ចូលឈ្មោះសាខា (ឧ. សាខាបឹងកេងកង, សាខាទួលគោក...)" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition font-medium text-slate-800">
-            <datalist id="adminBranchDatalist">
-              <!-- Rendered via JS -->
-            </datalist>
+          <div class="space-y-2">
+            <select id="adminBranchSelect" onchange="toggleAdminCustomBranch(this.value)" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-900/20 focus:border-blue-900 transition font-medium text-slate-800">
+              <!-- Populated via JS -->
+            </select>
+            <input type="text" id="adminCustomBranchInput" placeholder="វាយបញ្ចូលឈ្មោះសាខាថ្មី (ឧ. សាខាក្រុងតាខ្មៅ, សាខាជ្រោយចង្វារ...)" class="hidden w-full px-3.5 py-2.5 bg-white border-2 border-blue-400 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-900/20 text-slate-900">
           </div>
-          <p class="text-[11px] text-slate-400 mt-1">💡 លោកអ្នកអាចវាយបញ្ចូលឈ្មោះសាខាថ្មីដោយសេរី ឬជ្រើសរើសពីបញ្ជីសាខា</p>
+          <p id="adminBranchHint" class="text-[11px] text-slate-400 mt-1">💡 ចុចរើសសាខាដើម្បីប្តូរសាខាភ្លាមៗ ឬជ្រើស «+ បញ្ចូលឈ្មោះសាខាថ្មី»</p>
         </div>
 
         <!-- Status -->
@@ -1595,6 +1651,129 @@
         <button onclick="closeDeleteModal()" class="w-1/2 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-sm font-semibold transition">បោះបង់</button>
         <button id="confirmDeleteBtn" class="w-1/2 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-sm font-semibold transition shadow-md shadow-rose-600/20">យល់ព្រមលុប</button>
       </div>
+    </div>
+  </div>
+
+  <!-- 7. SWITCH ACCOUNT MODAL (SUPER ADMIN INSTANT BRANCH SWITCHER) -->
+  <div id="switchAccountModal" class="fixed inset-0 z-50 bg-slate-900/65 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-white rounded-t-[28px] sm:rounded-3xl max-w-lg w-full shadow-2xl border border-slate-100 overflow-hidden transform transition-all my-auto sm:my-6">
+      <div class="w-10 h-1 bg-slate-300 rounded-full mx-auto my-2.5 sm:hidden"></div>
+      
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-blue-950 via-slate-900 to-indigo-950 text-white px-6 py-4.5 flex items-center justify-between">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-9 h-9 rounded-xl bg-amber-400/20 text-amber-300 flex items-center justify-center border border-amber-400/30">
+            <i data-lucide="repeat" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-base">ប្តូរគណនី Admin / ចូលមើលសាខា</h3>
+            <p class="text-xs text-blue-200">ជ្រើសរើស Admin ឬសាខាដើម្បីប្តូរចូលមើលភ្លាមៗ</p>
+          </div>
+        </div>
+        <button onclick="closeSwitchAccountModal()" class="text-slate-300 hover:text-white transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Account List Container -->
+      <div class="p-5 space-y-2.5 max-h-[60vh] overflow-y-auto" id="switchAccountList">
+        <!-- Rendered dynamically via JS -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="bg-slate-50 px-6 py-3.5 border-t border-slate-200 flex items-center justify-between gap-3">
+        <button onclick="logoutToGate()" class="inline-flex items-center space-x-1.5 px-3.5 py-2 text-xs font-bold text-rose-600 hover:bg-rose-50 rounded-xl transition border border-rose-200 cursor-pointer">
+          <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+          <span>ចាកចេញពីប្រព័ន្ធ (Logout)</span>
+        </button>
+        <button onclick="closeSwitchAccountModal()" class="px-5 py-2 text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 rounded-xl transition border border-slate-200 shadow-2xs">
+          បិទ
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 8. STAFF FEEDBACK & IMPROVEMENT MODAL (ចំណុចល្អ & ចំណុចបន្ថែម) -->
+  <div id="staffFeedbackModal" class="fixed inset-0 z-50 bg-slate-900/65 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-white rounded-t-[28px] sm:rounded-3xl max-w-lg w-full shadow-2xl border border-slate-100 overflow-hidden transform transition-all my-auto sm:my-6">
+      <div class="w-10 h-1 bg-slate-300 rounded-full mx-auto my-2.5 sm:hidden"></div>
+
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-blue-950 via-indigo-900 to-blue-900 text-white px-6 py-4.5 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <div id="feedbackStaffAvatar" class="w-10 h-10 rounded-xl bg-amber-400 text-blue-950 flex items-center justify-center font-black shadow-xs shrink-0">
+            ប
+          </div>
+          <div>
+            <h3 id="feedbackStaffName" class="font-display font-bold text-base">ឈ្មោះបុគ្គលិក</h3>
+            <p class="text-xs text-blue-200 flex items-center gap-1.5 flex-wrap">
+              <span id="feedbackStaffRole">តួនាទី</span> • 
+              <span id="feedbackStaffBranch" class="text-amber-300 font-bold">សាខា</span>
+            </p>
+          </div>
+        </div>
+        <button onclick="closeStaffFeedbackModal()" class="text-blue-200 hover:text-white transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
+        
+        <!-- Score Summary Header -->
+        <div class="bg-slate-50 border border-slate-200 rounded-2xl p-3.5 flex items-center justify-between">
+          <div>
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">លទ្ធផលវាយតម្លៃ SOP</span>
+            <span id="feedbackPeriod" class="text-xs font-bold text-blue-950">ខែកញ្ញា ឆ្នាំ២០២៦</span>
+          </div>
+          <div class="text-right">
+            <span id="feedbackTotalKpi" class="text-xl font-display font-black text-blue-950 block">0 / 100</span>
+            <span id="feedbackGradeBadge" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold border">និទ្ទេស -</span>
+          </div>
+        </div>
+
+        <!-- Section 1: Strengths (ចំណុចល្អ) -->
+        <div class="bg-emerald-50/70 border border-emerald-200 rounded-2xl p-4 space-y-2">
+          <div class="flex items-center space-x-2 text-emerald-900 font-bold text-xs sm:text-sm">
+            <span class="w-6 h-6 rounded-lg bg-emerald-500 text-white flex items-center justify-center text-xs shadow-2xs">🌟</span>
+            <span>ចំណុចល្អ និងភាពខ្លាំង (Strengths & Commendations)</span>
+          </div>
+          <div id="feedbackStrengthsContent" class="text-xs sm:text-sm text-emerald-950 font-medium whitespace-pre-line leading-relaxed pl-2 bg-white/70 p-3 rounded-xl border border-emerald-100">
+            មិនទាន់មានទិន្នន័យ
+          </div>
+        </div>
+
+        <!-- Section 2: Areas for Improvement (ចំណុចបន្ថែម) -->
+        <div class="bg-blue-50/70 border border-blue-200 rounded-2xl p-4 space-y-2">
+          <div class="flex items-center space-x-2 text-blue-950 font-bold text-xs sm:text-sm">
+            <span class="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs shadow-2xs">🎯</span>
+            <span>ចំណុចបន្ថែម និងត្រូវកែលម្អ (Areas for Improvement)</span>
+          </div>
+          <div id="feedbackImprovementsContent" class="text-xs sm:text-sm text-blue-950 font-medium whitespace-pre-line leading-relaxed pl-2 bg-white/70 p-3 rounded-xl border border-blue-100">
+            មិនទាន់មានទិន្នន័យ
+          </div>
+        </div>
+
+        <!-- Section 3: Additional Remark (if any) -->
+        <div id="feedbackNotesBox" class="bg-slate-50 border border-slate-200 rounded-2xl p-3.5 space-y-1">
+          <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">កំណត់សម្គាល់បន្ថែម</span>
+          <p id="feedbackNotesContent" class="text-xs text-slate-700 font-medium"></p>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="bg-slate-50 px-6 py-3.5 border-t border-slate-200 flex items-center justify-between gap-3">
+        <button id="feedbackEditKpiBtn" class="inline-flex items-center space-x-1.5 px-4 py-2 bg-blue-900 hover:bg-blue-800 text-white text-xs font-bold rounded-xl shadow-xs transition active:scale-95 cursor-pointer">
+          <i data-lucide="edit-3" class="w-3.5 h-3.5 text-amber-300"></i>
+          <span>កែប្រែពិន្ទុ & មតិ</span>
+        </button>
+        <button onclick="closeStaffFeedbackModal()" class="px-5 py-2 text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 rounded-xl transition border border-slate-200 shadow-2xs">
+          បិទ
+        </button>
+      </div>
+
     </div>
   </div>
 
@@ -1913,11 +2092,7 @@
             adminUsers[idx] = {
               ...initU,
               ...adminUsers[idx],
-              avatar: initU.avatar, // Ensure photo 1.jpg - 8.jpg is set
-              name: initU.name,
-              branch: initU.branch,
-              role: initU.role,
-              status: 'ACTIVE'
+              avatar: adminUsers[idx].avatar || initU.avatar
             };
           } else {
             adminUsers.push({ ...initU });
@@ -2285,6 +2460,7 @@
 
       // 4. Update Branch Selector & Filter Options
       renderBranchFilterOptions();
+      updateSwitchedAdminBanner();
       try { if (window.lucide && lucide.createIcons) lucide.createIcons(); } catch (e) {}
     }
 
@@ -2297,12 +2473,133 @@
     }
 
     function openLoginModal() {
-      if (confirm('តើលោកអ្នកចង់ចាកចេញពីគណនីបច្ចុប្បន្ន ដើម្បីប្តូរចូលគណនីផ្សេងមែនទេ?')) {
-        currentUser = null;
-        localStorage.removeItem('currentUser');
-        initAuthSession();
-        showToast('សូមបញ្ចូលឈ្មោះ និងលេខសម្ងាត់ដើម្បីចូលគណនីថ្មី', 'info');
+      const isSuper = currentUser && currentUser.role === 'SUPER_ADMIN';
+      const hasOriginalSuper = sessionStorage.getItem('originalSuperAdminId');
+      if (isSuper || hasOriginalSuper) {
+        openSwitchAccountModal();
+      } else {
+        if (confirm('តើលោកអ្នកចង់ចាកចេញពីគណនីបច្ចុប្បន្ន ដើម្បីប្តូរចូលគណនីផ្សេងមែនទេ?')) {
+          logoutToGate();
+        }
       }
+    }
+
+    function openSwitchAccountModal() {
+      const modal = document.getElementById('switchAccountModal');
+      if (!modal) return;
+      const listContainer = document.getElementById('switchAccountList');
+      if (!listContainer) return;
+
+      listContainer.innerHTML = adminUsers.map(user => {
+        const isCurrent = currentUser && currentUser.id === user.id;
+        const isSuper = user.role === 'SUPER_ADMIN';
+        const avatar = user.avatar || (isSuper ? '1.jpg' : '2.jpg');
+
+        return `
+          <div class="flex items-center justify-between p-3 rounded-2xl border ${isCurrent ? 'bg-blue-50/80 border-blue-400 ring-2 ring-blue-500/20' : 'bg-slate-50/70 border-slate-200/80 hover:bg-white hover:border-slate-300'} transition">
+            <div class="flex items-center space-x-3 min-w-0">
+              <div class="relative w-11 h-11 rounded-xl overflow-hidden shrink-0 border border-slate-200 shadow-2xs">
+                <img src="${avatar}" alt="${user.name}" class="w-full h-full object-cover" onerror="this.src='1.jpg'">
+              </div>
+              <div class="min-w-0">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <h4 class="font-bold text-slate-900 text-sm leading-tight truncate">${user.name}</h4>
+                  ${isSuper ? '<span class="px-2 py-0.5 bg-amber-100 text-amber-900 border border-amber-300 rounded-full text-[10px] font-bold">👑 Admin ធំ</span>' : ''}
+                  ${isCurrent ? '<span class="px-2 py-0.5 bg-blue-600 text-white rounded-full text-[10px] font-bold">កំពុងប្រើប្រាស់</span>' : ''}
+                </div>
+                <p class="text-xs text-slate-500 font-medium truncate mt-0.5">
+                  🏢 ${isSuper ? 'គ្រប់សាខាទាំងអស់ (ALL)' : user.branch} • <span class="font-mono text-slate-700">${user.username}</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="shrink-0 ml-2">
+              ${isCurrent ? `
+                <span class="inline-flex items-center gap-1 px-3 py-1.5 bg-blue-100 text-blue-900 font-bold text-xs rounded-xl border border-blue-200">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                  <span>បច្ចុប្បន្ន</span>
+                </span>
+              ` : `
+                <button onclick="switchActiveAdmin('${user.id}')" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-blue-900 hover:bg-blue-800 text-white rounded-xl text-xs font-bold transition shadow-2xs active:scale-95 cursor-pointer">
+                  <i data-lucide="repeat" class="w-3.5 h-3.5 text-amber-300"></i>
+                  <span>ប្តូរភ្លាមៗ</span>
+                </button>
+              `}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      modal.classList.remove('hidden');
+      try { if (window.lucide && lucide.createIcons) lucide.createIcons(); } catch (e) {}
+    }
+
+    function closeSwitchAccountModal() {
+      const modal = document.getElementById('switchAccountModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function switchActiveAdmin(targetAdminId) {
+      const target = adminUsers.find(u => u.id === targetAdminId);
+      if (!target) return;
+
+      // If currently Super Admin, remember the super admin ID so we can switch back in 1 click!
+      if (currentUser && currentUser.role === 'SUPER_ADMIN') {
+        sessionStorage.setItem('originalSuperAdminId', currentUser.id);
+      }
+
+      currentUser = { ...target };
+      localStorage.setItem('currentUser', JSON.stringify(currentUser));
+      applyUserPermissions();
+      renderAll();
+      updateSwitchedAdminBanner();
+      closeSwitchAccountModal();
+
+      showToast(`បានប្តូរចូលប្រើជា៖ ${target.name} (${target.role === 'SUPER_ADMIN' ? 'Admin ធំ' : target.branch})`, 'success');
+    }
+
+    function switchToSuperAdmin() {
+      const superId = sessionStorage.getItem('originalSuperAdminId');
+      let superUser = superId ? adminUsers.find(u => u.id === superId) : null;
+      if (!superUser) {
+        superUser = adminUsers.find(u => u.role === 'SUPER_ADMIN');
+      }
+
+      if (superUser) {
+        sessionStorage.removeItem('originalSuperAdminId');
+        currentUser = { ...superUser };
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        applyUserPermissions();
+        renderAll();
+        updateSwitchedAdminBanner();
+        showToast(`បានត្រឡប់មកគណនី Admin ធំ (${superUser.name}) វិញជោគជ័យ!`, 'success');
+      }
+    }
+
+    function updateSwitchedAdminBanner() {
+      const banner = document.getElementById('switchedAdminBanner');
+      const bannerText = document.getElementById('switchedAdminBannerText');
+      if (!banner) return;
+
+      const originalSuperId = sessionStorage.getItem('originalSuperAdminId');
+      if (originalSuperId && currentUser && currentUser.role !== 'SUPER_ADMIN') {
+        banner.classList.remove('hidden');
+        if (bannerText) {
+          bannerText.innerHTML = `លោកអ្នកកំពុងចូលមើលជា <strong>${currentUser.name} (${currentUser.branch})</strong> — មានសិទ្ធិត្រឡប់មក Admin ធំវិញគ្រប់ពេល`;
+        }
+        try { if (window.lucide && lucide.createIcons) lucide.createIcons(); } catch (e) {}
+      } else {
+        banner.classList.add('hidden');
+      }
+    }
+
+    function logoutToGate() {
+      currentUser = null;
+      localStorage.removeItem('currentUser');
+      sessionStorage.removeItem('originalSuperAdminId');
+      closeSwitchAccountModal();
+      initAuthSession();
+      showToast('សូមបញ្ចូលឈ្មោះ និងលេខសម្ងាត់ដើម្បីចូលគណនីថ្មី', 'info');
     }
 
     function handleGateLoginSubmit(e) {
@@ -2890,6 +3187,13 @@
 
               ${scoreBox}
 
+              ${asm ? `
+                <button onclick="openStaffFeedbackModal('${staff.id}', selectedMonth, currentYear)" class="w-full py-1.5 px-3 bg-gradient-to-r from-emerald-50 via-teal-50 to-indigo-50 hover:from-emerald-100 hover:to-indigo-100 active:scale-95 text-slate-800 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 border border-indigo-200/80 shadow-2xs">
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-500"></i>
+                  <span>💡 មើលចំណុចល្អ & ចំណុចកែលម្អ</span>
+                </button>
+              ` : ''}
+
               <div class="flex items-center space-x-2 pt-1">
                 <button onclick="openAssessmentForStaff('${staff.id}')" class="flex-1 py-2 px-3 bg-[#007AFF] hover:bg-blue-600 active:scale-95 text-white rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow-xs">
                   <i data-lucide="award" class="w-3.5 h-3.5 text-amber-300"></i>
@@ -2940,9 +3244,9 @@
           `;
 
           gradeBadgeHtml = `
-            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold border shadow-xs ${gInfo.colorClass}">
+            <button onclick="openStaffFeedbackModal('${staff.id}', selectedMonth, currentYear)" title="ចុចដើម្បីមើលមតិកែលម្អ & ចំណុចខ្លាំង" class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold border shadow-xs ${gInfo.colorClass} hover:opacity-90 transition cursor-pointer">
               ${gInfo.badgeText}
-            </span>
+            </button>
           `;
         } else {
           scoreBadgesHtml = `<span class="text-xs text-slate-400 italic">មិនទាន់វាយតម្លៃ</span>`;
@@ -2996,6 +3300,9 @@
 
             <td class="no-print py-3 px-4 text-center">
               <div class="flex items-center justify-center space-x-1.5">
+                <button onclick="openStaffFeedbackModal('${staff.id}', selectedMonth, currentYear)" title="មើលចំណុចល្អ & ចំណុចត្រូវកែលម្អ" class="p-1.5 ${asm ? 'bg-amber-50 hover:bg-amber-100 text-amber-900 border-amber-300' : 'bg-slate-50 hover:bg-slate-100 text-slate-400 border-slate-200'} rounded-lg transition border cursor-pointer">
+                  <i data-lucide="sparkles" class="w-4 h-4 ${asm ? 'text-amber-600' : 'text-slate-400'}"></i>
+                </button>
                 <button onclick="openAssessmentForStaff('${staff.id}')" title="បញ្ចូល/កែប្រែពិន្ទុ SOP" class="p-1.5 bg-blue-50 hover:bg-blue-100 text-blue-800 rounded-lg transition border border-blue-200">
                   <i data-lucide="award" class="w-4 h-4"></i>
                 </button>
@@ -3659,14 +3966,17 @@
               </div>
 
               <div class="flex items-center space-x-2 pt-1">
+                <button onclick="switchActiveAdmin('${user.id}')" class="py-2 px-3 bg-blue-50 hover:bg-blue-100 active:scale-95 text-blue-900 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1 border border-blue-200" title="ចូលប្រើជា Admin នេះ">
+                  <i data-lucide="repeat" class="w-3.5 h-3.5 text-blue-700"></i>
+                  <span>ចូលមើល</span>
+                </button>
                 <button onclick="openAdminUserModal('${user.id}')" class="flex-1 py-2 px-3 bg-slate-100 hover:bg-slate-200 active:scale-95 text-slate-700 rounded-xl text-xs font-semibold transition flex items-center justify-center space-x-1.5 border border-slate-200">
                   <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
-                  <span>កែប្រែព័ត៌មាន / Password</span>
+                  <span>កែប្រែ / ដូរសាខា</span>
                 </button>
                 ${!isSuper ? `
-                  <button onclick="confirmDeleteAdminUser('${user.id}')" class="py-2 px-3 bg-rose-50 hover:bg-rose-100 active:scale-95 text-rose-600 rounded-xl text-xs font-semibold transition flex items-center justify-center space-x-1 border border-rose-200">
+                  <button onclick="confirmDeleteAdminUser('${user.id}')" class="py-2 px-2.5 bg-rose-50 hover:bg-rose-100 active:scale-95 text-rose-600 rounded-xl text-xs font-semibold transition flex items-center justify-center space-x-1 border border-rose-200">
                     <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
-                    <span>លុប</span>
                   </button>
                 ` : ''}
               </div>
@@ -3706,12 +4016,12 @@
 
               <td class="py-3.5 px-4">
                 <span class="px-2 py-0.5 rounded-full text-xs font-bold ${isSuper ? 'bg-amber-100 text-amber-900 border border-amber-300' : 'bg-slate-100 text-slate-700 border border-slate-200'}">
-                  ${isSuper ? 'Admin ធំ' : 'Admin សាខា'}
+                  ${isSuper ? '👑 Admin ធំ' : '🏢 Admin សាខា'}
                 </span>
               </td>
 
               <td class="py-3.5 px-4">
-                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg text-xs font-semibold ${isSuper ? 'bg-amber-50 text-amber-800' : 'bg-indigo-50 text-indigo-800 border border-indigo-200'}">
+                <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-lg text-xs font-semibold ${isSuper ? 'bg-amber-50 text-amber-800 border border-amber-200' : 'bg-indigo-50 text-indigo-800 border border-indigo-200'}">
                   ${isSuper ? 'គ្រប់សាខាទាំងអស់ (ALL)' : user.branch}
                 </span>
               </td>
@@ -3724,7 +4034,10 @@
 
               <td class="py-3.5 px-4 text-center">
                 <div class="flex items-center justify-center space-x-1.5">
-                  <button onclick="openAdminUserModal('${user.id}')" title="កែប្រែ / Reset Password" class="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition border border-slate-200">
+                  <button onclick="switchActiveAdmin('${user.id}')" title="ប្តូរចូលប្រើជា Admin នេះភ្លាមៗ" class="p-1.5 bg-blue-50 hover:bg-blue-100 text-blue-800 rounded-lg transition border border-blue-200">
+                    <i data-lucide="repeat" class="w-4 h-4"></i>
+                  </button>
+                  <button onclick="openAdminUserModal('${user.id}')" title="កែប្រែព័ត៌មាន / ដូរសាខា / Password" class="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition border border-slate-200">
                     <i data-lucide="edit" class="w-4 h-4"></i>
                   </button>
                   ${!isSuper ? `
@@ -3747,7 +4060,7 @@
     function ensureBranchExists(branchName) {
       if (!branchName) return;
       const trimmed = branchName.trim();
-      if (!trimmed || trimmed === 'ALL' || trimmed === 'CUSTOM') return;
+      if (!trimmed || trimmed === 'ALL' || trimmed === 'CUSTOM' || trimmed === 'គ្រប់សាខាទាំងអស់') return;
       if (!systemSettings.branches) systemSettings.branches = [];
       if (!systemSettings.branches.includes(trimmed)) {
         systemSettings.branches.push(trimmed);
@@ -3756,40 +4069,85 @@
       }
     }
 
+    function toggleAdminRoleBranch(role) {
+      const container = document.getElementById('adminBranchContainer');
+      if (!container) return;
+      if (role === 'SUPER_ADMIN') {
+        container.classList.add('opacity-40', 'pointer-events-none');
+      } else {
+        container.classList.remove('opacity-40', 'pointer-events-none');
+      }
+    }
+
+    function toggleAdminCustomBranch(val) {
+      const customInput = document.getElementById('adminCustomBranchInput');
+      if (!customInput) return;
+      if (val === 'CUSTOM') {
+        customInput.classList.remove('hidden');
+        customInput.focus();
+      } else {
+        customInput.classList.add('hidden');
+        customInput.value = '';
+      }
+    }
+
     function openAdminUserModal(editId = null) {
       const modal = document.getElementById('adminUserModal');
       const title = document.getElementById('adminUserModalTitle');
       const form = document.getElementById('adminUserForm');
-      const branchInput = document.getElementById('adminBranchInput');
-      const branchDatalist = document.getElementById('adminBranchDatalist');
+      const roleSelect = document.getElementById('adminRoleSelect');
+      const branchSelect = document.getElementById('adminBranchSelect');
+      const customBranchInput = document.getElementById('adminCustomBranchInput');
       const avatarInput = document.getElementById('adminAvatarInput');
 
       form.reset();
       document.getElementById('adminUserEditId').value = '';
       if (avatarInput) avatarInput.value = '';
+      if (customBranchInput) {
+        customBranchInput.classList.add('hidden');
+        customBranchInput.value = '';
+      }
 
-      if (branchDatalist) {
-        const branches = getUniqueBranches();
-        branchDatalist.innerHTML = branches.map(b => `<option value="${b}">${b}</option>`).join('');
+      // Populate branch select
+      const branches = getUniqueBranches();
+      if (branchSelect) {
+        branchSelect.innerHTML = `
+          ${branches.map(b => `<option value="${b}">${b}</option>`).join('')}
+          <option value="CUSTOM">+ បញ្ចូលឈ្មោះសាខាថ្មី...</option>
+        `;
       }
 
       if (editId) {
         const user = adminUsers.find(u => u.id === editId);
         if (user) {
-          title.textContent = 'កែប្រែគណនី Admin សាខា';
+          title.textContent = 'កែប្រែគណនី Admin សាខា / ដូរសាខា';
           document.getElementById('adminUserEditId').value = user.id;
           document.getElementById('adminFullName').value = user.name;
           document.getElementById('adminUsername').value = user.username;
           document.getElementById('adminPassword').value = user.password;
-          if (branchInput) branchInput.value = user.branch || '';
           document.getElementById('adminStatusSelect').value = user.status;
+          if (roleSelect) roleSelect.value = user.role || 'BRANCH_ADMIN';
+
+          if (user.branch && branchSelect) {
+            if (branches.includes(user.branch)) {
+              branchSelect.value = user.branch;
+            } else if (user.branch !== 'ALL' && user.branch !== 'គ្រប់សាខាទាំងអស់') {
+              branchSelect.value = 'CUSTOM';
+              if (customBranchInput) {
+                customBranchInput.classList.remove('hidden');
+                customBranchInput.value = user.branch;
+              }
+            }
+          }
+          toggleAdminRoleBranch(roleSelect ? roleSelect.value : 'BRANCH_ADMIN');
           currentAdminAvatarBase64 = user.avatar || null;
         } else {
           currentAdminAvatarBase64 = null;
         }
       } else {
         title.textContent = 'បង្កើត Admin សាខាថ្មី';
-        if (branchInput) branchInput.value = '';
+        if (roleSelect) roleSelect.value = 'BRANCH_ADMIN';
+        toggleAdminRoleBranch('BRANCH_ADMIN');
         currentAdminAvatarBase64 = null;
       }
 
@@ -3808,16 +4166,35 @@
       const name = document.getElementById('adminFullName').value.trim();
       const username = document.getElementById('adminUsername').value.trim();
       const password = document.getElementById('adminPassword').value.trim();
-      const branchInput = document.getElementById('adminBranchInput');
-      const branch = (branchInput ? branchInput.value : '').trim();
+      const role = document.getElementById('adminRoleSelect').value;
       const status = document.getElementById('adminStatusSelect').value;
 
-      if (!name || !username || !password || !branch) {
-        alert('សូមបំពេញគ្រប់ប្រអប់ទិន្នន័យចាំបាច់ រួមទាំងឈ្មោះសាខាផងដែរ!');
+      let branch = '';
+      if (role === 'SUPER_ADMIN') {
+        branch = 'គ្រប់សាខាទាំងអស់';
+      } else {
+        const branchSelect = document.getElementById('adminBranchSelect');
+        const customBranchInput = document.getElementById('adminCustomBranchInput');
+        if (branchSelect && branchSelect.value === 'CUSTOM') {
+          branch = (customBranchInput ? customBranchInput.value : '').trim();
+        } else if (branchSelect) {
+          branch = branchSelect.value;
+        }
+      }
+
+      if (!name || !username || !password) {
+        alert('សូមបំពេញគ្រប់ប្រអប់ទិន្នន័យចាំបាច់!');
         return;
       }
 
-      ensureBranchExists(branch);
+      if (role === 'BRANCH_ADMIN' && !branch) {
+        alert('សូមជ្រើសរើស ឬវាយបញ្ចូលឈ្មោះសាខាដែល Admin នេះត្រូវគ្រប់គ្រង!');
+        return;
+      }
+
+      if (branch && branch !== 'គ្រប់សាខាទាំងអស់') {
+        ensureBranchExists(branch);
+      }
 
       const duplicate = adminUsers.find(u => u.username.toLowerCase() === username.toLowerCase() && u.id !== editId);
       if (duplicate) {
@@ -3826,6 +4203,7 @@
           duplicate.username = username;
           duplicate.password = password;
           duplicate.branch = branch;
+          duplicate.role = role;
           duplicate.status = status;
           duplicate.avatar = currentAdminAvatarBase64 || null;
           if (currentUser && currentUser.id === duplicate.id) {
@@ -3846,13 +4224,22 @@
       if (editId) {
         const idx = adminUsers.findIndex(u => u.id === editId);
         if (idx !== -1) {
-          adminUsers[idx] = { ...adminUsers[idx], name, username, password, branch, status, avatar: currentAdminAvatarBase64 || null };
+          adminUsers[idx] = { 
+            ...adminUsers[idx], 
+            name, 
+            username, 
+            password, 
+            branch, 
+            role, 
+            status, 
+            avatar: currentAdminAvatarBase64 || adminUsers[idx].avatar 
+          };
           if (currentUser && currentUser.id === editId) {
             currentUser = { ...currentUser, ...adminUsers[idx] };
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
             applyUserPermissions();
           }
-          showToast('បានកែប្រែគណនី Admin សាខាជោគជ័យ!', 'success');
+          showToast('បានកែប្រែព័ត៌មាន Admin និងដូរសាខាជោគជ័យ!', 'success');
         }
       } else {
         const newUser = {
@@ -3861,13 +4248,13 @@
           username,
           password,
           branch,
-          role: 'BRANCH_ADMIN',
+          role,
           status,
           avatar: currentAdminAvatarBase64 || null,
           createdAt: new Date().toISOString().split('T')[0]
         };
         adminUsers.push(newUser);
-        showToast('បានបង្កើត Admin សាខាថ្មីជោគជ័យ!', 'success');
+        showToast('បានបង្កើត Admin ថ្មីជោគជ័យ!', 'success');
       }
 
       saveUsersToStorage();
@@ -4119,22 +4506,97 @@
     function onAssessmentStaffChange() {
       const staffId = document.getElementById('assessStaffSelect').value;
       const existing = assessments.find(a => a.staffId === staffId && a.month === selectedMonth && a.year === currentYear);
+      const strInput = document.getElementById('assessStrengths');
+      const impInput = document.getElementById('assessImprovements');
+      const notesInput = document.getElementById('assessmentNotes');
 
       if (existing) {
         setScoreControls('s1', existing.s1);
         setScoreControls('s2', existing.s2);
         setScoreControls('s3', existing.s3);
         setScoreControls('s4', existing.s4);
-        document.getElementById('assessmentNotes').value = existing.notes || '';
+        if (strInput) strInput.value = existing.strengths || '';
+        if (impInput) impInput.value = existing.improvements || '';
+        if (notesInput) notesInput.value = existing.notes || '';
+
+        // If existing record has no strengths/improvements yet, auto-generate them
+        if (!existing.strengths && !existing.improvements) {
+          autoGenerateKpiFeedback();
+        }
       } else {
-        setScoreControls('s1', 80);
+        setScoreControls('s1', 85);
         setScoreControls('s2', 80);
         setScoreControls('s3', 80);
-        setScoreControls('s4', 85);
-        document.getElementById('assessmentNotes').value = '';
+        setScoreControls('s4', 90);
+        if (notesInput) notesInput.value = '';
+        autoGenerateKpiFeedback();
       }
 
       recalculateModalKpi();
+    }
+
+    function autoGenerateKpiFeedback() {
+      const s1 = parseInt(document.getElementById('numS1')?.value, 10) || 0;
+      const s2 = parseInt(document.getElementById('numS2')?.value, 10) || 0;
+      const s3 = parseInt(document.getElementById('numS3')?.value, 10) || 0;
+      const s4 = parseInt(document.getElementById('numS4')?.value, 10) || 0;
+
+      const totalKpi = calculateKPI(s1, s2, s3, s4);
+      const sSettings = systemSettings.sopWeights || DEFAULT_SYSTEM_SETTINGS.sopWeights;
+
+      const strengthsList = [];
+      const improvementsList = [];
+
+      // S1: ការគោរពវិន័យ (Discipline & Punctuality)
+      if (s1 >= 85) {
+        strengthsList.push('គោរពវិន័យការងារបានល្អប្រសើរ ទៀងទាត់ពេលវេលា និងគោរពបទបញ្ជាផ្ទៃក្នុងបានខ្ជាប់ខ្ជួន');
+      } else if (s1 < 80) {
+        improvementsList.push('គួរពង្រឹងការគោរពម៉ោងពេល និងការមកបំពេញការងារឱ្យបានទៀងទាត់ជាប់លាប់បន្ថែម');
+      }
+
+      // S2: វិធីសាស្ត្របង្រៀន (Teaching Pedagogy & Planning)
+      if (s2 >= 85) {
+        strengthsList.push('វិធីសាស្ត្របង្រៀនទាក់ទាញ កិច្ចតែងការច្បាស់លាស់ និងគ្រប់គ្រងថ្នាក់រៀនមានប្រសិទ្ធភាព');
+      } else if (s2 < 80) {
+        improvementsList.push('គួរអភិវឌ្ឍវិធីសាស្ត្របង្រៀន និងបង្កើតសកម្មភាពបង្រៀនថ្មីៗឱ្យកាន់តែរស់រវើកទាក់ទាញសិស្ស');
+      }
+
+      // S3: លទ្ធផលសិស្ស (Student Learning Outcomes & Progress)
+      if (s3 >= 85) {
+        strengthsList.push('លទ្ធផលសិក្សារបស់សិស្សមានការវិវត្តរីកចម្រើនខ្ពស់ សិស្សយល់មេរៀន និងចូលរួមយ៉ាងសកម្ម');
+      } else if (s3 < 80) {
+        improvementsList.push('គួរតាមដានសិស្សរៀនយឺតឱ្យបានដិតដល់ និងផ្តល់ការជួយបំប៉នបន្ថែម (Extra Coaching)');
+      }
+
+      // S4: សីលធម៌វិជ្ជាជីវៈ (Professional Ethics & Teamwork)
+      if (s4 >= 85) {
+        strengthsList.push('សីលធម៌វិជ្ជាជីវៈថ្លៃថ្នូរ មានទំនាក់ទំនងល្អជាមួយមាតាបិតា សិស្ស និងសហការី');
+      } else if (s4 < 80) {
+        improvementsList.push('គួរបង្កើនស្មារតីសហការ និងការប្រាស្រ័យទាក់ទងជាមួយក្រុមការងារឱ្យកាន់តែជិតស្និទ្ធ');
+      }
+
+      // Executive Summary based on total KPI
+      if (totalKpi >= 90) {
+        strengthsList.unshift('ជាបុគ្គលិកគំរូឆ្នើម (Grade A) មានការប្តេជ្ញាចិត្តខ្ពស់ និងទទួលខុសត្រូវខ្ពស់ក្នុងការងារ');
+      } else if (totalKpi >= 80) {
+        strengthsList.unshift('បំពេញការងារបានល្អប្រសើរ (Grade B) ស្របតាមស្តង់ដារគុណភាពអប់រំរបស់ V2');
+      }
+
+      // If improvements is empty, provide constructive forward-looking goal
+      if (improvementsList.length === 0) {
+        improvementsList.push('បន្តរក្សានិរន្តរភាពគុណភាពការងារ និងចូលរួមចែករំលែកបទពិសោធន៍ល្អៗដល់សហការីក្នុងសាលា');
+      }
+
+      // If strengths is empty, encourage
+      if (strengthsList.length === 0) {
+        strengthsList.push('មានការខិតខំប្រឹងប្រែងក្នុងការបំពេញភារកិច្ច និងមានឆន្ទៈរៀនសូត្រអភិវឌ្ឍន៍ខ្លួន');
+      }
+
+      const strEl = document.getElementById('assessStrengths');
+      const impEl = document.getElementById('assessImprovements');
+
+      if (strEl) strEl.value = strengthsList.map(s => '• ' + s).join('\n');
+      if (impEl) impEl.value = improvementsList.map(i => '• ' + i).join('\n');
     }
 
     function setScoreControls(key, value) {
@@ -4181,7 +4643,9 @@
       const s2 = parseInt(document.getElementById('numS2').value, 10) || 0;
       const s3 = parseInt(document.getElementById('numS3').value, 10) || 0;
       const s4 = parseInt(document.getElementById('numS4').value, 10) || 0;
-      const notes = document.getElementById('assessmentNotes').value.trim();
+      const strengths = (document.getElementById('assessStrengths')?.value || '').trim();
+      const improvements = (document.getElementById('assessImprovements')?.value || '').trim();
+      const notes = (document.getElementById('assessmentNotes')?.value || '').trim();
 
       const totalKpi = calculateKPI(s1, s2, s3, s4);
       const gradeInfo = getGradeInfo(totalKpi);
@@ -4200,21 +4664,112 @@
         totalKpi,
         grade: gradeInfo.grade,
         gradeLabel: gradeInfo.label,
+        strengths,
+        improvements,
         notes,
         evaluatedAt: new Date().toISOString()
       };
 
       if (existingIndex !== -1) {
         assessments[existingIndex] = assessmentRecord;
-        showToast('បានកែសម្រួលពិន្ទុ SOP ប្រចាំខែដោយជោគជ័យ!', 'success');
+        showToast('បានកែសម្រួលពិន្ទុ និងមតិកែលម្អ SOP ជោគជ័យ!', 'success');
       } else {
         assessments.push(assessmentRecord);
-        showToast('បានបញ្ចូលពិន្ទុ SOP ប្រចាំខែដោយជោគជ័យ!', 'success');
+        showToast('បានបញ្ចូលពិន្ទុ និងមតិកែលម្អ SOP ជោគជ័យ!', 'success');
       }
 
       saveAssessmentsToStorage();
       closeAssessmentModal();
       renderAll();
+    }
+
+    function openStaffFeedbackModal(staffId, month = null, year = null) {
+      const staff = staffList.find(s => s.id === staffId);
+      if (!staff) return;
+
+      const targetMonth = month || selectedMonth;
+      const targetYear = year || currentYear;
+      const assess = assessments.find(a => a.staffId === staffId && a.month === targetMonth && a.year === targetYear);
+      const curMonthObj = KHMER_MONTHS.find(m => m.id === targetMonth);
+      const monthName = curMonthObj ? curMonthObj.name : `ខែទី${targetMonth}`;
+
+      const modal = document.getElementById('staffFeedbackModal');
+      if (!modal) return;
+
+      const nameEl = document.getElementById('feedbackStaffName');
+      const roleEl = document.getElementById('feedbackStaffRole');
+      const branchEl = document.getElementById('feedbackStaffBranch');
+      const avatarEl = document.getElementById('feedbackStaffAvatar');
+      const periodEl = document.getElementById('feedbackPeriod');
+      const scoreEl = document.getElementById('feedbackTotalKpi');
+      const gradeEl = document.getElementById('feedbackGradeBadge');
+      const strengthsEl = document.getElementById('feedbackStrengthsContent');
+      const improvementsEl = document.getElementById('feedbackImprovementsContent');
+      const notesEl = document.getElementById('feedbackNotesContent');
+      const notesBox = document.getElementById('feedbackNotesBox');
+
+      if (nameEl) nameEl.textContent = staff.name;
+      if (roleEl) roleEl.textContent = staff.role;
+      if (branchEl) branchEl.textContent = staff.branch || 'សាខាទូទៅ';
+      if (avatarEl) {
+        const initial = staff.name ? staff.name.trim().charAt(0) : 'ប';
+        avatarEl.textContent = initial;
+      }
+      if (periodEl) periodEl.textContent = `ខែ${monthName} ឆ្នាំ${toKhmerNum(targetYear)}`;
+
+      if (assess) {
+        const total = assess.totalKpi || calculateKPI(assess.s1, assess.s2, assess.s3, assess.s4);
+        const gInfo = getGradeInfo(total);
+        if (scoreEl) scoreEl.textContent = `${toKhmerNum(total)} / ១០០`;
+        if (gradeEl) {
+          gradeEl.className = `px-2.5 py-0.5 rounded-full text-[11px] font-bold border shadow-2xs ${gInfo.colorClass}`;
+          gradeEl.textContent = `និទ្ទេស ${gInfo.grade} (${gInfo.label})`;
+        }
+
+        // Strengths
+        const str = assess.strengths || (total >= 80 ? '• អនុវត្តតាមបទដ្ឋានប្រតិបត្តិ SOP បានល្អប្រសើរ\n• មានទំនួលខុសត្រូវខ្ពស់ក្នុងការងារ' : '• មានការខិតខំប្រឹងប្រែងក្នុងការបំពេញភារកិច្ច');
+        if (strengthsEl) strengthsEl.textContent = str;
+
+        // Improvements
+        const imp = assess.improvements || (total >= 90 ? '• បន្តរក្សាភាពជាគំរូ និងចែករំលែកវិធីសាស្ត្រល្អៗដល់សហការី' : '• គួរពង្រឹងបន្ថែមលើចំណុចដែលនៅខ្វះខាត និងពិភាក្សាជាមួយប្រធានផ្នែក');
+        if (improvementsEl) improvementsEl.textContent = imp;
+
+        // Notes
+        if (notesBox && notesEl) {
+          if (assess.notes && assess.notes.trim()) {
+            notesBox.classList.remove('hidden');
+            notesEl.textContent = assess.notes;
+          } else {
+            notesBox.classList.add('hidden');
+          }
+        }
+      } else {
+        if (scoreEl) scoreEl.textContent = 'មិនទាន់វាយតម្លៃ';
+        if (gradeEl) {
+          gradeEl.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-slate-100 text-slate-500';
+          gradeEl.textContent = 'មិនទាន់មានទិន្នន័យ';
+        }
+        if (strengthsEl) strengthsEl.textContent = 'មិនទាន់បានបញ្ចូលពិន្ទុ និងមតិកែលម្អសម្រាប់ខែនេះនៅឡើយទេ។';
+        if (improvementsEl) improvementsEl.textContent = 'មិនទាន់បានបញ្ចូលពិន្ទុ និងមតិកែលម្អសម្រាប់ខែនេះនៅឡើយទេ។';
+        if (notesBox) notesBox.classList.add('hidden');
+      }
+
+      // Wire up edit button
+      const editBtn = document.getElementById('feedbackEditKpiBtn');
+      if (editBtn) {
+        editBtn.onclick = () => {
+          closeStaffFeedbackModal();
+          openAssessmentForStaff(staff.id);
+        };
+      }
+
+      modal.classList.remove('hidden');
+      try { if (window.lucide && lucide.createIcons) lucide.createIcons(); } catch (e) {}
+    }
+
+    function closeStaffFeedbackModal() {
+      const modal = document.getElementById('staffFeedbackModal');
+      if (modal) modal.classList.add('hidden');
     }
 
     // --- 8. EXCEL EXPORT BY BRANCH (DYNAMIC HEADERS & WEIGHTS) ---
@@ -4513,6 +5068,8 @@
           s1, s2, s3, s4,
           total,
           gradeInfo,
+          strengths: assess?.strengths || '',
+          improvements: assess?.improvements || '',
           notes: assess?.notes || (assess ? 'អនុវត្តតាមបទដ្ឋាន SOP បានល្អ' : 'មិនទាន់មានការវាយតម្លៃ')
         };
       });
@@ -4596,7 +5153,7 @@
                 <th class="py-2.5 px-2 text-center border-r border-slate-700">S4 (${sSettings.s4.weight}%)</th>
                 <th class="py-2.5 px-2 text-center border-r border-slate-700 bg-blue-900">សរុប</th>
                 <th class="py-2.5 px-2 text-center border-r border-slate-700">និទ្ទេស</th>
-                <th class="py-2.5 px-3">ការវាយតម្លៃ / មតិយោបល់</th>
+                <th class="py-2.5 px-3">ការវាយតម្លៃ / ចំណុចល្អ & កែលម្អ</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-200 text-slate-700">
@@ -4621,7 +5178,11 @@
                       ${r.gradeInfo.grade}
                     </span>
                   </td>
-                  <td class="py-2.5 px-3 text-[11px] text-slate-600">${r.notes}</td>
+                  <td class="py-2 px-3 text-[11px] text-slate-700 max-w-[280px]">
+                    ${r.strengths ? `<p class="text-emerald-800 leading-tight"><strong class="text-emerald-700">🌟 ចំណុចល្អ៖</strong> ${r.strengths.replace(/\n/g, ' ')}</p>` : ''}
+                    ${r.improvements ? `<p class="text-blue-950 leading-tight mt-1"><strong class="text-blue-700">🎯 កែលម្អ៖</strong> ${r.improvements.replace(/\n/g, ' ')}</p>` : ''}
+                    ${!r.strengths && !r.improvements ? `<p class="text-slate-600">${r.notes}</p>` : ''}
+                  </td>
                 </tr>
               `).join('')}
             </tbody>
@@ -5015,7 +5576,13 @@
                 </td>
 
                 <td class="py-3.5 px-4 text-center">
-                  ${certActionHtml}
+                  <div class="flex items-center justify-center space-x-1.5">
+                    <button onclick="openStaffFeedbackModal('${staff.id}')" title="មើលមតិកែលម្អ & ចំណុចខ្លាំង" class="inline-flex items-center gap-1 px-2.5 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-900 border border-indigo-200 rounded-xl text-xs font-bold transition active:scale-95 cursor-pointer">
+                      <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-500"></i>
+                      <span>មតិកែលម្អ</span>
+                    </button>
+                    ${certActionHtml}
+                  </div>
                 </td>
               </tr>
             `;
@@ -5080,7 +5647,13 @@
                   </div>
                 </div>
 
-                ${certBtnMobile}
+                <div class="space-y-1.5 pt-1">
+                  <button onclick="openStaffFeedbackModal('${staff.id}')" class="w-full py-2 px-3 bg-indigo-50 hover:bg-indigo-100 active:scale-95 text-indigo-900 rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 border border-indigo-200 shadow-2xs">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-500"></i>
+                    <span>💡 មើលចំណុចល្អ & ចំណុចកែលម្អ</span>
+                  </button>
+                  ${certBtnMobile}
+                </div>
               </div>
             `;
           }).join('');
