@@ -473,6 +473,11 @@
 
       <!-- Action & Export Tools -->
       <div class="flex items-center flex-wrap gap-2">
+        <button onclick="openCertificateCenterModal()" class="inline-flex items-center space-x-1.5 px-3.5 py-2 bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 hover:from-amber-600 hover:to-amber-800 text-white rounded-xl text-xs sm:text-sm font-bold shadow-sm transition active:scale-95 cursor-pointer" title="មជ្ឈមណ្ឌលទាញយកវិញ្ញាបនបត្រសម្រាប់បុគ្គលិកឆ្នើម A និង B">
+          <i data-lucide="award" class="w-4 h-4 text-yellow-200"></i>
+          <span>🏆 វិញ្ញាបនបត្រ A & B</span>
+        </button>
+
         <button onclick="openExcelExportModal()" class="inline-flex items-center space-x-1.5 px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-xl text-xs sm:text-sm font-semibold shadow-sm transition active:scale-95">
           <i data-lucide="file-spreadsheet" class="w-4 h-4 text-emerald-200"></i>
           <span>ទាញយក Excel</span>
@@ -1339,16 +1344,16 @@
           </div>
         </div>
 
-        <!-- KPI Performance Feedback (Strengths & Areas for Improvement) -->
-        <div class="bg-gradient-to-br from-slate-50 to-indigo-50/40 p-4 rounded-2xl border border-slate-200/90 space-y-3.5">
-          <div class="flex items-center justify-between gap-2">
+        <!-- KPI Performance Feedback (Strengths, Improvements & 1-on-1 Psychological Coaching Talk Track) -->
+        <div class="bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/20 p-4 rounded-2xl border border-slate-200/90 space-y-3.5">
+          <div class="flex items-center justify-between gap-2 flex-wrap">
             <div class="flex items-center space-x-1.5">
               <i data-lucide="sparkles" class="w-4 h-4 text-amber-500"></i>
-              <span class="text-xs font-bold text-slate-800">ការវាយតម្លៃលម្អិត និងមតិកែលម្អ (KPI Feedback)</span>
+              <span class="text-xs font-bold text-slate-800">ការវាយតម្លៃលម្អិត & មតិបែបចិត្តសាស្រ្ត (Psychological Feedback)</span>
             </div>
-            <button type="button" onclick="autoGenerateKpiFeedback()" class="inline-flex items-center space-x-1 px-2.5 py-1 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white rounded-xl text-[11px] font-bold shadow-xs active:scale-95 transition cursor-pointer" title="វិភាគចំណុចល្អ និងចំណុចបន្ថែមស្វ័យប្រវត្តិតាមពិន្ទុជាក់ស្តែង">
+            <button type="button" onclick="autoGenerateKpiFeedback()" class="inline-flex items-center space-x-1 px-3 py-1 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white rounded-xl text-[11px] font-bold shadow-xs active:scale-95 transition cursor-pointer" title="វិភាគចំណុចល្អ ចំណុចបន្ថែម និងឃ្លានិយាយបែបចិត្តសាស្រ្ត">
               <i data-lucide="wand-2" class="w-3 h-3"></i>
-              <span>⚡ វិភាគតាម KPI</span>
+              <span>⚡ វិភាគតាមចិត្តវិទ្យា</span>
             </button>
           </div>
 
@@ -1365,9 +1370,22 @@
           <div>
             <label class="block text-xs font-bold text-blue-900 mb-1 flex items-center gap-1.5">
               <span class="w-2 h-2 rounded-full bg-blue-500"></span>
-              <span>🎯 ចំណុចបន្ថែម និងត្រូវកែលម្អ (Areas for Improvement & Recommendations)</span>
+              <span>🎯 ចំណុចបន្ថែម និងត្រូវកែលម្អបែបស្ថាបនា (Areas for Growth & Coaching)</span>
             </label>
             <textarea id="assessImprovements" rows="2" placeholder="ចំណុចត្រូវពង្រឹងបន្ថែម (ឧ. គួរតាមដានសិស្សរៀនយឺតឱ្យបានដិតដល់បន្ថែម...)" class="w-full px-3.5 py-2 bg-white border border-blue-300/80 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition text-slate-800"></textarea>
+          </div>
+
+          <!-- 1-on-1 Psychological Coaching Talk Track (ឃ្លាសម្រាប់និយាយផ្ទាល់ជាមួយបុគ្គលិក) -->
+          <div>
+            <label class="block text-xs font-bold text-indigo-950 mb-1 flex items-center justify-between">
+              <span class="flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+                <span>💬 ឃ្លាលើកទឹកចិត្តសម្រាប់និយាយផ្ទាល់មួយទល់មួយ (1-on-1 Coaching Script)</span>
+              </span>
+              <span class="text-[10px] text-indigo-700 bg-indigo-100/70 border border-indigo-200 px-2 py-0.5 rounded-full font-bold">បែបចិត្តសាស្រ្ត</span>
+            </label>
+            <textarea id="assessTalkScript" rows="3" placeholder="ឃ្លាលើកទឹកចិត្ត និងណែនាំបែបចិត្តសាស្រ្តសម្រាប់អ្នកគ្រប់គ្រងយកទៅជជែកផ្ទាល់មួយទល់មួយជាមួយបុគ្គលិក..." class="w-full px-3.5 py-2 bg-indigo-50/60 border border-indigo-300/80 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-600 transition text-slate-800 leading-relaxed"></textarea>
+            <p class="text-[10px] text-slate-500 mt-1">💡 ឃ្លានេះរៀបចំឡើងតាមចិត្តវិទ្យាដឹកនាំ ដើម្បីឱ្យអ្នកគ្រប់គ្រងងាយស្រួលយកទៅជជែកផ្ទាល់ ឬអានជូនបុគ្គលិកស្តាប់</p>
           </div>
 
           <!-- General Remark / Notes -->
@@ -1733,6 +1751,21 @@
           </div>
         </div>
 
+        <!-- Certificate Quick Download Banner (For Grade A & B) -->
+        <div id="feedbackCertBanner" class="hidden bg-gradient-to-r from-amber-500/15 via-amber-400/20 to-yellow-500/15 border border-amber-300 rounded-2xl p-3 flex items-center justify-between gap-2 shadow-2xs">
+          <div class="flex items-center space-x-2.5">
+            <span class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-400 text-white flex items-center justify-center font-bold text-sm shadow-xs shrink-0">🏆</span>
+            <div>
+              <h4 id="feedbackCertTitle" class="text-xs font-bold text-amber-950">បុគ្គលិកឆ្នើម - ទទួលបានវិញ្ញាបនបត្រ!</h4>
+              <p class="text-[11px] text-amber-800">ទាញយកជារូបភាព HD ឬបោះពុម្ពជា PDF ផ្លូវការ</p>
+            </div>
+          </div>
+          <button id="feedbackCertBtn" type="button" class="shrink-0 inline-flex items-center space-x-1.5 px-3 py-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white rounded-xl text-xs font-bold shadow-xs active:scale-95 transition cursor-pointer">
+            <i data-lucide="award" class="w-3.5 h-3.5 text-yellow-200"></i>
+            <span>ទាញយកវិញ្ញាបនបត្រ</span>
+          </button>
+        </div>
+
         <!-- Section 1: Strengths (ចំណុចល្អ) -->
         <div class="bg-emerald-50/70 border border-emerald-200 rounded-2xl p-4 space-y-2">
           <div class="flex items-center space-x-2 text-emerald-900 font-bold text-xs sm:text-sm">
@@ -1748,14 +1781,35 @@
         <div class="bg-blue-50/70 border border-blue-200 rounded-2xl p-4 space-y-2">
           <div class="flex items-center space-x-2 text-blue-950 font-bold text-xs sm:text-sm">
             <span class="w-6 h-6 rounded-lg bg-blue-600 text-white flex items-center justify-center text-xs shadow-2xs">🎯</span>
-            <span>ចំណុចបន្ថែម និងត្រូវកែលម្អ (Areas for Improvement)</span>
+            <span>ចំណុចបន្ថែម និងត្រូវកែលម្អបែបស្ថាបនា (Areas for Growth & Coaching)</span>
           </div>
           <div id="feedbackImprovementsContent" class="text-xs sm:text-sm text-blue-950 font-medium whitespace-pre-line leading-relaxed pl-2 bg-white/70 p-3 rounded-xl border border-blue-100">
             មិនទាន់មានទិន្នន័យ
           </div>
         </div>
 
-        <!-- Section 3: Additional Remark (if any) -->
+        <!-- Section 3: 1-on-1 Psychological Coaching Talk Track (ឃ្លាសម្រាប់និយាយផ្ទាល់ជាមួយបុគ្គលិក) -->
+        <div class="bg-gradient-to-br from-indigo-50/90 via-purple-50/60 to-indigo-50/70 border border-indigo-200 rounded-2xl p-4 space-y-2.5">
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center space-x-2 text-indigo-950 font-bold text-xs sm:text-sm">
+              <span class="w-6 h-6 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-xs shadow-2xs">💬</span>
+              <span>ឃ្លាលើកទឹកចិត្តសម្រាប់និយាយផ្ទាល់ (Coaching Talk Track)</span>
+            </div>
+            <button type="button" onclick="copyCoachingTalkScript()" class="inline-flex items-center space-x-1 px-2.5 py-1 bg-white hover:bg-indigo-50 text-indigo-700 border border-indigo-200 rounded-lg text-[11px] font-bold shadow-2xs active:scale-95 transition cursor-pointer" title="ចម្លងឃ្លានេះដើម្បីយកទៅនិយាយ ឬផ្ញើតាម Telegram">
+              <i data-lucide="copy" class="w-3 h-3 text-indigo-600"></i>
+              <span id="copyTalkScriptBtnText">ចម្លងឃ្លា</span>
+            </button>
+          </div>
+          <div id="feedbackTalkScriptContent" class="text-xs sm:text-sm text-indigo-950 font-medium italic whitespace-pre-line leading-relaxed pl-2 bg-white/85 p-3.5 rounded-xl border border-indigo-100 shadow-2xs">
+            មិនទាន់មានទិន្នន័យ
+          </div>
+          <p class="text-[10px] text-indigo-600/80 flex items-center gap-1">
+            <i data-lucide="sparkles" class="w-3 h-3 shrink-0"></i>
+            <span>ឃ្លានេះរៀបចំឡើងតាមចិត្តវិទ្យាដឹកនាំ ដើម្បីបង្កើតបរិយាកាសកក់ក្តៅ និងជំរុញទឹកចិត្តបុគ្គលិកក្នុងការជជែកផ្ទាល់</span>
+          </p>
+        </div>
+
+        <!-- Section 4: Additional Remark (if any) -->
         <div id="feedbackNotesBox" class="bg-slate-50 border border-slate-200 rounded-2xl p-3.5 space-y-1">
           <span class="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">កំណត់សម្គាល់បន្ថែម</span>
           <p id="feedbackNotesContent" class="text-xs text-slate-700 font-medium"></p>
@@ -1764,12 +1818,274 @@
       </div>
 
       <!-- Modal Footer -->
-      <div class="bg-slate-50 px-6 py-3.5 border-t border-slate-200 flex items-center justify-between gap-3">
-        <button id="feedbackEditKpiBtn" class="inline-flex items-center space-x-1.5 px-4 py-2 bg-blue-900 hover:bg-blue-800 text-white text-xs font-bold rounded-xl shadow-xs transition active:scale-95 cursor-pointer">
-          <i data-lucide="edit-3" class="w-3.5 h-3.5 text-amber-300"></i>
-          <span>កែប្រែពិន្ទុ & មតិ</span>
-        </button>
+      <div class="bg-slate-50 px-6 py-3.5 border-t border-slate-200 flex items-center justify-between gap-2 flex-wrap">
+        <div class="flex items-center space-x-2">
+          <button id="feedbackEditKpiBtn" class="inline-flex items-center space-x-1.5 px-4 py-2 bg-blue-900 hover:bg-blue-800 text-white text-xs font-bold rounded-xl shadow-xs transition active:scale-95 cursor-pointer">
+            <i data-lucide="edit-3" class="w-3.5 h-3.5 text-amber-300"></i>
+            <span>កែប្រែពិន្ទុ & មតិ</span>
+          </button>
+          <button id="feedbackFooterCertBtn" type="button" class="hidden inline-flex items-center space-x-1.5 px-3.5 py-2 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-xl shadow-xs transition active:scale-95 cursor-pointer">
+            <i data-lucide="award" class="w-3.5 h-3.5 text-yellow-200"></i>
+            <span>វិញ្ញាបនបត្រ</span>
+          </button>
+        </div>
         <button onclick="closeStaffFeedbackModal()" class="px-5 py-2 text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 rounded-xl transition border border-slate-200 shadow-2xs">
+          បិទ
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 9. CERTIFICATE PREVIEW & DOWNLOAD MODAL (វិញ្ញាបនបត្រកិត្តិយសផ្លូវការ A & B) -->
+  <div id="certificateModal" class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-5xl w-full shadow-2xl border border-slate-100 overflow-hidden transform transition-all my-auto max-h-[96vh] flex flex-col">
+      
+      <!-- Top Action Toolbar -->
+      <div class="no-print bg-gradient-to-r from-blue-950 via-indigo-950 to-slate-900 text-white px-5 py-3 flex items-center justify-between gap-3 flex-wrap border-b border-white/10">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 to-yellow-400 text-blue-950 flex items-center justify-center font-black text-sm shadow-xs">
+            🏆
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-sm sm:text-base leading-tight">វិញ្ញាបនបត្រកិត្តិយសផ្លូវការ V2 Education</h3>
+            <p class="text-[11px] text-blue-200">Official Certificate of Excellence & Merit</p>
+          </div>
+        </div>
+
+        <!-- Mode Switcher & Export Buttons -->
+        <div class="flex items-center flex-wrap gap-2">
+          <!-- Toggle Mode (Monthly vs Annual) -->
+          <div class="bg-white/10 p-1 rounded-xl flex items-center space-x-1 border border-white/10 text-xs">
+            <button id="certSwitchMonthlyBtn" type="button" onclick="switchCertificateMode('MONTHLY')" class="px-2.5 py-1 rounded-lg font-bold transition active:scale-95 bg-white text-blue-950 shadow-xs cursor-pointer">
+              📅 ប្រចាំខែ
+            </button>
+            <button id="certSwitchAnnualBtn" type="button" onclick="switchCertificateMode('ANNUAL')" class="px-2.5 py-1 rounded-lg font-bold transition active:scale-95 text-blue-200 hover:text-white cursor-pointer">
+              🏆 ប្រចាំឆ្នាំ (ខែ៨-ខែ៨)
+            </button>
+          </div>
+
+          <!-- Download PNG Button -->
+          <button id="btnDownloadCertImage" type="button" onclick="downloadCertificateImage()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 active:scale-95 text-white rounded-xl text-xs font-bold shadow-xs transition cursor-pointer">
+            <i data-lucide="image" class="w-3.5 h-3.5 text-yellow-200"></i>
+            <span>📸 រូបភាព HD (PNG)</span>
+          </button>
+
+          <!-- Print / PDF Button -->
+          <button type="button" onclick="printCertificatePDF()" class="inline-flex items-center space-x-1.5 px-3 py-1.5 bg-blue-700 hover:bg-blue-600 active:scale-95 text-white rounded-xl text-xs font-bold shadow-xs transition cursor-pointer">
+            <i data-lucide="printer" class="w-3.5 h-3.5 text-blue-200"></i>
+            <span>🖨️ បោះពុម្ព / PDF</span>
+          </button>
+
+          <!-- Close Modal Button -->
+          <button type="button" onclick="closeCertificateModal()" class="w-8 h-8 rounded-xl bg-white/10 hover:bg-white/20 text-blue-200 hover:text-white transition flex items-center justify-center cursor-pointer">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Certificate Preview Container (Scrollable on small screens) -->
+      <div class="overflow-auto p-4 sm:p-6 bg-slate-200/80 flex-1 flex justify-center items-start">
+        
+        <!-- The Certificate Paper Canvas for Export & Print -->
+        <div id="certificateCanvasPaper" class="certificate-gold-border w-[860px] min-w-[860px] bg-[#FCFBF7] p-8 sm:p-10 rounded-2xl shadow-2xl relative text-slate-800 select-none overflow-hidden" style="background: radial-gradient(circle at center, #ffffff 10%, #FAF8F2 70%, #F5EFE1 100%);">
+          
+          <!-- Elegant Vintage Corner Flourishes -->
+          <div class="absolute top-3 left-3 w-12 h-12 border-t-2 border-l-2 border-amber-600/70 pointer-events-none"></div>
+          <div class="absolute top-3 right-3 w-12 h-12 border-t-2 border-r-2 border-amber-600/70 pointer-events-none"></div>
+          <div class="absolute bottom-3 left-3 w-12 h-12 border-b-2 border-l-2 border-amber-600/70 pointer-events-none"></div>
+          <div class="absolute bottom-3 right-3 w-12 h-12 border-b-2 border-r-2 border-amber-600/70 pointer-events-none"></div>
+
+          <!-- Inner Fine Border -->
+          <div class="border border-amber-500/30 p-6 rounded-xl relative space-y-4">
+            
+            <!-- Top National Motto & Institution Header -->
+            <div class="flex items-start justify-between border-b border-amber-300/60 pb-3">
+              <!-- Left: Institution Identity -->
+              <div class="flex items-center space-x-3">
+                <div class="w-14 h-14 rounded-2xl bg-white p-1 border-2 border-amber-400 shadow-md flex items-center justify-center shrink-0">
+                  <img src="v2b.png" alt="V2 Education Logo" class="w-full h-full object-contain" onerror="this.src='apple-touch-icon.png'">
+                </div>
+                <div>
+                  <h3 class="font-display font-black text-blue-950 text-base leading-tight">វិទ្យាស្ថាន / សាលា V2 EDUCATION</h3>
+                  <p class="text-[10px] font-bold tracking-wider text-amber-800 uppercase">V2 EDUCATION ACADEMY • STANDARDS OF EXCELLENCE</p>
+                  <p class="text-[10px] text-slate-500 font-medium">ប្រព័ន្ធវាយតម្លៃគុណភាពអប់រំ និងស្តង់ដារប្រតិបត្តិ SOP</p>
+                </div>
+              </div>
+
+              <!-- Right: Royal Government Motto -->
+              <div class="text-center space-y-0.5 shrink-0">
+                <h4 class="font-display font-bold text-slate-900 text-xs">ព្រះរាជាណាចក្រកម្ពុជា</h4>
+                <p class="font-display font-medium text-slate-700 text-[11px]">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+                <div class="w-16 h-0.5 bg-amber-500 mx-auto rounded-full"></div>
+              </div>
+            </div>
+
+            <!-- Certificate Title Banner Box -->
+            <div class="text-center pt-2">
+              <div id="certTitleBadgeContainer" class="px-8 py-2 rounded-full bg-gradient-to-r from-amber-700 via-amber-500 to-amber-700 text-white shadow-md border border-amber-300 text-center inline-block">
+                <h2 id="certMainTitle" class="font-display font-black text-xl sm:text-2xl tracking-wide leading-tight">វិញ្ញាបនបត្របុគ្គលិកឆ្នើម</h2>
+                <p id="certSubTitle" class="text-[9px] sm:text-[10px] font-bold tracking-widest text-amber-100 uppercase">CERTIFICATE OF EXCELLENCE</p>
+              </div>
+              <p class="text-xs text-slate-500 font-medium mt-1">វិញ្ញាបនបត្រនេះត្រូវបានប្រគល់ជូនដោយមោទនភាពចំពោះ (This certificate is proudly awarded to)</p>
+            </div>
+
+            <!-- Recipient Name Block -->
+            <div class="text-center space-y-1.5 py-1">
+              <h1 id="certRecipientName" class="text-2xl sm:text-3xl font-display font-black text-blue-950 border-b-2 border-amber-400 inline-block px-8 pb-1 tracking-tight">
+                ឈ្មោះបុគ្គលិក
+              </h1>
+              <div class="flex items-center justify-center space-x-2 text-xs text-slate-700 font-semibold flex-wrap">
+                <span id="certRecipientRole" class="text-slate-800">តួនាទី</span>
+                <span class="text-amber-500">•</span>
+                <span id="certRecipientBranch" class="text-indigo-900 font-bold">សាខា</span>
+                <span class="text-amber-500">•</span>
+                <span id="certRecipientSeniority" class="text-slate-600">អតីតភាពការងារ៖ ០ ឆ្នាំ</span>
+              </div>
+            </div>
+
+            <!-- Citation / Recognition Statement -->
+            <div class="max-w-2xl mx-auto text-center text-xs leading-relaxed text-slate-700 font-medium bg-amber-50/50 p-3 rounded-xl border border-amber-200/80">
+              ដែលបានខិតខំប្រឹងប្រែងបំពេញភារកិច្ច និងសម្រេចបាននូវលទ្ធផលការងារឆ្នើម តាមបទដ្ឋានប្រតិបត្តិ (SOP) និងការវាយតម្លៃ KPI ទទួលបានពិន្ទុ 
+              <strong id="certScoreDisplay" class="text-blue-950 font-black text-sm">៩៥/១០០</strong> 
+              <span id="certGradeBadgeInline" class="px-2 py-0.5 rounded-full text-[11px] font-black bg-amber-100 text-amber-900 border border-amber-300">និទ្ទេស A (ឆ្នើម • OUTSTANDING)</span> 
+              សម្រាប់កាលបរិច្ឆេទ <strong id="certCyclePeriod" class="text-indigo-950 font-bold">ប្រចាំខែកញ្ញា ឆ្នាំ២០២៦</strong>។
+            </div>
+
+            <!-- Medallion Seal & Signature Lines -->
+            <div class="grid grid-cols-3 items-end pt-4 gap-4 text-center">
+              
+              <!-- Left Signature: Branch Director -->
+              <div class="space-y-1 text-left pl-4">
+                <p class="text-[10px] text-slate-400 uppercase tracking-wider">បានឃើញ និងឯកភាព</p>
+                <h5 class="font-display font-bold text-xs text-slate-800">ប្រធានសាខា (Branch Director)</h5>
+                <div class="h-14 flex items-center">
+                  <span class="text-[10px] text-slate-300 italic">(ហត្ថលេខា & ត្រា)</span>
+                </div>
+                <h4 id="certBranchDirectorName" class="font-bold text-xs sm:text-sm text-blue-950 border-t border-slate-300 pt-1">ឈ្មោះប្រធានសាខា</h4>
+              </div>
+
+              <!-- Center: Official Golden Medal Seal -->
+              <div class="flex flex-col items-center justify-center">
+                <div id="certMedalOuter" class="w-18 h-18 rounded-full bg-gradient-to-tr from-amber-600 via-amber-400 to-yellow-200 p-1 shadow-xl flex items-center justify-center border-2 border-amber-600">
+                  <div class="w-full h-full rounded-full border border-amber-800/40 flex flex-col items-center justify-center bg-white/20 backdrop-blur-2xs">
+                    <span id="certMedalGradeLetter" class="text-2xl font-black text-amber-950 font-display leading-none">A</span>
+                    <span id="certMedalGradeText" class="text-[7.5px] font-black text-amber-900 tracking-wider">OUTSTANDING</span>
+                  </div>
+                </div>
+                <span class="text-[9px] font-bold text-amber-800 uppercase tracking-widest mt-1">OFFICIAL SEAL OF MERIT</span>
+              </div>
+
+              <!-- Right Signature: General Director / Super Admin -->
+              <div class="space-y-1 text-right pr-4">
+                <p id="certIssueDateText" class="text-[10px] text-slate-600 italic">រាជធានីភ្នំពេញ, ថ្ងៃទី... ខែ... ឆ្នាំ...</p>
+                <h5 class="font-display font-bold text-xs text-slate-800">អភិបាលប្រព័ន្ធ / នាយកប្រតិបត្តិ</h5>
+                <div class="h-14 flex items-center justify-end">
+                  <span class="text-[10px] text-slate-300 italic">(ហត្ថលេខា & ត្រាធំ)</span>
+                </div>
+                <h4 id="certGeneralDirectorName" class="font-bold text-xs sm:text-sm text-blue-950 border-t border-slate-300 pt-1">ឈ្មោះ Admin ធំ</h4>
+              </div>
+
+            </div>
+
+            <!-- Footer Authenticity / Serial ID -->
+            <div class="border-t border-amber-200/60 pt-2 flex items-center justify-between text-[10px] text-slate-400 px-2">
+              <span id="certVerificationId">ID: V2-CERT-2026-EXCELLENCE</span>
+              <span>វិញ្ញាបនបត្រផ្លូវការចេញដោយប្រព័ន្ធគ្រប់គ្រងគុណភាព V2 Education</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Close / Info Bar -->
+      <div class="no-print bg-slate-50 px-6 py-3 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+        <span class="flex items-center gap-1.5">
+          <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
+          <span>វិញ្ញាបនបត្រមានសុពលភាពផ្លូវការ អាចទាញយកជារូបភាព HD ឬព្រីនដាក់ស៊ុមបាន</span>
+        </span>
+        <button type="button" onclick="closeCertificateModal()" class="px-4 py-1.5 text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 rounded-xl transition border border-slate-200 shadow-2xs">
+          បិទផ្ទាំងនេះ
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 10. CERTIFICATE CENTER MODAL (មជ្ឈមណ្ឌលទាញយកវិញ្ញាបនបត្រ A & B) -->
+  <div id="certificateCenterModal" class="fixed inset-0 z-50 bg-slate-900/65 backdrop-blur-sm hidden flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-4xl w-full shadow-2xl border border-slate-100 overflow-hidden transform transition-all my-auto max-h-[92vh] flex flex-col">
+      
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-600 text-white px-6 py-4.5 flex items-center justify-between shadow-md">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center font-black text-xl shadow-xs shrink-0">
+            🏆
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-base sm:text-lg leading-tight">មជ្ឈមណ្ឌលទាញយកវិញ្ញាបនបត្រ A & B (Certificates Center)</h3>
+            <p class="text-xs text-amber-100">ទាញយកវិញ្ញាបនបត្រកិត្តិយសផ្លូវការសម្រាប់បុគ្គលិកឆ្នើម (Grade A & B)</p>
+          </div>
+        </div>
+        <button onclick="closeCertificateCenterModal()" class="w-8 h-8 rounded-xl bg-white/10 hover:bg-white/20 text-white transition flex items-center justify-center cursor-pointer">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Controls & Filter Toolbar -->
+      <div class="p-4 sm:p-5 bg-slate-50 border-b border-slate-200 space-y-3">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+          
+          <!-- Scope Toggle: Monthly vs Annual -->
+          <div class="flex items-center space-x-1.5 bg-slate-200/80 p-1 rounded-2xl border border-slate-300/60 shadow-inner">
+            <button id="certCenterBtnMonthly" onclick="switchCertCenterScope('MONTHLY')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 bg-white text-blue-950 shadow-xs cursor-pointer">
+              <i data-lucide="calendar" class="w-3.5 h-3.5 text-blue-600"></i>
+              <span id="certCenterScopeMonthLabel">📅 ប្រចាំខែ</span>
+            </button>
+            <button id="certCenterBtnAnnual" onclick="switchCertCenterScope('ANNUAL')" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900 cursor-pointer">
+              <i data-lucide="award" class="w-3.5 h-3.5 text-amber-500"></i>
+              <span>🏆 ប្រចាំឆ្នាំ (ខែ៨-ខែ៨)</span>
+            </button>
+          </div>
+
+          <!-- Branch Filter for Certificate Center -->
+          <div class="flex items-center space-x-2 bg-white border border-slate-200 rounded-xl px-3 py-1.5 shadow-2xs">
+            <i data-lucide="building-2" class="w-4 h-4 text-indigo-600"></i>
+            <span class="text-xs font-semibold text-slate-600">សាខា៖</span>
+            <select id="certCenterBranchFilter" onchange="renderCertificateCenter()" class="bg-transparent text-xs sm:text-sm font-bold text-slate-800 focus:outline-none cursor-pointer">
+              <option value="ALL">គ្រប់សាខាទាំងអស់</option>
+            </select>
+          </div>
+
+        </div>
+
+        <!-- Summary Metric Pills -->
+        <div class="flex items-center gap-2 flex-wrap text-xs">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100/80 text-amber-950 font-bold border border-amber-300">
+            <span>🥇 និទ្ទេស A (ឆ្នើម)៖</span>
+            <span id="certCenterCountA" class="font-black text-amber-800">០ នាក់</span>
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-100/80 text-blue-950 font-bold border border-blue-300">
+            <span>🥈 និទ្ទេស B (ល្អប្រសើរ)៖</span>
+            <span id="certCenterCountB" class="font-black text-blue-800">០ នាក់</span>
+          </span>
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-100 text-slate-700 font-medium border border-slate-200">
+            <span>សរុបមានសិទ្ធិទទួលវិញ្ញាបនបត្រ៖</span>
+            <span id="certCenterTotalEligible" class="font-bold text-slate-900">០ នាក់</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Staff Cards Grid Container -->
+      <div id="certCenterListContainer" class="p-4 sm:p-6 overflow-y-auto flex-1 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Rendered dynamically via renderCertificateCenter() -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="bg-slate-50 px-6 py-3.5 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+        <span>💡 ចុច «មើល & ទាញយក» ដើម្បីបើកមើលទម្រង់វិញ្ញាបនបត្រពេញ និងទាញយកកម្រិត HD</span>
+        <button onclick="closeCertificateCenterModal()" class="px-5 py-2 text-xs font-bold text-slate-700 bg-white hover:bg-slate-100 rounded-xl transition border border-slate-200 shadow-2xs">
           បិទ
         </button>
       </div>
@@ -3194,6 +3510,13 @@
                 </button>
               ` : ''}
 
+              ${(asm && (asm.grade === 'A' || asm.grade === 'B')) ? `
+                <button onclick="openCertificateModal('${staff.id}', 'MONTHLY')" class="w-full py-2 px-3 ${asm.grade === 'A' ? 'bg-gradient-to-r from-amber-500 via-amber-600 to-amber-700 text-white hover:from-amber-600' : 'bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white hover:from-blue-700'} rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow-xs active:scale-95 cursor-pointer">
+                  <i data-lucide="award" class="w-3.5 h-3.5 text-yellow-200"></i>
+                  <span>🏆 ទាញយកវិញ្ញាបនបត្រ ${asm.grade === 'A' ? 'A (ឆ្នើម)' : 'B (ល្អប្រសើរ)'}</span>
+                </button>
+              ` : ''}
+
               <div class="flex items-center space-x-2 pt-1">
                 <button onclick="openAssessmentForStaff('${staff.id}')" class="flex-1 py-2 px-3 bg-[#007AFF] hover:bg-blue-600 active:scale-95 text-white rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow-xs">
                   <i data-lucide="award" class="w-3.5 h-3.5 text-amber-300"></i>
@@ -3300,16 +3623,21 @@
 
             <td class="no-print py-3 px-4 text-center">
               <div class="flex items-center justify-center space-x-1.5">
-                <button onclick="openStaffFeedbackModal('${staff.id}', selectedMonth, currentYear)" title="មើលចំណុចល្អ & ចំណុចត្រូវកែលម្អ" class="p-1.5 ${asm ? 'bg-amber-50 hover:bg-amber-100 text-amber-900 border-amber-300' : 'bg-slate-50 hover:bg-slate-100 text-slate-400 border-slate-200'} rounded-lg transition border cursor-pointer">
+                <button onclick="openStaffFeedbackModal('${staff.id}', selectedMonth, currentYear)" title="មើលចំណុចល្អ & ចំណុចត្រូវកែលម្អ" class="p-1.5 ${asm ? 'bg-amber-50 hover:bg-amber-100 text-amber-900 border-amber-300' : 'bg-slate-50 hover:bg-slate-100 text-slate-400 border-slate-200'} rounded-lg transition border cursor-pointer active:scale-95">
                   <i data-lucide="sparkles" class="w-4 h-4 ${asm ? 'text-amber-600' : 'text-slate-400'}"></i>
                 </button>
-                <button onclick="openAssessmentForStaff('${staff.id}')" title="បញ្ចូល/កែប្រែពិន្ទុ SOP" class="p-1.5 bg-blue-50 hover:bg-blue-100 text-blue-800 rounded-lg transition border border-blue-200">
+                ${(asm && (asm.grade === 'A' || asm.grade === 'B')) ? `
+                  <button onclick="openCertificateModal('${staff.id}', 'MONTHLY')" title="ទាញយកវិញ្ញាបនបត្រ (${asm.grade === 'A' ? 'A ឆ្នើម' : 'B ល្អប្រសើរ'})" class="p-1.5 ${asm.grade === 'A' ? 'bg-gradient-to-tr from-amber-500 to-amber-600 text-white hover:from-amber-600' : 'bg-gradient-to-tr from-blue-600 to-indigo-600 text-white hover:from-blue-700'} rounded-lg transition shadow-2xs cursor-pointer active:scale-95">
+                    <i data-lucide="award" class="w-4 h-4 text-yellow-200"></i>
+                  </button>
+                ` : ''}
+                <button onclick="openAssessmentForStaff('${staff.id}')" title="បញ្ចូល/កែប្រែពិន្ទុ SOP" class="p-1.5 bg-blue-50 hover:bg-blue-100 text-blue-800 rounded-lg transition border border-blue-200 active:scale-95">
                   <i data-lucide="award" class="w-4 h-4"></i>
                 </button>
-                <button onclick="editStaff('${staff.id}')" title="កែប្រែព័ត៌មាន" class="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition border border-slate-200">
+                <button onclick="editStaff('${staff.id}')" title="កែប្រែព័ត៌មាន" class="p-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition border border-slate-200 active:scale-95">
                   <i data-lucide="edit-3" class="w-4 h-4"></i>
                 </button>
-                <button onclick="confirmDeleteStaff('${staff.id}')" title="លុបចេញ" class="p-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg transition border border-rose-200">
+                <button onclick="confirmDeleteStaff('${staff.id}')" title="លុបចេញ" class="p-1.5 bg-rose-50 hover:bg-rose-100 text-rose-600 rounded-lg transition border border-rose-200 active:scale-95">
                   <i data-lucide="trash-2" class="w-4 h-4"></i>
                 </button>
               </div>
@@ -4505,9 +4833,12 @@
 
     function onAssessmentStaffChange() {
       const staffId = document.getElementById('assessStaffSelect').value;
+      const staff = staffList.find(s => s.id === staffId);
+      const staffName = staff ? staff.name : 'លោកគ្រូ/អ្នកគ្រូ';
       const existing = assessments.find(a => a.staffId === staffId && a.month === selectedMonth && a.year === currentYear);
       const strInput = document.getElementById('assessStrengths');
       const impInput = document.getElementById('assessImprovements');
+      const talkInput = document.getElementById('assessTalkScript');
       const notesInput = document.getElementById('assessmentNotes');
 
       if (existing) {
@@ -4517,10 +4848,11 @@
         setScoreControls('s4', existing.s4);
         if (strInput) strInput.value = existing.strengths || '';
         if (impInput) impInput.value = existing.improvements || '';
+        if (talkInput) talkInput.value = existing.talkScript || '';
         if (notesInput) notesInput.value = existing.notes || '';
 
-        // If existing record has no strengths/improvements yet, auto-generate them
-        if (!existing.strengths && !existing.improvements) {
+        // If existing record has no strengths/improvements/talkScript yet, auto-generate them
+        if (!existing.strengths && !existing.improvements && !existing.talkScript) {
           autoGenerateKpiFeedback();
         }
       } else {
@@ -4535,68 +4867,135 @@
       recalculateModalKpi();
     }
 
+    // --- PSYCHOLOGICAL COACHING FEEDBACK GENERATOR (បែបចិត្តសាស្រ្តលើកទឹកចិត្ត & យល់ចិត្ត) ---
+    function generatePsychologicalFeedback(s1, s2, s3, s4, staffName = 'លោកគ្រូ/អ្នកគ្រូ') {
+      const totalKpi = calculateKPI(s1, s2, s3, s4);
+      const gradeInfo = getGradeInfo(totalKpi);
+      const grade = gradeInfo.grade;
+
+      const strengthsList = [];
+      const improvementsList = [];
+
+      // S1: ការគោរពវិន័យ និងម៉ោងពេល (Discipline & Punctuality)
+      if (s1 >= 85) {
+        strengthsList.push('បង្ហាញគំរូល្អឥតខ្ចោះក្នុងការគោរពពេលវេលា និងវិន័យការងារ ផ្តល់ទំនុកចិត្តខ្ពស់ដល់សាលា និងសិស្ស');
+      } else if (s1 >= 70) {
+        strengthsList.push('បំពេញការងារបានទៀងទាត់ និងមានទំនួលខុសត្រូវល្អចំពោះម៉ោងបង្រៀន');
+      } else {
+        strengthsList.push('មានការខិតខំប្រឹងប្រែងរក្សាវត្តមានក្នុងការបំពេញភារកិច្ច');
+      }
+
+      if (s1 < 80 && s1 >= 60) {
+        improvementsList.push('គួររៀបចំផែនការធ្វើដំណើរ និងកាលវិភាគផ្ទាល់ខ្លួនឱ្យកាន់តែល្អប្រសើរ ដើម្បីកាត់បន្ថយការយឺតយ៉ាវ និងរក្សាភាពកក់ក្តៅជូនសិស្សនៅដើមម៉ោង');
+      } else if (s1 < 60) {
+        improvementsList.push('សាលាយល់ថាលោកគ្រូ/អ្នកគ្រូអាចមានការរវល់ ឬបញ្ហាផ្ទាល់ខ្លួនខ្លះ។ សូមផ្តល់ដំណឹងជាមុនពេលមានធុរៈ និងរួមគ្នាស្វែងរកដំណោះស្រាយ ដើម្បីកុំឱ្យប៉ះពាល់ដល់ម៉ោងសិក្សារបស់សិស្ស');
+      }
+
+      // S2: វិធីសាស្ត្របង្រៀន (Teaching Pedagogy & Planning)
+      if (s2 >= 85) {
+        strengthsList.push('វិធីសាស្ត្របង្រៀនទាក់ទាញ កិច្ចតែងការច្បាស់លាស់ និងចេះច្នៃប្រឌិតបរិយាកាសថ្នាក់រៀនឱ្យរស់រវើក');
+      } else if (s2 >= 70) {
+        strengthsList.push('រៀបចំកិច្ចតែងការបានត្រឹមត្រូវ និងគ្រប់គ្រងសិស្សក្នុងថ្នាក់បានល្អ');
+      } else {
+        strengthsList.push('មានឆន្ទៈក្នុងការរៀបចំការបង្រៀន និងស្ម័គ្រចិត្តទទួលយកការណែនាំថ្មីៗ');
+      }
+
+      if (s2 < 80 && s2 >= 60) {
+        improvementsList.push('គួរបន្ថែមល្បែងសិក្សា សំណួរបំផុសគំនិត និងអនុវត្តសកម្មភាពសិស្សជាក្រុមឱ្យកាន់តែច្រើន ដើម្បីបង្កើនការចូលរួម');
+      } else if (s2 < 60) {
+        improvementsList.push('សាលាត្រៀមខ្លួនជួយគាំទ្របង្វឹកលើការរៀបចំកិច្ចតែងការ និងចែករំលែកសម្ភារឧបទេសបង្រៀនល្អៗ ដើម្បីជួយសម្រាលបន្ទុក និងបង្កើនទំនុកចិត្តក្នុងការគ្រប់គ្រងថ្នាក់');
+      }
+
+      // S3: លទ្ធផលសិស្ស (Student Learning Outcomes & Progress)
+      if (s3 >= 85) {
+        strengthsList.push('សិស្សមានការវិវត្តរីកចម្រើនគួរឱ្យកត់សម្គាល់ យល់មេរៀនច្បាស់ និងឆ្លើយតបដោយភាពក្លាហាន');
+      } else if (s3 >= 70) {
+        strengthsList.push('តាមដានការយល់ដឹងរបស់សិស្សបានល្អ និងជួយពន្យល់បន្ថែមដល់សិស្សដែលរៀនយឺត');
+      } else {
+        strengthsList.push('មានការយកចិត្តទុកដាក់ និងស្រឡាញ់កូនៗសិស្សានុសិស្ស');
+      }
+
+      if (s3 < 80 && s3 >= 60) {
+        improvementsList.push('គួរចំណាយពេល ៥-១០នាទីតាមដានសិស្សរៀនយឺតដោយក្តីមេត្តា និងលើកទឹកចិត្តកុំឱ្យពួកគេមានអារម្មណ៍ថាឯកោ');
+      } else if (s3 < 60) {
+        improvementsList.push('កុមារម្នាក់ៗមានល្បឿនរៀនខុសគ្នា។ សាលានឹងរួមគ្នាបង្កើតកម្មវិធីបំប៉នពិសេសកម្រិតស្រាលមួយទល់មួយ ដើម្បីស្រោចស្រង់សិស្សខ្សោយ និងជួយសម្រាលការលំបាករបស់លោកគ្រូ/អ្នកគ្រូ');
+      }
+
+      // S4: សីលធម៌វិជ្ជាជីវៈ និងទំនាក់ទំនង (Professional Ethics & Teamwork)
+      if (s4 >= 85) {
+        strengthsList.push('មានអាកប្បកិរិយាទន់ភ្លន់ថ្លៃថ្នូរ ស្រឡាញ់សិស្ស ទំនាក់ទំនងល្អជាមួយអាណាព្យាបាល និងមានស្មារតីជួយសហការី');
+      } else if (s4 >= 70) {
+        strengthsList.push('មានភាពរួសរាយរាក់ទាក់ សហការល្អជាមួយក្រុមការងារ និងគោរពបទបញ្ជាផ្ទៃក្នុង');
+      } else {
+        strengthsList.push('មានភាពស្មោះត្រង់ និងរក្សាទំនាក់ទំនងល្អជាមួយអ្នកជុំវិញខ្លួន');
+      }
+
+      if (s4 < 80 && s4 >= 60) {
+        improvementsList.push('គួរបង្កើនការប្រាស្រ័យទាក់ទងដោយស្នាមញញឹម ទាំងជាមួយមាតាបិតាសិស្ស និងមិត្តរួមការងារ ដើម្បីកសាងបរិយាកាសការងារកាន់តែកក់ក្តៅ');
+      } else if (s4 < 60) {
+        improvementsList.push('នៅពេលមានបញ្ហាប្រឈម សូមកុំស្ទាក់ស្ទើរក្នុងការបើកចិត្តជជែកជាមួយប្រធានសាខា ឬមិត្តរួមការងារ ព្រោះពួកយើងជាគ្រួសារតែមួយដែលជួយគ្នាក្នុងគ្រាលំបាក');
+      }
+
+      // Executive Summary based on overall grade
+      if (grade === 'A') {
+        strengthsList.unshift('ជាបុគ្គលិកគំរូឆ្នើម (Role Model) ប្រកបដោយភាពជាអ្នកដឹកនាំ ឆន្ទៈមោះមុត និងការលះបង់ខ្ពស់ក្នុងការអប់រំ');
+      } else if (grade === 'B') {
+        strengthsList.unshift('បំពេញភារកិច្ចបានល្អប្រសើរ ជាប់លាប់ មានការទទួលខុសត្រូវខ្ពស់ និងស្របតាមបទដ្ឋានគុណភាពរបស់សាលា');
+      } else if (grade === 'C') {
+        strengthsList.unshift('មានឆន្ទៈ និងការខិតខំប្រឹងប្រែងក្នុងការបង្រៀន មានភាពស្មោះត្រង់ និងស្រឡាញ់អាជីពអប់រំ');
+      } else if (grade === 'D') {
+        strengthsList.unshift('មានចិត្តចង់រៀនសូត្រ ទទួលយកការណែនាំ និងមានសក្តានុពលក្នុងការអភិវឌ្ឍន៍ខ្លួនទៅមុខ');
+      } else {
+        // Grade F / low score (e.g. 22 points)
+        strengthsList.unshift('នៅតែរក្សាវត្តមាន និងការតស៊ូក្នុងការបំពេញភារកិច្ច ដែលនេះជាចំណុចចាប់ផ្តើមដ៏សំខាន់សម្រាប់ភាពប្រសើរឡើង');
+        improvementsList.unshift('ចាំបាច់ត្រូវមានការជួបពិភាក្សា និងរៀបចំផែនការសកម្មភាពស្តារឡើងវិញ (Action Plan) រយៈពេល ៣០ថ្ងៃ ដោយមានការជួយអមដំណើរផ្ទាល់ពីប្រធានផ្នែក');
+      }
+
+      if (improvementsList.length === 0) {
+        improvementsList.push('បន្តរក្សានិរន្តរភាពគុណភាពការងារ និងជួយបង្ហាត់បង្ហាញ ឬចែករំលែកគន្លឹះជោគជ័យដល់សហការីថ្មីៗក្នុងសាលា');
+      }
+
+      // 1-on-1 Psychological Coaching Talk Track (ឃ្លាសម្រាប់និយាយផ្ទាល់មួយទល់មួយ)
+      let talkScript = '';
+      if (grade === 'A') {
+        talkScript = `«ជម្រាបសួរលោកគ្រូ/អ្នកគ្រូ ${staffName}! ថ្ងៃនេះសាលាមានក្តីសោមនស្សរីករាយក្រៃលែងដែលបានជជែកផ្ទាល់ជាមួយលោកគ្រូ/អ្នកគ្រូ។ លទ្ធផល KPI ប្រចាំខែនេះ (${toKhmerNum(totalKpi)}/១០០ និទ្ទេស A) បង្ហាញយ៉ាងច្បាស់ពីការប្តេជ្ញាចិត្ត ភាពជាគំរូ និងការលះបង់ដ៏ថ្លៃថ្លារបស់លោកគ្រូ/អ្នកគ្រូចំពោះសិស្សានុសិស្ស និងសាលារបស់យើង។ គ្រប់គ្នាពិតជាកោតសរសើរនូវវិធីសាស្ត្របង្រៀនដ៏រស់រវើក និងការគោរពវិន័យឥតខ្ចោះ។ សាលាសូមថ្លែងអំណរគុណយ៉ាងជ្រាលជ្រៅ និងសង្ឃឹមថាលោកគ្រូ/អ្នកគ្រូនឹងបន្តរក្សាពន្លឺនេះ ព្រមទាំងជួយចែករំលែកបទពិសោធន៍ល្អៗដល់បងប្អូនសហការីដទៃទៀត!»`;
+      } else if (grade === 'B') {
+        talkScript = `«ជម្រាបសួរលោកគ្រូ/អ្នកគ្រូ ${staffName}! សាលាសូមកោតសរសើរយ៉ាងខ្លាំងចំពោះស្មារតីទទួលខុសត្រូវ និងស្ថិរភាពការងារដ៏ល្អប្រសើរដែលលោកគ្រូ/អ្នកគ្រូបានរក្សាកន្លងមក (${toKhmerNum(totalKpi)}/១០០ និទ្ទេស B)។ លោកគ្រូ/អ្នកគ្រូជាសសរទ្រូងដ៏រឹងមាំមួយរូបក្នុងក្រុមការងារយើង។ សាលាឃើញថាលោកគ្រូ/អ្នកគ្រូមានមូលដ្ឋានរឹងមាំខ្លាំងណាស់ ហើយប្រសិនបើយើងបន្ថែមភាពច្នៃប្រឌិតថ្មីៗលើវិធីសាស្ត្របង្រៀន និងចំណាយពេលតាមដានសិស្សយឺតបន្តិចទៀតនោះ លោកគ្រូ/អ្នកគ្រូនឹងឈានដល់កម្រិត Grade A ឆ្នើមឥតខ្ចោះជាក់ជាមិនខាន។ សាលាជឿជាក់ និងត្រៀមខ្លួនគាំទ្រជានិច្ច!»`;
+      } else if (grade === 'C') {
+        talkScript = `«ជម្រាបសួរលោកគ្រូ/អ្នកគ្រូ ${staffName}! សាលាពិតជាមើលឃើញ និងយល់ច្បាស់ពីការខិតខំប្រឹងប្រែង ក៏ដូចជាបេះដូងស្រឡាញ់ការងារ និងសិស្សានុសិស្សរបស់លោកគ្រូ/អ្នកគ្រូ (${toKhmerNum(totalKpi)}/១០០ និទ្ទេស C)។ ការងារអប់រំពិតជាទាមទារការលះបង់ខ្ពស់។ គោលបំណងនៃកិច្ចពិភាក្សាថ្ងៃនេះគឺដើម្បីយើងរួមគ្នាសម្រួចចំណុចគន្លឹះមួយចំនួន ដូចជាការគ្រប់គ្រងម៉ោងពេល និងការត្រៀមកិច្ចតែងការឱ្យកាន់តែរលូន។ សាលាមានទំនុកចិត្តលើសមត្ថភាពរបស់លោកគ្រូ/អ្នកគ្រូ ហើយយើងនឹងរួមដំណើរជាមួយគ្នាដើម្បីសម្រេចលទ្ធផលកាន់តែប្រសើរនៅខែបន្ទាប់!»`;
+      } else if (grade === 'D') {
+        talkScript = `«ជម្រាបសួរលោកគ្រូ/អ្នកគ្រូ ${staffName}! សាលាយល់ថាការងារបង្រៀនទាមទារថាមពល និងការអត់ធ្មត់ច្រើន ហើយលោកគ្រូ/អ្នកគ្រូអាចកំពុងជួបប្រទះសម្ពាធខ្លះៗ (${toKhmerNum(totalKpi)}/១០០ និទ្ទេស D)។ ការវាយតម្លៃនេះជាកញ្ចក់ឆ្លុះដើម្បីជួយគ្នា មិនមែនដើម្បីបន្ទោសទេ។ សាលាបានរៀបចំការជួយគាំទ្របង្វឹកមួយទល់មួយ និងការតម្រង់ទិសបន្ថែមលើការគ្រប់គ្រងថ្នាក់ ដើម្បីឱ្យលោកគ្រូ/អ្នកគ្រូទទួលបានភាពជឿជាក់ និងលទ្ធផលកាន់តែប្រសើរឡើងនៅខែបន្ទាប់!»`;
+      } else {
+        talkScript = `«ជម្រាបសួរលោកគ្រូ/អ្នកគ្រូ ${staffName}! ជាដំបូង សាលាសូមថ្លែងអំណរគុណចំពោះវត្តមាន និងការតស៊ូបំពេញការងាររបស់លោកគ្រូ/អ្នកគ្រូកន្លងមក (${toKhmerNum(totalKpi)}/១០០)។ សាលាយល់ច្បាស់ថា កាលពីខែកន្លងទៅនេះ លោកគ្រូ/អ្នកគ្រូអាចជួបប្រទះសម្ពាធ បញ្ហាប្រឈម ឬធុរៈផ្ទាល់ខ្លួនខ្លះៗដែលធ្វើឱ្យមានការលំបាកក្នុងការងារ។ ខ្ញុំចង់បញ្ជាក់ឱ្យច្បាស់ថា ការវាយតម្លៃនេះមិនមែនជាការបន្ទោស ឬកាត់ក្តីលោកគ្រូ/អ្នកគ្រូនោះទេ ប៉ុន្តែជាឱកាសដើម្បីឱ្យពួកយើងអង្គុយជជែកគ្នាក្នុងនាមជាគ្រួសារតែមួយ។ សាលានៅក្បែរលោកគ្រូ/អ្នកគ្រូជានិច្ច ហើយយើងនឹងរៀបចំការជួយគាំទ្របង្វឹកមួយទល់មួយ សម្រួលបន្ទុក និងដោះស្រាយឧបសគ្គជាមួយគ្នា។ ខ្ញុំជឿជាក់យ៉ាងមុតមាំថាលោកគ្រូ/អ្នកគ្រូអាចងើបឡើងវិញ និងកសាងទំនុកចិត្តឱ្យកាន់តែរឹងមាំបាន!»`;
+      }
+
+      return {
+        strengths: strengthsList.map(s => '• ' + s).join('\n'),
+        improvements: improvementsList.map(i => '• ' + i).join('\n'),
+        talkScript
+      };
+    }
+
     function autoGenerateKpiFeedback() {
       const s1 = parseInt(document.getElementById('numS1')?.value, 10) || 0;
       const s2 = parseInt(document.getElementById('numS2')?.value, 10) || 0;
       const s3 = parseInt(document.getElementById('numS3')?.value, 10) || 0;
       const s4 = parseInt(document.getElementById('numS4')?.value, 10) || 0;
 
-      const totalKpi = calculateKPI(s1, s2, s3, s4);
-      const sSettings = systemSettings.sopWeights || DEFAULT_SYSTEM_SETTINGS.sopWeights;
+      const staffSelect = document.getElementById('assessStaffSelect');
+      const staffId = staffSelect ? staffSelect.value : null;
+      const staff = staffList.find(s => s.id === staffId);
+      const staffName = staff ? staff.name : 'លោកគ្រូ/អ្នកគ្រូ';
 
-      const strengthsList = [];
-      const improvementsList = [];
-
-      // S1: ការគោរពវិន័យ (Discipline & Punctuality)
-      if (s1 >= 85) {
-        strengthsList.push('គោរពវិន័យការងារបានល្អប្រសើរ ទៀងទាត់ពេលវេលា និងគោរពបទបញ្ជាផ្ទៃក្នុងបានខ្ជាប់ខ្ជួន');
-      } else if (s1 < 80) {
-        improvementsList.push('គួរពង្រឹងការគោរពម៉ោងពេល និងការមកបំពេញការងារឱ្យបានទៀងទាត់ជាប់លាប់បន្ថែម');
-      }
-
-      // S2: វិធីសាស្ត្របង្រៀន (Teaching Pedagogy & Planning)
-      if (s2 >= 85) {
-        strengthsList.push('វិធីសាស្ត្របង្រៀនទាក់ទាញ កិច្ចតែងការច្បាស់លាស់ និងគ្រប់គ្រងថ្នាក់រៀនមានប្រសិទ្ធភាព');
-      } else if (s2 < 80) {
-        improvementsList.push('គួរអភិវឌ្ឍវិធីសាស្ត្របង្រៀន និងបង្កើតសកម្មភាពបង្រៀនថ្មីៗឱ្យកាន់តែរស់រវើកទាក់ទាញសិស្ស');
-      }
-
-      // S3: លទ្ធផលសិស្ស (Student Learning Outcomes & Progress)
-      if (s3 >= 85) {
-        strengthsList.push('លទ្ធផលសិក្សារបស់សិស្សមានការវិវត្តរីកចម្រើនខ្ពស់ សិស្សយល់មេរៀន និងចូលរួមយ៉ាងសកម្ម');
-      } else if (s3 < 80) {
-        improvementsList.push('គួរតាមដានសិស្សរៀនយឺតឱ្យបានដិតដល់ និងផ្តល់ការជួយបំប៉នបន្ថែម (Extra Coaching)');
-      }
-
-      // S4: សីលធម៌វិជ្ជាជីវៈ (Professional Ethics & Teamwork)
-      if (s4 >= 85) {
-        strengthsList.push('សីលធម៌វិជ្ជាជីវៈថ្លៃថ្នូរ មានទំនាក់ទំនងល្អជាមួយមាតាបិតា សិស្ស និងសហការី');
-      } else if (s4 < 80) {
-        improvementsList.push('គួរបង្កើនស្មារតីសហការ និងការប្រាស្រ័យទាក់ទងជាមួយក្រុមការងារឱ្យកាន់តែជិតស្និទ្ធ');
-      }
-
-      // Executive Summary based on total KPI
-      if (totalKpi >= 90) {
-        strengthsList.unshift('ជាបុគ្គលិកគំរូឆ្នើម (Grade A) មានការប្តេជ្ញាចិត្តខ្ពស់ និងទទួលខុសត្រូវខ្ពស់ក្នុងការងារ');
-      } else if (totalKpi >= 80) {
-        strengthsList.unshift('បំពេញការងារបានល្អប្រសើរ (Grade B) ស្របតាមស្តង់ដារគុណភាពអប់រំរបស់ V2');
-      }
-
-      // If improvements is empty, provide constructive forward-looking goal
-      if (improvementsList.length === 0) {
-        improvementsList.push('បន្តរក្សានិរន្តរភាពគុណភាពការងារ និងចូលរួមចែករំលែកបទពិសោធន៍ល្អៗដល់សហការីក្នុងសាលា');
-      }
-
-      // If strengths is empty, encourage
-      if (strengthsList.length === 0) {
-        strengthsList.push('មានការខិតខំប្រឹងប្រែងក្នុងការបំពេញភារកិច្ច និងមានឆន្ទៈរៀនសូត្រអភិវឌ្ឍន៍ខ្លួន');
-      }
+      const feedback = generatePsychologicalFeedback(s1, s2, s3, s4, staffName);
 
       const strEl = document.getElementById('assessStrengths');
       const impEl = document.getElementById('assessImprovements');
+      const talkEl = document.getElementById('assessTalkScript');
 
-      if (strEl) strEl.value = strengthsList.map(s => '• ' + s).join('\n');
-      if (impEl) impEl.value = improvementsList.map(i => '• ' + i).join('\n');
+      if (strEl) strEl.value = feedback.strengths;
+      if (impEl) impEl.value = feedback.improvements;
+      if (talkEl) talkEl.value = feedback.talkScript;
     }
 
     function setScoreControls(key, value) {
@@ -4645,6 +5044,7 @@
       const s4 = parseInt(document.getElementById('numS4').value, 10) || 0;
       const strengths = (document.getElementById('assessStrengths')?.value || '').trim();
       const improvements = (document.getElementById('assessImprovements')?.value || '').trim();
+      const talkScript = (document.getElementById('assessTalkScript')?.value || '').trim();
       const notes = (document.getElementById('assessmentNotes')?.value || '').trim();
 
       const totalKpi = calculateKPI(s1, s2, s3, s4);
@@ -4666,6 +5066,7 @@
         gradeLabel: gradeInfo.label,
         strengths,
         improvements,
+        talkScript,
         notes,
         evaluatedAt: new Date().toISOString()
       };
@@ -4683,12 +5084,37 @@
       renderAll();
     }
 
+    // --- COPY TALK SCRIPT HELPER ---
+    function copyCoachingTalkScript() {
+      const text = document.getElementById('feedbackTalkScriptContent')?.textContent || '';
+      if (!text || text.trim() === 'មិនទាន់មានទិន្នន័យ') return;
+
+      navigator.clipboard.writeText(text.trim()).then(() => {
+        const btnText = document.getElementById('copyTalkScriptBtnText');
+        if (btnText) btnText.textContent = 'បានចម្លង!';
+        showToast('📋 បានចម្លងឃ្លានិយាយជោគជ័យ! អាចយកទៅជជែកផ្ទាល់ ឬផ្ញើតាម Telegram', 'success');
+        setTimeout(() => {
+          if (btnText) btnText.textContent = 'ចម្លងឃ្លា';
+        }, 2500);
+      }).catch(() => {
+        showToast('សូមជ្រើសរើសអត្ថបទដើម្បីចម្លងដោយដៃ', 'info');
+      });
+    }
+
+    let currentFeedbackStaffId = null;
+    let currentFeedbackMonth = null;
+    let currentFeedbackYear = null;
+
     function openStaffFeedbackModal(staffId, month = null, year = null) {
       const staff = staffList.find(s => s.id === staffId);
       if (!staff) return;
 
       const targetMonth = month || selectedMonth;
       const targetYear = year || currentYear;
+      currentFeedbackStaffId = staffId;
+      currentFeedbackMonth = targetMonth;
+      currentFeedbackYear = targetYear;
+
       const assess = assessments.find(a => a.staffId === staffId && a.month === targetMonth && a.year === targetYear);
       const curMonthObj = KHMER_MONTHS.find(m => m.id === targetMonth);
       const monthName = curMonthObj ? curMonthObj.name : `ខែទី${targetMonth}`;
@@ -4705,8 +5131,14 @@
       const gradeEl = document.getElementById('feedbackGradeBadge');
       const strengthsEl = document.getElementById('feedbackStrengthsContent');
       const improvementsEl = document.getElementById('feedbackImprovementsContent');
+      const talkEl = document.getElementById('feedbackTalkScriptContent');
       const notesEl = document.getElementById('feedbackNotesContent');
       const notesBox = document.getElementById('feedbackNotesBox');
+
+      const certBanner = document.getElementById('feedbackCertBanner');
+      const certBtn = document.getElementById('feedbackCertBtn');
+      const footerCertBtn = document.getElementById('feedbackFooterCertBtn');
+      const certTitle = document.getElementById('feedbackCertTitle');
 
       if (nameEl) nameEl.textContent = staff.name;
       if (roleEl) roleEl.textContent = staff.role;
@@ -4726,13 +5158,40 @@
           gradeEl.textContent = `និទ្ទេស ${gInfo.grade} (${gInfo.label})`;
         }
 
+        // Auto-generate fallback psychological feedback if record has blank
+        const auto = generatePsychologicalFeedback(assess.s1, assess.s2, assess.s3, assess.s4, staff.name);
+
         // Strengths
-        const str = assess.strengths || (total >= 80 ? '• អនុវត្តតាមបទដ្ឋានប្រតិបត្តិ SOP បានល្អប្រសើរ\n• មានទំនួលខុសត្រូវខ្ពស់ក្នុងការងារ' : '• មានការខិតខំប្រឹងប្រែងក្នុងការបំពេញភារកិច្ច');
+        const str = assess.strengths || auto.strengths;
         if (strengthsEl) strengthsEl.textContent = str;
 
         // Improvements
-        const imp = assess.improvements || (total >= 90 ? '• បន្តរក្សាភាពជាគំរូ និងចែករំលែកវិធីសាស្ត្រល្អៗដល់សហការី' : '• គួរពង្រឹងបន្ថែមលើចំណុចដែលនៅខ្វះខាត និងពិភាក្សាជាមួយប្រធានផ្នែក');
+        const imp = assess.improvements || auto.improvements;
         if (improvementsEl) improvementsEl.textContent = imp;
+
+        // Talk script
+        const talk = assess.talkScript || auto.talkScript;
+        if (talkEl) talkEl.textContent = talk;
+
+        // Certificate Banner & Action for Grade A & B
+        if (assess.grade === 'A' || assess.grade === 'B') {
+          if (certBanner) certBanner.classList.remove('hidden');
+          if (footerCertBtn) footerCertBtn.classList.remove('hidden');
+          if (certTitle) {
+            certTitle.textContent = assess.grade === 'A'
+              ? '🎉 និទ្ទេស A (ឆ្នើម) - ទទួលបានវិញ្ញាបនបត្រកិត្តិយស!'
+              : '✨ និទ្ទេស B (ល្អប្រសើរ) - ទទួលបានវិញ្ញាបនបត្រកិត្តិយស!';
+          }
+          const openCertFn = () => {
+            closeStaffFeedbackModal();
+            openCertificateModal(staff.id, 'MONTHLY');
+          };
+          if (certBtn) certBtn.onclick = openCertFn;
+          if (footerCertBtn) footerCertBtn.onclick = openCertFn;
+        } else {
+          if (certBanner) certBanner.classList.add('hidden');
+          if (footerCertBtn) footerCertBtn.classList.add('hidden');
+        }
 
         // Notes
         if (notesBox && notesEl) {
@@ -4751,7 +5210,10 @@
         }
         if (strengthsEl) strengthsEl.textContent = 'មិនទាន់បានបញ្ចូលពិន្ទុ និងមតិកែលម្អសម្រាប់ខែនេះនៅឡើយទេ។';
         if (improvementsEl) improvementsEl.textContent = 'មិនទាន់បានបញ្ចូលពិន្ទុ និងមតិកែលម្អសម្រាប់ខែនេះនៅឡើយទេ។';
+        if (talkEl) talkEl.textContent = 'មិនទាន់មានទិន្នន័យសម្រាប់ខែនេះនៅឡើយទេ។';
         if (notesBox) notesBox.classList.add('hidden');
+        if (certBanner) certBanner.classList.add('hidden');
+        if (footerCertBtn) footerCertBtn.classList.add('hidden');
       }
 
       // Wire up edit button
@@ -4770,6 +5232,7 @@
     function closeStaffFeedbackModal() {
       const modal = document.getElementById('staffFeedbackModal');
       if (modal) modal.classList.add('hidden');
+      currentFeedbackStaffId = null;
     }
 
     // --- 8. EXCEL EXPORT BY BRANCH (DYNAMIC HEADERS & WEIGHTS) ---
@@ -5665,21 +6128,80 @@
 
     // --- CERTIFICATE MODAL LOGIC & EXPORT ---
     let currentCertStaffId = null;
+    let currentCertMode = 'AUTO'; // 'MONTHLY' or 'ANNUAL'
 
-    function openCertificateModal(staffId) {
-      const cycleSelect = document.getElementById('annualCycleSelect');
-      const cycleVal = cycleSelect ? cycleSelect.value : '2025-2026';
-      const annualData = calculateStaffAnnualKpi(staffId, cycleVal);
+    function switchCertificateMode(mode) {
+      if (!currentCertStaffId) return;
+      openCertificateModal(currentCertStaffId, mode);
+    }
 
-      if (!annualData || !annualData.staff) {
+    function openCertificateModal(staffId, mode = 'AUTO') {
+      const staff = staffList.find(s => s.id === staffId);
+      if (!staff) {
         alert('រកមិនឃើញទិន្នន័យបុគ្គលិកឡើយ!');
         return;
       }
 
       currentCertStaffId = staffId;
-      const { staff, seniority, avgKpi, gradeInfo, startYear, endYear } = annualData;
-      const grade = gradeInfo ? gradeInfo.grade : 'A';
+      const cycleSelect = document.getElementById('annualCycleSelect');
+      const cycleVal = cycleSelect ? cycleSelect.value : '2025-2026';
+      const annualData = calculateStaffAnnualKpi(staffId, cycleVal);
+      const monthlyAssess = assessments.find(a => a.staffId === staffId && a.month === selectedMonth && a.year === currentYear);
+
+      // Determine active mode
+      let effectiveMode = mode;
+      if (effectiveMode === 'AUTO') {
+        if (activeTab === 'annual') {
+          effectiveMode = 'ANNUAL';
+        } else if (monthlyAssess && (monthlyAssess.grade === 'A' || monthlyAssess.grade === 'B')) {
+          effectiveMode = 'MONTHLY';
+        } else if (annualData && annualData.gradeInfo && (annualData.gradeInfo.grade === 'A' || annualData.gradeInfo.grade === 'B')) {
+          effectiveMode = 'ANNUAL';
+        } else {
+          effectiveMode = monthlyAssess ? 'MONTHLY' : 'ANNUAL';
+        }
+      }
+      currentCertMode = effectiveMode;
+
+      // Update switcher buttons UI
+      const btnMonthly = document.getElementById('certSwitchMonthlyBtn');
+      const btnAnnual = document.getElementById('certSwitchAnnualBtn');
+      const curMonthObj = KHMER_MONTHS.find(m => m.id === selectedMonth);
+      const monthName = curMonthObj ? curMonthObj.name : `ខែទី${selectedMonth}`;
+
+      if (btnMonthly && btnAnnual) {
+        btnMonthly.textContent = `📅 ប្រចាំខែ (${monthName})`;
+        if (effectiveMode === 'MONTHLY') {
+          btnMonthly.className = 'px-3 py-1 rounded-lg font-bold transition active:scale-95 bg-white text-blue-950 shadow-xs cursor-pointer';
+          btnAnnual.className = 'px-3 py-1 rounded-lg font-bold transition active:scale-95 text-blue-200 hover:text-white cursor-pointer';
+        } else {
+          btnMonthly.className = 'px-3 py-1 rounded-lg font-bold transition active:scale-95 text-blue-200 hover:text-white cursor-pointer';
+          btnAnnual.className = 'px-3 py-1 rounded-lg font-bold transition active:scale-95 bg-white text-blue-950 shadow-xs cursor-pointer';
+        }
+      }
+
+      let score = 90;
+      let grade = 'A';
+      let cyclePeriod = '';
+
+      if (effectiveMode === 'MONTHLY') {
+        if (monthlyAssess) {
+          score = monthlyAssess.totalKpi;
+          grade = monthlyAssess.grade || 'A';
+        }
+        cyclePeriod = `ប្រចាំខែ${monthName} ឆ្នាំ${toKhmerNum(currentYear)}`;
+      } else {
+        if (annualData) {
+          score = annualData.avgKpi !== null ? annualData.avgKpi : 90;
+          grade = annualData.gradeInfo ? annualData.gradeInfo.grade : 'A';
+          cyclePeriod = `ប្រចាំឆ្នាំ ${annualData.cycleLabel}`;
+        } else {
+          cyclePeriod = `ប្រចាំឆ្នាំ ២០២៥-២០២៦`;
+        }
+      }
+
       const isGradeA = grade === 'A';
+      const seniority = calculateSeniority(staff.startDate);
 
       // Elements
       const modal = document.getElementById('certificateModal');
@@ -5699,54 +6221,58 @@
       const dateText = document.getElementById('certIssueDateText');
       const branchDirectorName = document.getElementById('certBranchDirectorName');
       const generalDirectorName = document.getElementById('certGeneralDirectorName');
+      const certVerificationId = document.getElementById('certVerificationId');
 
-      // Populate Name, Role, Branch & Seniority
       if (nameEl) nameEl.textContent = staff.name;
       if (roleEl) roleEl.textContent = `តួនាទី៖ ${staff.role}`;
       if (branchEl) branchEl.textContent = `សាខា៖ ${staff.branch || 'សាខាទូទៅ'}`;
       if (seniorityEl) seniorityEl.textContent = `អតីតភាពការងារ៖ ${seniority.textKh}`;
-      if (scoreEl) scoreEl.textContent = `${toKhmerNum(avgKpi || 90)}/១០០`;
-      if (cyclePeriodEl) cyclePeriodEl.textContent = `សីហា ${toKhmerNum(startYear)} ដល់ សីហា ${toKhmerNum(endYear)}`;
+      if (scoreEl) scoreEl.textContent = `${toKhmerNum(score)}/១០០`;
+      if (cyclePeriodEl) cyclePeriodEl.textContent = cyclePeriod;
+      if (certVerificationId) certVerificationId.textContent = `ID: V2-CERT-${currentYear}-${staff.id.replace('staff_', '')}`;
 
       // Set Date in Khmer
       const now = new Date();
       const curDay = toKhmerNum(now.getDate());
-      const curMonthName = KHMER_MONTHS[now.getMonth()].name;
+      const curMonthKh = KHMER_MONTHS[now.getMonth()].name;
       const curYearKh = toKhmerNum(now.getFullYear());
-      if (dateText) dateText.textContent = `រាជធានីភ្នំពេញ, ថ្ងៃទី${curDay} ខែ${curMonthName} ឆ្នាំ${curYearKh}`;
+      if (dateText) dateText.textContent = `រាជធានីភ្នំពេញ, ថ្ងៃទី${curDay} ខែ${curMonthKh} ឆ្នាំ${curYearKh}`;
 
-      // Branch Director & Super Admin Name
+      // Signatures
       const branchAdmin = adminUsers.find(u => u.branch === staff.branch);
       if (branchDirectorName) branchDirectorName.textContent = branchAdmin ? branchAdmin.name : 'ប្រធានសាខា';
       const superAdminUser = adminUsers.find(u => u.role === 'SUPER_ADMIN');
       if (generalDirectorName) generalDirectorName.textContent = superAdminUser ? superAdminUser.name : 'អភិបាលប្រព័ន្ធ (Admin ធំ)';
 
-      // Theme according to Grade A vs Grade B
+      // Styling and Titles for Grade A vs Grade B
+      const periodSuffixKh = effectiveMode === 'MONTHLY' ? 'ប្រចាំខែ' : 'ប្រចាំឆ្នាំ';
+      const periodSuffixEn = effectiveMode === 'MONTHLY' ? 'MONTHLY' : 'ANNUAL';
+
       if (isGradeA) {
-        if (mainTitle) mainTitle.textContent = 'វិញ្ញាបនបត្របុគ្គលិកឆ្នើម';
-        if (subTitle) subTitle.textContent = 'CERTIFICATE OF EXCELLENCE';
-        if (badgeBox) badgeBox.className = 'px-8 py-2.5 rounded-full bg-gradient-to-r from-amber-700 via-amber-500 to-amber-700 text-white shadow-lg border border-amber-300';
+        if (mainTitle) mainTitle.textContent = `វិញ្ញាបនបត្របុគ្គលិកឆ្នើម${periodSuffixKh}`;
+        if (subTitle) subTitle.textContent = `${periodSuffixEn} CERTIFICATE OF EXCELLENCE`;
+        if (badgeBox) badgeBox.className = 'px-8 py-2 rounded-full bg-gradient-to-r from-amber-700 via-amber-500 to-amber-700 text-white shadow-md border border-amber-300 inline-block text-center';
         if (gradeBadgeInline) {
           gradeBadgeInline.className = 'px-2.5 py-0.5 rounded-full text-xs font-black bg-amber-100 text-amber-900 border border-amber-300';
           gradeBadgeInline.textContent = 'និទ្ទេស A (ឆ្នើម • OUTSTANDING)';
         }
-        if (medalOuter) medalOuter.className = 'w-20 h-20 rounded-full bg-gradient-to-tr from-amber-600 via-amber-400 to-yellow-200 p-1 shadow-xl flex items-center justify-center border-2 border-amber-600';
+        if (medalOuter) medalOuter.className = 'w-18 h-18 rounded-full bg-gradient-to-tr from-amber-600 via-amber-400 to-yellow-200 p-1 shadow-xl flex items-center justify-center border-2 border-amber-600';
         if (medalLetter) medalLetter.textContent = 'A';
         if (medalText) medalText.textContent = 'OUTSTANDING';
       } else {
-        if (mainTitle) mainTitle.textContent = 'វិញ្ញាបនបត្របុគ្គលិកល្អប្រសើរ';
-        if (subTitle) subTitle.textContent = 'CERTIFICATE OF MERIT & ACHIEVEMENT';
-        if (badgeBox) badgeBox.className = 'px-8 py-2.5 rounded-full bg-gradient-to-r from-blue-900 via-indigo-600 to-blue-900 text-white shadow-lg border border-indigo-300';
+        if (mainTitle) mainTitle.textContent = `វិញ្ញាបនបត្របុគ្គលិកល្អប្រសើរ${periodSuffixKh}`;
+        if (subTitle) subTitle.textContent = `${periodSuffixEn} CERTIFICATE OF MERIT & ACHIEVEMENT`;
+        if (badgeBox) badgeBox.className = 'px-8 py-2 rounded-full bg-gradient-to-r from-blue-900 via-indigo-600 to-blue-900 text-white shadow-md border border-indigo-300 inline-block text-center';
         if (gradeBadgeInline) {
           gradeBadgeInline.className = 'px-2.5 py-0.5 rounded-full text-xs font-black bg-blue-100 text-blue-900 border border-blue-300';
           gradeBadgeInline.textContent = 'និទ្ទេស B (ល្អប្រសើរ • EXCELLENT)';
         }
-        if (medalOuter) medalOuter.className = 'w-20 h-20 rounded-full bg-gradient-to-tr from-blue-600 via-indigo-400 to-cyan-300 p-1 shadow-xl flex items-center justify-center border-2 border-indigo-600';
+        if (medalOuter) medalOuter.className = 'w-18 h-18 rounded-full bg-gradient-to-tr from-blue-600 via-indigo-400 to-cyan-300 p-1 shadow-xl flex items-center justify-center border-2 border-indigo-600';
         if (medalLetter) medalLetter.textContent = 'B';
         if (medalText) medalText.textContent = 'EXCELLENT';
       }
 
-      modal.classList.remove('hidden');
+      if (modal) modal.classList.remove('hidden');
       try { if (window.lucide && lucide.createIcons) lucide.createIcons(); } catch (e) {}
     }
 
@@ -5754,6 +6280,179 @@
       const modal = document.getElementById('certificateModal');
       if (modal) modal.classList.add('hidden');
       currentCertStaffId = null;
+    }
+
+    // --- CERTIFICATE CENTER LOGIC (មជ្ឈមណ្ឌលទាញយកវិញ្ញាបនបត្រ A & B) ---
+    let currentCertCenterScope = 'MONTHLY'; // 'MONTHLY' or 'ANNUAL'
+
+    function openCertificateCenterModal() {
+      const modal = document.getElementById('certificateCenterModal');
+      if (!modal) return;
+
+      // Populate branches in filter
+      const branchSelect = document.getElementById('certCenterBranchFilter');
+      if (branchSelect) {
+        const branches = getUniqueBranches();
+        const currentVal = branchSelect.value || 'ALL';
+        branchSelect.innerHTML = '<option value="ALL">គ្រប់សាខាទាំងអស់</option>' +
+          branches.map(b => `<option value="${b}">${b}</option>`).join('');
+        branchSelect.value = currentVal;
+      }
+
+      renderCertificateCenter();
+      modal.classList.remove('hidden');
+      try { if (window.lucide && lucide.createIcons) lucide.createIcons(); } catch (e) {}
+    }
+
+    function closeCertificateCenterModal() {
+      const modal = document.getElementById('certificateCenterModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function switchCertCenterScope(scope) {
+      currentCertCenterScope = scope;
+      const btnMonthly = document.getElementById('certCenterBtnMonthly');
+      const btnAnnual = document.getElementById('certCenterBtnAnnual');
+
+      if (scope === 'MONTHLY') {
+        if (btnMonthly) btnMonthly.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 bg-white text-blue-950 shadow-xs cursor-pointer';
+        if (btnAnnual) btnAnnual.className = 'px-3.5 py-1.5 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900 cursor-pointer';
+      } else {
+        if (btnMonthly) btnMonthly.className = 'px-3.5 py-1.5 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 text-slate-600 hover:text-slate-900 cursor-pointer';
+        if (btnAnnual) btnAnnual.className = 'px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 bg-white text-amber-700 shadow-xs cursor-pointer';
+      }
+
+      renderCertificateCenter();
+    }
+
+    function renderCertificateCenter() {
+      const container = document.getElementById('certCenterListContainer');
+      if (!container) return;
+
+      const branchSelect = document.getElementById('certCenterBranchFilter');
+      const branchVal = branchSelect ? branchSelect.value : 'ALL';
+      const curMonthObj = KHMER_MONTHS.find(m => m.id === selectedMonth);
+      const monthName = curMonthObj ? curMonthObj.name : `ខែទី${selectedMonth}`;
+      const monthLabel = document.getElementById('certCenterScopeMonthLabel');
+      if (monthLabel) monthLabel.textContent = `📅 ប្រចាំខែ (${monthName})`;
+
+      const cycleSelect = document.getElementById('annualCycleSelect');
+      const cycleVal = cycleSelect ? cycleSelect.value : '2025-2026';
+
+      let visibleStaff = getScopedStaffList();
+      if (branchVal !== 'ALL') {
+        visibleStaff = visibleStaff.filter(s => (s.branch || 'សាខាទូទៅ') === branchVal);
+      }
+
+      const qualifiedList = [];
+
+      if (currentCertCenterScope === 'MONTHLY') {
+        visibleStaff.forEach(staff => {
+          const asm = assessments.find(a => a.staffId === staff.id && a.month === selectedMonth && a.year === currentYear);
+          if (asm && (asm.grade === 'A' || asm.grade === 'B')) {
+            qualifiedList.push({
+              staff,
+              score: asm.totalKpi,
+              grade: asm.grade,
+              gradeLabel: asm.gradeLabel || (asm.grade === 'A' ? 'ឆ្នើម' : 'ល្អប្រសើរ'),
+              mode: 'MONTHLY',
+              periodText: `ខែ${monthName} ឆ្នាំ${toKhmerNum(currentYear)}`
+            });
+          }
+        });
+      } else {
+        visibleStaff.forEach(staff => {
+          const annualData = calculateStaffAnnualKpi(staff.id, cycleVal);
+          if (annualData && annualData.isEligible && annualData.gradeInfo && (annualData.gradeInfo.grade === 'A' || annualData.gradeInfo.grade === 'B')) {
+            qualifiedList.push({
+              staff,
+              score: annualData.avgKpi,
+              grade: annualData.gradeInfo.grade,
+              gradeLabel: annualData.gradeInfo.label,
+              mode: 'ANNUAL',
+              periodText: annualData.cycleLabel
+            });
+          }
+        });
+      }
+
+      // Sort: Grade A first, then higher score
+      qualifiedList.sort((a, b) => {
+        if (a.grade !== b.grade) return a.grade.localeCompare(b.grade);
+        return (b.score || 0) - (a.score || 0);
+      });
+
+      // Update counters
+      const countA = qualifiedList.filter(q => q.grade === 'A').length;
+      const countB = qualifiedList.filter(q => q.grade === 'B').length;
+      const totalEligible = qualifiedList.length;
+
+      const cAEl = document.getElementById('certCenterCountA');
+      const cBEl = document.getElementById('certCenterCountB');
+      const cTotEl = document.getElementById('certCenterTotalEligible');
+
+      if (cAEl) cAEl.textContent = `${toKhmerNum(countA)} នាក់`;
+      if (cBEl) cBEl.textContent = `${toKhmerNum(countB)} នាក់`;
+      if (cTotEl) cTotEl.textContent = `${toKhmerNum(totalEligible)} នាក់`;
+
+      if (qualifiedList.length === 0) {
+        container.className = 'p-8 text-center text-slate-400 space-y-3 col-span-2';
+        container.innerHTML = `
+          <div class="w-14 h-14 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center mx-auto border border-amber-200">
+            <i data-lucide="award" class="w-7 h-7"></i>
+          </div>
+          <div class="space-y-1">
+            <h4 class="font-bold text-slate-700 text-sm">មិនទាន់មានបុគ្គលិកទទួលបាននិទ្ទេស A ឬ B ឡើយ</h4>
+            <p class="text-xs text-slate-400">សូមវាយតម្លៃពិន្ទុ SOP ប្រចាំខែ ឬពិនិត្យលក្ខខណ្ឌ KPI ប្រចាំឆ្នាំ</p>
+          </div>
+        `;
+        try { if (window.lucide && lucide.createIcons) lucide.createIcons(); } catch (e) {}
+        return;
+      }
+
+      container.className = 'p-4 sm:p-6 overflow-y-auto flex-1 grid grid-cols-1 md:grid-cols-2 gap-4';
+      container.innerHTML = qualifiedList.map(item => {
+        const { staff, score, grade, gradeLabel, mode, periodText } = item;
+        const isA = grade === 'A';
+        const initial = staff.name ? staff.name.trim().charAt(0) : 'ប';
+
+        return `
+          <div class="bg-white rounded-2xl p-4 border ${isA ? 'border-amber-300 shadow-sm' : 'border-blue-200 shadow-sm'} space-y-3.5 transition hover:shadow-md">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center space-x-3 min-w-0">
+                <div class="w-11 h-11 rounded-2xl ${isA ? 'bg-gradient-to-tr from-amber-500 to-yellow-400 text-slate-900' : 'bg-gradient-to-tr from-blue-600 to-indigo-600 text-white'} font-black flex items-center justify-center text-sm shadow-xs shrink-0">
+                  ${initial}
+                </div>
+                <div class="min-w-0">
+                  <h4 class="font-bold text-slate-900 text-sm leading-tight truncate">${staff.name}</h4>
+                  <p class="text-xs text-slate-500 font-medium">${staff.role}</p>
+                  <p class="text-[11px] text-indigo-700 font-bold">${staff.branch || 'សាខាទូទៅ'}</p>
+                </div>
+              </div>
+              <div class="text-right shrink-0">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-black border ${isA ? 'bg-amber-100 text-amber-900 border-amber-300' : 'bg-blue-100 text-blue-900 border-blue-300'}">
+                  ${isA ? '🥇 និទ្ទេស A' : '🥈 និទ្ទេស B'}
+                </span>
+                <span class="block text-xs font-bold text-slate-700 mt-0.5">${toKhmerNum(score)}/១០០</span>
+              </div>
+            </div>
+
+            <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-200/70 text-xs flex items-center justify-between text-slate-600">
+              <span class="text-[11px]">កាលបរិច្ឆេទ៖ <strong>${periodText}</strong></span>
+              <span class="text-[10px] text-slate-400">អតីតភាព៖ ${calculateSeniority(staff.startDate).textKh}</span>
+            </div>
+
+            <div class="flex items-center space-x-2 pt-1">
+              <button onclick="closeCertificateCenterModal(); openCertificateModal('${staff.id}', '${mode}')" class="flex-1 py-2 px-3 ${isA ? 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600' : 'bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700'} text-white rounded-xl text-xs font-bold transition flex items-center justify-center space-x-1.5 shadow-xs active:scale-95 cursor-pointer">
+                <i data-lucide="award" class="w-3.5 h-3.5 text-yellow-200"></i>
+                <span>👁️ មើល & ទាញយក</span>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      try { if (window.lucide && lucide.createIcons) lucide.createIcons(); } catch (e) {}
     }
 
     async function downloadCertificateImage() {
